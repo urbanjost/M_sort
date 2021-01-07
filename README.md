@@ -28,7 +28,6 @@ Just download the github repository, enter the src/ directory and run make(1):
      make F90=nvfortran nvfortran
 
      # optionally
-     make test # run the unit tests
      make run  # run all the demo programs from the manpages
      make help # see other developer options
 
