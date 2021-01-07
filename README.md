@@ -1,4 +1,6 @@
-![string](docs/images/yarnball.gif)
+<!--
+![sort](docs/images/sort.gif)
+-->
 # M_sort.f90 and associated files
 
 ## NAME
