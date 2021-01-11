@@ -1,13 +1,20 @@
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 module M_testsuite
+use M_verify, only : unit_check_start,unit_check,unit_check_done,unit_check_good,unit_check_bad,unit_check_msg
+use M_verify, only : unit_check_level
+use M_msg, only : str
 use M_sort
+implicit none
 private
 public test_suite_m_sort
+integer,parameter            :: dp=kind(0.0d0)
 contains
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_suite_m_sort()
    call test_sort_shell()
-   call test_sort_quick_rx()
+   call test_sort_quick_rx_r()
+   call test_sort_quick_rx_i()
+   call test_sort_quick_rx_c()
    call test_unique()
    call test_swap()
 
@@ -18,8 +25,6 @@ end subroutine test_suite_m_sort
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_tree_insert()
 
-use M_verify, only : unit_check_start,unit_check,unit_check_done,unit_check_good,unit_check_bad,unit_check_msg
-use M_verify, only : unit_check_level
    call unit_check_start('insert',msg='')
    !!call unit_check('insert', 0.eq.0, 'checking',100)
    call unit_check_done('insert',msg='')
@@ -27,19 +32,14 @@ end subroutine test_tree_insert
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_tree_print()
 
-use M_verify, only : unit_check_start,unit_check,unit_check_done,unit_check_good,unit_check_bad,unit_check_msg
-use M_verify, only : unit_check_level
    call unit_check_start('tree_print',msg='')
    !!call unit_check('tree_print', 0.eq.0, 'checking',100)
    call unit_check_done('tree_print',msg='')
 end subroutine test_tree_print
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_sort_shell()
-use M_verify, only : unit_check, unit_check_start, unit_check_good, unit_check_bad, unit_check_done
-implicit none
-integer,parameter            :: cd=kind(0.0d0)
 integer,parameter            :: isz=10000
-complex(kind=cd)             :: ccdd(isz)
+complex(kind=dp)             :: ccdd(isz)
 complex                      :: cc(isz)
 doubleprecision              :: dd(isz)
 real                         :: rr(isz), rr2(isz)
@@ -157,11 +157,82 @@ call unit_check_done('sort_shell') ! assume if got here passed checks
 !-----------------------------------------------------------------------------------------------------------------------------------
 end subroutine test_sort_shell
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-subroutine test_sort_quick_rx
-use M_verify,   only : unit_check, unit_check_start, unit_check_good, unit_check_bad, unit_check_done
-implicit none
-integer,parameter            :: cd=kind(0.0d0)
-integer,parameter            :: isz=10000000
+subroutine test_sort_quick_rx_c()
+integer,parameter            :: isz=100
+real                         :: rr(isz)
+character(len=10)            :: jj(isz)
+integer                      :: ii(isz)
+integer                      :: i
+logical                      :: gb
+call unit_check_start('sort_quick_rx', '-library libGPF') ! start tests
+
+CALL RANDOM_NUMBER(RR)
+do i=1,isz 
+   jj(i) = random_string('abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',10)
+enddo
+
+gb=.true.
+call sort_quick_rx(jj,ii)
+do i=1,isz-1
+   if(jj(ii(i)).gt.jj(ii(i+1)))then
+      call unit_check_bad('sort_quit_rx_c',msg='Error in sorting strings from small to large')
+      gb=.false.
+   endif
+enddo
+if(gb)call unit_check_good('sort_quick_rx',msg='sort string array')
+
+end subroutine test_sort_quick_rx_c
+!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+function random_string(chars,length) result(out)
+
+!$@(#) M_random::random_string(3f): create random string composed of provided characters of specified length
+
+character(len=*),intent(in)     :: chars
+integer,intent(in)              :: length
+character(len=:),allocatable    :: out
+   real                         :: x
+   integer                      :: ilen   ! length of list of characters
+   integer                      :: which
+   integer                      :: i
+   ilen=len(chars)
+   out=''
+   if(ilen.gt.0)then
+      do i=1,length
+         call random_number(x)
+         which=nint(real(ilen-1)*x)+1
+         out=out//chars(which:which)
+      enddo
+   endif
+end function random_string
+!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+subroutine test_sort_quick_rx_i()
+integer,parameter            :: isz=10000
+integer                      :: first,last ! lowest and highest integer in range of integers to get
+real                         :: rr(isz)
+real                         :: jj(isz)
+integer                      :: ii(isz)
+integer                      :: i
+logical                      :: gb
+first=-(huge(0)-1)
+last=huge(0)
+call unit_check_start('sort_quick_rx', '-library libGPF') ! start tests
+
+CALL RANDOM_NUMBER(RR)
+jj = first + floor((last+1-first)*rr)  
+gb=.true.
+call sort_quick_rx(jj,ii)
+do i=1,isz-1
+   if(jj(ii(i)).gt.jj(ii(i+1)))then
+      call unit_check_bad('sort_quit_rx_i',msg='Error in sorting integers from small to large')
+      gb=.false.
+   endif
+enddo
+if(gb)call unit_check_good('sort_quick_rx',msg='sort integer array')
+
+end subroutine test_sort_quick_rx_i
+!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+subroutine test_sort_quick_rx_r()
+integer,parameter            :: isz=10000
 real                         :: rr(isz)
 integer                      :: ii(isz)
 integer                      :: i
@@ -174,18 +245,15 @@ gb=.true.
 call sort_quick_rx(rr,ii)
 do i=1,isz-1
    if(rr(ii(i)).gt.rr(ii(i+1)))then
-      call unit_check_bad('sort_quit_rx',msg='Error in sorting reals from small to large')
+      call unit_check_bad('sort_quit_rx_r',msg='Error in sorting reals from small to large')
       gb=.false.
    endif
 enddo
 if(gb)call unit_check_good('sort_quick_rx',msg='sort real array')
 
-end subroutine test_sort_quick_rx
+end subroutine test_sort_quick_rx_r
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_unique
-use M_verify, only : unit_check_start, unit_check, unit_check_bad, unit_check_good, unit_check_done
-use M_msg,   only : str
-implicit none
 integer,allocatable :: ints(:)
 integer             :: ic
 call unit_check_start('unique', '-library libGPF') ! start tests
@@ -214,8 +282,6 @@ call unit_check_done('unique',msg='test of unique(3f) completed') ! assume if go
 end subroutine test_unique
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_swap
-use M_verify,   only : unit_check, unit_check_start, unit_check_good, unit_check_bad, unit_check_done
-implicit none
 integer             :: iarray2(2)=[20,10],iarray(2)=[10,20]
 real                :: rarray2(2)=[22.22,11.11],rarray(2)=[11.11,22.22]
 doubleprecision     :: darray2(2)=[9876.54321d0,1234.56789d0],darray(2)=[1234.56789d0,9876.54321d0]
@@ -242,6 +308,7 @@ use M_verify
 use M_verify, only : unit_check, unit_check_start, unit_check_good, unit_check_bad, unit_check_done
 use M_verify, only : unit_check_level
 use M_testsuite
+implicit none
    unit_check_command=''
    unit_check_keep_going=.true.
    unit_check_level=0

@@ -950,13 +950,13 @@ subroutine sort_quick_rx_character(data,indx)
 
 ! ident_22="@(#)M_sort::sort_quick_rx_character(3f): indexed hybrid quicksort of a real array"
 
-character,intent(in)      :: data(:)
-integer,intent(out)       :: indx(:)
+character(len=*),intent(in)  :: data(:)
+integer,intent(out)          :: indx(:)
 
-integer                   :: n
-integer                   :: lstk(31),rstk(31),istk
-integer                   :: l,r,i,j,p,indexp,indext
-character(len=len(data))  :: datap
+integer                      :: n
+integer                      :: lstk(31),rstk(31),istk
+integer                      :: l,r,i,j,p,indexp,indext
+character(len=len(data))     :: datap
 
 !  QuickSort Cutoff
 !
