@@ -15,6 +15,7 @@ subroutine test_suite_m_sort()
    call test_sort_quick_rx_r()
    call test_sort_quick_rx_i()
    call test_sort_quick_rx_c()
+   call test_sort_quick_rx_d()
    call test_unique()
    call test_swap()
 
@@ -230,6 +231,28 @@ enddo
 if(gb)call unit_check_good('sort_quick_rx',msg='sort integer array')
 
 end subroutine test_sort_quick_rx_i
+!TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+subroutine test_sort_quick_rx_d()
+integer,parameter            :: isz=10000
+doubleprecision              :: rr(isz)
+integer                      :: ii(isz)
+integer                      :: i
+logical                      :: gb
+call unit_check_start('sort_quick_rx', '-library libGPF') ! start tests
+
+CALL RANDOM_NUMBER(RR)
+rr=rr*45000
+gb=.true.
+call sort_quick_rx(rr,ii)
+do i=1,isz-1
+   if(rr(ii(i)).gt.rr(ii(i+1)))then
+      call unit_check_bad('sort_quit_rx_d',msg='Error in sorting doubleprecision values  from small to large')
+      gb=.false.
+   endif
+enddo
+if(gb)call unit_check_good('sort_quick_rx',msg='sort doubleprecision array')
+
+end subroutine test_sort_quick_rx_d
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 subroutine test_sort_quick_rx_r()
 integer,parameter            :: isz=10000
