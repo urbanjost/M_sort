@@ -124,4 +124,4 @@ man:
 .F90.o:
 	$(F90) $(F90FLAGS) -c $<
 
-M_sort.o: M_sort.o
+M_sort.o:

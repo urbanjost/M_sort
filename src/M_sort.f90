@@ -104,7 +104,7 @@ contains
 !!                        Radix sort, Flashsort
 !!    Concurrent sorts    Bitonic sorter, Batcher odd-even mergesort, Pairwise sorting network
 !!    Hybrid sorts        Block merge sortTimsort, Introsort, Spreadsort
-!!    Other               Topological sorting,Pancake sorting, Spaghetti sort
+!!    Other               Topological sorting, Pancake sorting, Spaghetti sort
 !!
 !!    and an overview of topics concerning sorting
 !!
@@ -868,8 +868,9 @@ end subroutine sort_shell_complex_double
 !===================================================================================================================================
 !>
 !!##NAME
-!!    sort_quick_rx(3f) - [M_sort] indexed hybrid quicksort of a real array
+!!    sort_quick_rx(3f) - [M_sort] indexed hybrid quicksort of an array
 !!    (LICENSE:PD)
+!!
 !!##SYNOPSIS
 !!
 !!      subroutine sort_quick_rx(data,index)
@@ -884,7 +885,17 @@ end subroutine sort_shell_complex_double
 !!       integer,intent(out)           :: indx(size(data))
 !!
 !!##DESCRIPTION
+!!    A rank hybrid quicksort. The data is not moved. An integer array is
+!!    generated instead with values that are indices to the sorted order of
+!!    the data. This requires a second array the size of the input array,
+!!    which for large arrays could require a significant amount of order. One
+!!    major advantage of this method is that any element of a user-defined
+!!    that is a scalar intrinsic can be used to provide the sort data and
+!!    subsequently the indices can be used to access the entire user-defined
+!!    type in sorted order. This makes this seemingly simple sort procedure
+!!    usuable with the vast majority of user-defined types.
 !!
+!!##BACKGROUND
 !!    From Leonard J. Moss of SLAC:
 !!
 !!    Here's a hybrid QuickSort I wrote a number of years ago. It's
