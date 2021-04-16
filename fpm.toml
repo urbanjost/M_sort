@@ -22,8 +22,6 @@ library = false
 M_strings = { git = "https://github.com/urbanjost/M_strings.git" }
 M_io = { git = "https://github.com/urbanjost/M_io.git" }
 M_CLI2 = { git = "https://github.com/urbanjost/M_CLI2.git" }
-M_sort = { git = "https://github.com/urbanjost/M_sort.git" }
-
 
 [[test]]
 name="test_suite_M_sort"
