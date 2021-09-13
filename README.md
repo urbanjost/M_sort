@@ -64,7 +64,7 @@ There are demo programs extracted from the man pages in the example/ directory
 ## USER DOCUMENTATION
  - A single page that uses javascript to combine all the HTML descriptions
    of the manpages is at
-   [BOOK_FORTRAN](https://urbanjost.github.io/M_sort/BOOK_M_sort.html).
+   [BOOK_M_sort](https://urbanjost.github.io/M_sort/BOOK_M_sort.html).
 
  - An [index](https://urbanjost.github.io/M_sort/man3.html) to HTML versions
    of the manpages 
@@ -74,6 +74,16 @@ in addition in the docs/ directory there is
  - manpages in 
     + [manpages.zip](https://urbanjost.github.io/M_sort/manpages.zip) 
     + [manpages.tgz](https://urbanjost.github.io/M_sort/manpages.tgz) 
+
+## [CHANGELOG](CHANGELOG.md)
+
+## DEVELOPER DOCUMENTATION
+
+- [ford(1) output](https://urbanjost.github.io/easy/fpm-ford/index.html).
+
+## SEE ALSO
+
+ * [Fortran Package Manager](https://github.com/fortran-lang/fpm) )
 
 ## RESPONSES
 

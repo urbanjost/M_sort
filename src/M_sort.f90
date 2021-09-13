@@ -36,8 +36,10 @@ end interface
 ! ident_2="@(#)M_sort::unique(3f): assuming an array is sorted, return array with duplicate values removed"
 
 interface unique
-   module procedure unique_integers, unique_reals, unique_strings_allocatable_len !!, unique_strings
-   module procedure unique_complex, unique_doubles, unique_complex_double
+   module procedure unique_integer_int8, unique_integer_int16, unique_integer_int32, unique_integer_int64
+   module procedure unique_real_real32, unique_real_real64, unique_real_real128
+   module procedure unique_complex_real32, unique_complex_real64, unique_complex_real128
+   module procedure unique_strings_allocatable_len !!, unique_strings
 end interface
 !===================================================================================================================================
 
@@ -1916,13 +1918,17 @@ end subroutine sort_quick_rx_real
 !!     AFTER   : 1   2   3   4   10  20  30
 !!     SIZE=10
 !!     ICOUNT=7
+
+
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
-subroutine unique_integers(array,ivals)
-integer,intent(inout)  :: array(:)
-integer,intent(out)    :: ivals
-   integer             :: i,isize
+!<<<<<<<<<<< unique_template
+subroutine unique_integer_int8(array,ivals)
+integer(kind=int8),intent(inout)  :: array(:)
+!<<<<<<<<<<< unique
+integer,intent(out)                  :: ivals
+integer                              :: i,isize
    isize=size(array)
    if(isize.ge.2)then
       ivals=1
@@ -1935,147 +1941,294 @@ integer,intent(out)    :: ivals
    else
       ivals=isize
    endif
-end subroutine unique_integers
+! unique >>>>>>>>>>>
+end subroutine unique_integer_int8
+! unique_template >>>>>>>>>>>
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
-subroutine unique_reals(array,ivals)
-real,intent(inout)  :: array(:)
-integer,intent(out) :: ivals
-   integer          :: i,isize
+!<<<<<<<<<<< unique_template
+subroutine unique_integer_int16(array,ivals)
+integer(kind=int16),intent(inout)  :: array(:)
+!<<<<<<<<<<< unique
+integer,intent(out)                  :: ivals
+integer                              :: i,isize
    isize=size(array)
    if(isize.ge.2)then
       ivals=1
       do i=2,isize
-        if(array(i).ne.array(i-1))then
-           ivals=ivals+1
-           array(ivals)=array(i)
-        endif
+         if(array(i).ne.array(i-1))then
+            ivals=ivals+1
+            array(ivals)=array(i)
+         endif
       enddo
    else
       ivals=isize
    endif
-end subroutine unique_reals
+! unique >>>>>>>>>>>
+end subroutine unique_integer_int16
+! unique_template >>>>>>>>>>>
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+!<<<<<<<<<<< unique_template
+subroutine unique_integer_int32(array,ivals)
+integer(kind=int32),intent(inout)  :: array(:)
+!<<<<<<<<<<< unique
+integer,intent(out)                  :: ivals
+integer                              :: i,isize
+   isize=size(array)
+   if(isize.ge.2)then
+      ivals=1
+      do i=2,isize
+         if(array(i).ne.array(i-1))then
+            ivals=ivals+1
+            array(ivals)=array(i)
+         endif
+      enddo
+   else
+      ivals=isize
+   endif
+! unique >>>>>>>>>>>
+end subroutine unique_integer_int32
+! unique_template >>>>>>>>>>>
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+!<<<<<<<<<<< unique_template
+subroutine unique_integer_int64(array,ivals)
+integer(kind=int64),intent(inout)  :: array(:)
+!<<<<<<<<<<< unique
+integer,intent(out)                  :: ivals
+integer                              :: i,isize
+   isize=size(array)
+   if(isize.ge.2)then
+      ivals=1
+      do i=2,isize
+         if(array(i).ne.array(i-1))then
+            ivals=ivals+1
+            array(ivals)=array(i)
+         endif
+      enddo
+   else
+      ivals=isize
+   endif
+! unique >>>>>>>>>>>
+end subroutine unique_integer_int64
+! unique_template >>>>>>>>>>>
+
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+!<<<<<<<<<<< unique_template
+subroutine unique_real_real32(array,ivals)
+real(kind=real32),intent(inout)  :: array(:)
+!<<<<<<<<<<< unique
+integer,intent(out)                  :: ivals
+integer                              :: i,isize
+   isize=size(array)
+   if(isize.ge.2)then
+      ivals=1
+      do i=2,isize
+         if(array(i).ne.array(i-1))then
+            ivals=ivals+1
+            array(ivals)=array(i)
+         endif
+      enddo
+   else
+      ivals=isize
+   endif
+! unique >>>>>>>>>>>
+end subroutine unique_real_real32
+! unique_template >>>>>>>>>>>
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+!<<<<<<<<<<< unique_template
+subroutine unique_real_real64(array,ivals)
+real(kind=real64),intent(inout)  :: array(:)
+!<<<<<<<<<<< unique
+integer,intent(out)                  :: ivals
+integer                              :: i,isize
+   isize=size(array)
+   if(isize.ge.2)then
+      ivals=1
+      do i=2,isize
+         if(array(i).ne.array(i-1))then
+            ivals=ivals+1
+            array(ivals)=array(i)
+         endif
+      enddo
+   else
+      ivals=isize
+   endif
+! unique >>>>>>>>>>>
+end subroutine unique_real_real64
+! unique_template >>>>>>>>>>>
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+!<<<<<<<<<<< unique_template
+subroutine unique_real_real128(array,ivals)
+real(kind=real128),intent(inout)  :: array(:)
+!<<<<<<<<<<< unique
+integer,intent(out)                  :: ivals
+integer                              :: i,isize
+   isize=size(array)
+   if(isize.ge.2)then
+      ivals=1
+      do i=2,isize
+         if(array(i).ne.array(i-1))then
+            ivals=ivals+1
+            array(ivals)=array(i)
+         endif
+      enddo
+   else
+      ivals=isize
+   endif
+! unique >>>>>>>>>>>
+end subroutine unique_real_real128
+! unique_template >>>>>>>>>>>
+
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+!<<<<<<<<<<< unique_template
+subroutine unique_complex_real32(array,ivals)
+complex(kind=real32),intent(inout)  :: array(:)
+!<<<<<<<<<<< unique
+integer,intent(out)                  :: ivals
+integer                              :: i,isize
+   isize=size(array)
+   if(isize.ge.2)then
+      ivals=1
+      do i=2,isize
+         if(array(i).ne.array(i-1))then
+            ivals=ivals+1
+            array(ivals)=array(i)
+         endif
+      enddo
+   else
+      ivals=isize
+   endif
+! unique >>>>>>>>>>>
+end subroutine unique_complex_real32
+! unique_template >>>>>>>>>>>
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+!<<<<<<<<<<< unique_template
+subroutine unique_complex_real64(array,ivals)
+complex(kind=real64),intent(inout)  :: array(:)
+!<<<<<<<<<<< unique
+integer,intent(out)                  :: ivals
+integer                              :: i,isize
+   isize=size(array)
+   if(isize.ge.2)then
+      ivals=1
+      do i=2,isize
+         if(array(i).ne.array(i-1))then
+            ivals=ivals+1
+            array(ivals)=array(i)
+         endif
+      enddo
+   else
+      ivals=isize
+   endif
+! unique >>>>>>>>>>>
+end subroutine unique_complex_real64
+! unique_template >>>>>>>>>>>
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+!<<<<<<<<<<< unique_template
+subroutine unique_complex_real128(array,ivals)
+complex(kind=real128),intent(inout)  :: array(:)
+!<<<<<<<<<<< unique
+integer,intent(out)                  :: ivals
+integer                              :: i,isize
+   isize=size(array)
+   if(isize.ge.2)then
+      ivals=1
+      do i=2,isize
+         if(array(i).ne.array(i-1))then
+            ivals=ivals+1
+            array(ivals)=array(i)
+         endif
+      enddo
+   else
+      ivals=isize
+   endif
+! unique >>>>>>>>>>>
+end subroutine unique_complex_real128
+! unique_template >>>>>>>>>>>
+
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
 subroutine unique_strings_allocatable_len(array,ivals)
 character(len=:),intent(inout),allocatable  :: array(:)
-integer,intent(out)                         :: ivals
-   integer                                  :: i,isize
+!<<<<<<<<<<< unique
+integer,intent(out)                  :: ivals
+integer                              :: i,isize
    isize=size(array)
    if(isize.ge.2)then
       ivals=1
       do i=2,isize
-        if(array(i).ne.array(i-1))then
-           ivals=ivals+1
-           array(ivals)=array(i)
-        endif
+         if(array(i).ne.array(i-1))then
+            ivals=ivals+1
+            array(ivals)=array(i)
+         endif
       enddo
    else
       ivals=isize
    endif
+! unique >>>>>>>>>>>
 end subroutine unique_strings_allocatable_len
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
 subroutine unique_strings(array,ivals)
 character(len=*),intent(inout),allocatable  :: array(:)
-integer,intent(out)                         :: ivals
-   integer                                  :: i,isize
+!<<<<<<<<<<< unique
+integer,intent(out)                  :: ivals
+integer                              :: i,isize
    isize=size(array)
    if(isize.ge.2)then
       ivals=1
       do i=2,isize
-        if(array(i).ne.array(i-1))then
-           ivals=ivals+1
-           array(ivals)=array(i)
-        endif
+         if(array(i).ne.array(i-1))then
+            ivals=ivals+1
+            array(ivals)=array(i)
+         endif
       enddo
    else
       ivals=isize
    endif
+! unique >>>>>>>>>>>
 end subroutine unique_strings
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
 subroutine unique_allocatable_strings(array,ivals)
 character(len=:),intent(inout),allocatable  :: array(:)
-integer,intent(out)                         :: ivals
-   integer                                  :: i,isize
+!<<<<<<<<<<< unique
+integer,intent(out)                  :: ivals
+integer                              :: i,isize
    isize=size(array)
    if(isize.ge.2)then
       ivals=1
       do i=2,isize
-        if(array(i).ne.array(i-1))then
-           ivals=ivals+1
-           array(ivals)=array(i)
-        endif
+         if(array(i).ne.array(i-1))then
+            ivals=ivals+1
+            array(ivals)=array(i)
+         endif
       enddo
    else
       ivals=isize
    endif
+! unique >>>>>>>>>>>
 end subroutine unique_allocatable_strings
-!===================================================================================================================================
-!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
-!===================================================================================================================================
-subroutine unique_complex(array,ivals)
-complex,intent(inout)  :: array(:)
-integer,intent(out)    :: ivals
-   integer             :: i,isize
-   isize=size(array)
-   if(isize.ge.2)then
-      ivals=1
-      do i=2,isize
-        if(array(i).ne.array(i-1))then
-           ivals=ivals+1
-           array(ivals)=array(i)
-        endif
-      enddo
-   else
-      ivals=isize
-   endif
-end subroutine unique_complex
-!===================================================================================================================================
-!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
-!===================================================================================================================================
-subroutine unique_doubles(array,ivals)
-doubleprecision,intent(inout)  :: array(:)
-integer,intent(out)            :: ivals
-   integer                     :: i,isize
-   isize=size(array)
-   if(isize.ge.2)then
-      ivals=1
-      do i=2,isize
-        if(array(i).ne.array(i-1))then
-           ivals=ivals+1
-           array(ivals)=array(i)
-        endif
-      enddo
-   else
-      ivals=isize
-   endif
-end subroutine unique_doubles
-!===================================================================================================================================
-!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
-!===================================================================================================================================
-subroutine unique_complex_double(array,ivals)
-complex(kind=cd),intent(inout) :: array(:)   ! array  input/output array
-integer,intent(out)            :: ivals
-   integer                     :: i,isize
-   isize=size(array)
-   if(isize.ge.2)then
-      ivals=1
-      do i=2,isize
-        if(array(i).ne.array(i-1))then
-           ivals=ivals+1
-           array(ivals)=array(i)
-        endif
-      enddo
-   else
-      ivals=isize
-   endif
-end subroutine unique_complex_double
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
@@ -2309,7 +2462,7 @@ end subroutine s_swap
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
-!-$DOCUMENT COMMENT -file exchange.3m_sort.man
+!-$BLOCK COMMENT -file exchange.3m_sort.man
 !-NAME
 !-   exchange(3f) - [M_sort] subroutine exchanges two variables of like type
 !-   (LICENSE:PD)
@@ -2470,7 +2623,7 @@ end subroutine s_swap
 !-   >1,1,1
 !-   >1,1,1
 !-
-!-$DOCUMENT END
+!-$BLOCK
 !-subroutine exchange_scalar(lhs,rhs)
 !-use iso_c_binding, only : c_ptr, c_size_t
 !-use M_system,      only : system_memcpy
