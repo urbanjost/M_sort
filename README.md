@@ -75,11 +75,15 @@ in addition in the docs/ directory there is
     + [manpages.zip](https://urbanjost.github.io/M_sort/manpages.zip) 
     + [manpages.tgz](https://urbanjost.github.io/M_sort/manpages.tgz) 
 
-## [CHANGELOG](CHANGELOG.md)
+ - [CHANGELOG](docs/CHANGELOG.md) provides a history of significant changes
 
 ## DEVELOPER DOCUMENTATION
 
-- [ford(1) output](https://urbanjost.github.io/easy/fpm-ford/index.html).
+ - [ford(1) output](https://urbanjost.github.io/M_sort/fpm-ford/index.html).
+<!--
+   - [doxygen(1) output](https://urbanjost.github.io/M_uuid/doxygen_out/html/index.html).
+-->
+ - [github action status](docs/STATUS.md) 
 
 ## SEE ALSO
 

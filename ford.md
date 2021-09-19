@@ -5,17 +5,15 @@ src_dir: src
          test
 output_dir: docs/fpm-ford
 project: M_sort
-summary: sort data
+summary: sorting procedures
 project_github: https://github.com/urbanjost/M_sort
 project_download:
 author: John S. Urban
 author_email: urbanjost@comcast.net
 github: https://github.com/urbanjost/M_sort
-media_dir: ./docs/images
-exclude_dir: ./man
-             ./FODDER
-             ./build
-             ./docs
+media_dir: docs/images
+exclude_dir: archive
+             FODDER
 display: public
          protected
 source: true
@@ -29,8 +27,3 @@ creation_date: %Y-%m-%d %H:%M %z
 md_extensions: markdown.extensions.toc
                markdown.extensions.smarty
 ---
-<!--
-author_pic:
-twitter:
-website:
--->
