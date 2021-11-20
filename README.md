@@ -56,7 +56,7 @@ or just list it as a dependency in your fpm.toml project file.
      M_sort        = { git = "https://github.com/urbanjost/M_sort.git" ,tag="v1.0.1"}
 ```
 
-## DEMO PROGRAMS
+## DEMO PROGRAMS![demos](docs/images/demo.gif)
 
 There are demo programs extracted from the man pages in the example/ directory
 
@@ -88,10 +88,7 @@ in addition in the docs/ directory there is
 ## SEE ALSO
 
  * [Fortran Package Manager](https://github.com/fortran-lang/fpm) )
+ * [Fortran Wiki](http://fortranwiki.org)
+ * [Fortran Discourse](https://fortran-lang.discourse.group)
+ * [Google Fortran newsgroup](https://groups.google.com/forum/#!forum/comp.lang.fortran)
 
-## RESPONSES
-
-Discussion is welcome here as well as at
- - [Fortran Discourse](https://fortran-lang.discourse.group)
- - [Fortran Wiki](http://fortranwiki.org)
- - [Google Fortran newsgroup](https://groups.google.com/forum/#!forum/comp.lang.fortran)
