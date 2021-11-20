@@ -8,7 +8,7 @@
           CALL RANDOM_NUMBER(RR)
           rr=rr*450000.0
           ! use the index array to actually move the input array into a sorted order
-          rr=rr(sort_index(rr))
+          rr=rr(sort_indexed(rr))
           ! or
           !rr(sort_indexed(rr))=rr
           write(*,*)'checking if values are sorted(3f)'
