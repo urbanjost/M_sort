@@ -12,7 +12,7 @@ do simple sorts.
 
 ## DOWNLOAD AND BUILD
 Just download the github repository, enter the src/ directory and run make(1):
-
+```bash
      git clone https://github.com/urbanjost/M_sort.git
      cd M_sort/src
      # change Makefile if not using one of the listed compilers
@@ -32,7 +32,7 @@ Just download the github repository, enter the src/ directory and run make(1):
      # optionally
      make run  # run all the demo programs from the manpages
      make help # see other developer options
-
+```
 This will compile the M_sort(3f) module and optionally build all the
 example programs from the document pages in the example/ sub-directory
 and run the unit tests.
@@ -48,18 +48,14 @@ fpm ( as described at [Fortran Package Manager](https://github.com/fortran-lang/
      cd M_sort
      fpm test  # run unit tests
 ```
-
 or just list it as a dependency in your fpm.toml project file.
-
 ```toml
      [dependencies]
      M_sort        = { git = "https://github.com/urbanjost/M_sort.git" ,tag="v1.0.1"}
 ```
-
-## DEMO PROGRAMS![demos](docs/images/demo.gif)
+## DEMO PROGRAMS ![demos](docs/images/demo.gif)
 
 There are demo programs extracted from the man pages in the example/ directory
-
 
 ## USER DOCUMENTATION
  - A single page that uses javascript to combine all the HTML descriptions
@@ -87,8 +83,7 @@ in addition in the docs/ directory there is
 
 ## SEE ALSO
 
- * [Fortran Package Manager](https://github.com/fortran-lang/fpm) )
+ * [Fortran Package Manager](https://github.com/fortran-lang/fpm)
  * [Fortran Wiki](http://fortranwiki.org)
  * [Fortran Discourse](https://fortran-lang.discourse.group)
  * [Google Fortran newsgroup](https://groups.google.com/forum/#!forum/comp.lang.fortran)
-

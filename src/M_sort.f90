@@ -3805,10 +3805,10 @@ end function sort_character
 !!
 !!##SYNOPSIS
 !!
-!!      subroutine sort_heap(data,index)
+!!      subroutine sort_heap(dat,indx)
 !!
-!!       TYPE,intent(in) :: data
-!!       integer,intent(out) :: indx(size(data))
+!!       TYPE,intent(in) :: dat
+!!       integer,intent(out) :: indx(size(dat))
 !!
 !!##DESCRIPTION
 !!    An indexed sort of an array. The data is not moved. An integer array is
@@ -3822,7 +3822,7 @@ end function sort_character
 !!    usuable with the vast majority of user-defined types.
 !!
 !!##OPTIONS
-!!     DATA   an array of type REAL, INTEGER, or CHARACTER(KIND=kind('A') to be sorted
+!!     DAT    an array of type REAL, INTEGER, or CHARACTER(KIND=kind('A') to be sorted
 !!##RETURNS
 !!     INDX   an INTEGER array of default kind that contains the sorted
 !!            indices.
@@ -3919,18 +3919,18 @@ end function sort_character
 
 
 
-subroutine sort_heap_INTEGER_INT8(a,indx)
+subroutine sort_heap_INTEGER_INT8(dat,indx)
 implicit none
-INTEGER(kind=INT8),intent(in)  :: a(:)
-INTEGER(kind=INT8)             :: at
+INTEGER(kind=INT8),intent(in)  :: dat(:)
+INTEGER(kind=INT8)             :: a_temp
 !>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
 !
-! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
+! Construct an index table that can be used to rearrange array DAT in ascending order using the heapsort algorithm.
 !
-   n=size(a)
+   n=size(dat)
    if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
@@ -3943,10 +3943,10 @@ integer :: i, j, k, l, it
       if (l .gt. 1) then
          l  = l - 1
          it = indx(l)
-         at = a(it)
+         a_temp = dat(it)
       else
          it = indx(k)
-         at = a(it)
+         a_temp = dat(it)
          indx(k) = indx(1)
          k = k - 1
          if (k .eq. 1) then
@@ -3959,9 +3959,9 @@ integer :: i, j, k, l, it
       INNER: do
          if (j .le. k) then
             if (j .lt. k) then
-               if (a(indx(j)) .lt. a(indx(j+1))) j = j + 1
+               if (dat(indx(j)) .lt. dat(indx(j+1))) j = j + 1
             endif
-            if (at .lt. a(indx(j) )) then
+            if (a_temp .lt. dat(indx(j) )) then
                indx(i) = indx(j)
                i = j
                j = j + j
@@ -3977,18 +3977,18 @@ integer :: i, j, k, l, it
 !<<<<<<<<< sort_heap_template
 end subroutine sort_heap_INTEGER_INT8
 
-subroutine sort_heap_INTEGER_INT16(a,indx)
+subroutine sort_heap_INTEGER_INT16(dat,indx)
 implicit none
-INTEGER(kind=INT16),intent(in)  :: a(:)
-INTEGER(kind=INT16)             :: at
+INTEGER(kind=INT16),intent(in)  :: dat(:)
+INTEGER(kind=INT16)             :: a_temp
 !>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
 !
-! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
+! Construct an index table that can be used to rearrange array DAT in ascending order using the heapsort algorithm.
 !
-   n=size(a)
+   n=size(dat)
    if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
@@ -4001,10 +4001,10 @@ integer :: i, j, k, l, it
       if (l .gt. 1) then
          l  = l - 1
          it = indx(l)
-         at = a(it)
+         a_temp = dat(it)
       else
          it = indx(k)
-         at = a(it)
+         a_temp = dat(it)
          indx(k) = indx(1)
          k = k - 1
          if (k .eq. 1) then
@@ -4017,9 +4017,9 @@ integer :: i, j, k, l, it
       INNER: do
          if (j .le. k) then
             if (j .lt. k) then
-               if (a(indx(j)) .lt. a(indx(j+1))) j = j + 1
+               if (dat(indx(j)) .lt. dat(indx(j+1))) j = j + 1
             endif
-            if (at .lt. a(indx(j) )) then
+            if (a_temp .lt. dat(indx(j) )) then
                indx(i) = indx(j)
                i = j
                j = j + j
@@ -4035,18 +4035,18 @@ integer :: i, j, k, l, it
 !<<<<<<<<< sort_heap_template
 end subroutine sort_heap_INTEGER_INT16
 
-subroutine sort_heap_INTEGER_INT32(a,indx)
+subroutine sort_heap_INTEGER_INT32(dat,indx)
 implicit none
-INTEGER(kind=INT32),intent(in)  :: a(:)
-INTEGER(kind=INT32)             :: at
+INTEGER(kind=INT32),intent(in)  :: dat(:)
+INTEGER(kind=INT32)             :: a_temp
 !>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
 !
-! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
+! Construct an index table that can be used to rearrange array DAT in ascending order using the heapsort algorithm.
 !
-   n=size(a)
+   n=size(dat)
    if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
@@ -4059,10 +4059,10 @@ integer :: i, j, k, l, it
       if (l .gt. 1) then
          l  = l - 1
          it = indx(l)
-         at = a(it)
+         a_temp = dat(it)
       else
          it = indx(k)
-         at = a(it)
+         a_temp = dat(it)
          indx(k) = indx(1)
          k = k - 1
          if (k .eq. 1) then
@@ -4075,9 +4075,9 @@ integer :: i, j, k, l, it
       INNER: do
          if (j .le. k) then
             if (j .lt. k) then
-               if (a(indx(j)) .lt. a(indx(j+1))) j = j + 1
+               if (dat(indx(j)) .lt. dat(indx(j+1))) j = j + 1
             endif
-            if (at .lt. a(indx(j) )) then
+            if (a_temp .lt. dat(indx(j) )) then
                indx(i) = indx(j)
                i = j
                j = j + j
@@ -4093,18 +4093,18 @@ integer :: i, j, k, l, it
 !<<<<<<<<< sort_heap_template
 end subroutine sort_heap_INTEGER_INT32
 
-subroutine sort_heap_INTEGER_INT64(a,indx)
+subroutine sort_heap_INTEGER_INT64(dat,indx)
 implicit none
-INTEGER(kind=INT64),intent(in)  :: a(:)
-INTEGER(kind=INT64)             :: at
+INTEGER(kind=INT64),intent(in)  :: dat(:)
+INTEGER(kind=INT64)             :: a_temp
 !>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
 !
-! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
+! Construct an index table that can be used to rearrange array DAT in ascending order using the heapsort algorithm.
 !
-   n=size(a)
+   n=size(dat)
    if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
@@ -4117,10 +4117,10 @@ integer :: i, j, k, l, it
       if (l .gt. 1) then
          l  = l - 1
          it = indx(l)
-         at = a(it)
+         a_temp = dat(it)
       else
          it = indx(k)
-         at = a(it)
+         a_temp = dat(it)
          indx(k) = indx(1)
          k = k - 1
          if (k .eq. 1) then
@@ -4133,9 +4133,9 @@ integer :: i, j, k, l, it
       INNER: do
          if (j .le. k) then
             if (j .lt. k) then
-               if (a(indx(j)) .lt. a(indx(j+1))) j = j + 1
+               if (dat(indx(j)) .lt. dat(indx(j+1))) j = j + 1
             endif
-            if (at .lt. a(indx(j) )) then
+            if (a_temp .lt. dat(indx(j) )) then
                indx(i) = indx(j)
                i = j
                j = j + j
@@ -4150,18 +4150,18 @@ integer :: i, j, k, l, it
    enddo INFINITE
 !<<<<<<<<< sort_heap_template
 end subroutine sort_heap_INTEGER_INT64
-subroutine sort_heap_real_real32(a,indx)
+subroutine sort_heap_real_real32(dat,indx)
 implicit none
-real(kind=real32),intent(in)  :: a(:)
-real(kind=real32)             :: at
+real(kind=real32),intent(in)  :: dat(:)
+real(kind=real32)             :: a_temp
 !>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
 !
-! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
+! Construct an index table that can be used to rearrange array DAT in ascending order using the heapsort algorithm.
 !
-   n=size(a)
+   n=size(dat)
    if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
@@ -4174,10 +4174,10 @@ integer :: i, j, k, l, it
       if (l .gt. 1) then
          l  = l - 1
          it = indx(l)
-         at = a(it)
+         a_temp = dat(it)
       else
          it = indx(k)
-         at = a(it)
+         a_temp = dat(it)
          indx(k) = indx(1)
          k = k - 1
          if (k .eq. 1) then
@@ -4190,9 +4190,9 @@ integer :: i, j, k, l, it
       INNER: do
          if (j .le. k) then
             if (j .lt. k) then
-               if (a(indx(j)) .lt. a(indx(j+1))) j = j + 1
+               if (dat(indx(j)) .lt. dat(indx(j+1))) j = j + 1
             endif
-            if (at .lt. a(indx(j) )) then
+            if (a_temp .lt. dat(indx(j) )) then
                indx(i) = indx(j)
                i = j
                j = j + j
@@ -4208,18 +4208,18 @@ integer :: i, j, k, l, it
 !<<<<<<<<< sort_heap_template
 end subroutine sort_heap_real_real32
 
-subroutine sort_heap_real_real64(a,indx)
+subroutine sort_heap_real_real64(dat,indx)
 implicit none
-real(kind=real64),intent(in)  :: a(:)
-real(kind=real64)             :: at
+real(kind=real64),intent(in)  :: dat(:)
+real(kind=real64)             :: a_temp
 !>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
 !
-! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
+! Construct an index table that can be used to rearrange array DAT in ascending order using the heapsort algorithm.
 !
-   n=size(a)
+   n=size(dat)
    if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
@@ -4232,10 +4232,10 @@ integer :: i, j, k, l, it
       if (l .gt. 1) then
          l  = l - 1
          it = indx(l)
-         at = a(it)
+         a_temp = dat(it)
       else
          it = indx(k)
-         at = a(it)
+         a_temp = dat(it)
          indx(k) = indx(1)
          k = k - 1
          if (k .eq. 1) then
@@ -4248,9 +4248,9 @@ integer :: i, j, k, l, it
       INNER: do
          if (j .le. k) then
             if (j .lt. k) then
-               if (a(indx(j)) .lt. a(indx(j+1))) j = j + 1
+               if (dat(indx(j)) .lt. dat(indx(j+1))) j = j + 1
             endif
-            if (at .lt. a(indx(j) )) then
+            if (a_temp .lt. dat(indx(j) )) then
                indx(i) = indx(j)
                i = j
                j = j + j
@@ -4266,18 +4266,18 @@ integer :: i, j, k, l, it
 !<<<<<<<<< sort_heap_template
 end subroutine sort_heap_real_real64
 
-subroutine sort_heap_real_real128(a,indx)
+subroutine sort_heap_real_real128(dat,indx)
 implicit none
-real(kind=real128),intent(in)  :: a(:)
-real(kind=real128)             :: at
+real(kind=real128),intent(in)  :: dat(:)
+real(kind=real128)             :: a_temp
 !>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
 !
-! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
+! Construct an index table that can be used to rearrange array DAT in ascending order using the heapsort algorithm.
 !
-   n=size(a)
+   n=size(dat)
    if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
@@ -4290,10 +4290,10 @@ integer :: i, j, k, l, it
       if (l .gt. 1) then
          l  = l - 1
          it = indx(l)
-         at = a(it)
+         a_temp = dat(it)
       else
          it = indx(k)
-         at = a(it)
+         a_temp = dat(it)
          indx(k) = indx(1)
          k = k - 1
          if (k .eq. 1) then
@@ -4306,9 +4306,9 @@ integer :: i, j, k, l, it
       INNER: do
          if (j .le. k) then
             if (j .lt. k) then
-               if (a(indx(j)) .lt. a(indx(j+1))) j = j + 1
+               if (dat(indx(j)) .lt. dat(indx(j+1))) j = j + 1
             endif
-            if (at .lt. a(indx(j) )) then
+            if (a_temp .lt. dat(indx(j) )) then
                indx(i) = indx(j)
                i = j
                j = j + j
@@ -4323,18 +4323,18 @@ integer :: i, j, k, l, it
    enddo INFINITE
 !<<<<<<<<< sort_heap_template
 end subroutine sort_heap_real_real128
-subroutine sort_heap_character_ascii(a,indx)
+subroutine sort_heap_character_ascii(dat,indx)
 implicit none
-character(kind=ascii,len=*),intent(in)  :: a(:)
-character(kind=ascii,len=len(a))        :: at
+character(kind=ascii,len=*),intent(in)  :: dat(:)
+character(kind=ascii,len=len(dat))        :: a_temp
 !>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
 !
-! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
+! Construct an index table that can be used to rearrange array DAT in ascending order using the heapsort algorithm.
 !
-   n=size(a)
+   n=size(dat)
    if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
@@ -4347,10 +4347,10 @@ integer :: i, j, k, l, it
       if (l .gt. 1) then
          l  = l - 1
          it = indx(l)
-         at = a(it)
+         a_temp = dat(it)
       else
          it = indx(k)
-         at = a(it)
+         a_temp = dat(it)
          indx(k) = indx(1)
          k = k - 1
          if (k .eq. 1) then
@@ -4363,9 +4363,9 @@ integer :: i, j, k, l, it
       INNER: do
          if (j .le. k) then
             if (j .lt. k) then
-               if (a(indx(j)) .lt. a(indx(j+1))) j = j + 1
+               if (dat(indx(j)) .lt. dat(indx(j+1))) j = j + 1
             endif
-            if (at .lt. a(indx(j) )) then
+            if (a_temp .lt. dat(indx(j) )) then
                indx(i) = indx(j)
                i = j
                j = j + j
