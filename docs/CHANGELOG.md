@@ -6,6 +6,11 @@ list of notable changes including records of change such as bug fixes,
 new features, changes, and relevant notifications.
 
 ---
+**2021-12-27**  John S. Urban  <https://github.com/urbanjost>
+
+### :green_circle: ADD:
+     indexed heap sort
+---
 **2021-01-06**  John S. Urban  <https://github.com/urbanjost>
 
 ### :green_circle: ADD:
