@@ -1,5 +1,5 @@
-     program demo_heapsort
-     use M_sort, only : heapsort
+     program demo_sort_heap
+     use M_sort, only : sort_heap
      implicit none
      integer,parameter            :: isz=10000
      real                         :: rr(isz)
@@ -16,7 +16,7 @@
      enddo
 
      write(*,*)'checking if real values are sorted(3f)'
-     call heapsort(rr,indx)
+     call sort_heap(rr,indx)
      ! use the index array to actually move the input array into a sorted order
      rr=rr(indx)
      do i=1,isz-1
@@ -24,10 +24,10 @@
            write(*,*)'Error in sorting reals small to large ',i,rr(i),rr(i+1)
         endif
      enddo
-     write(*,*)'test of real heapsort(3f) complete'
+     write(*,*)'test of real sort_heap(3f) complete'
 
      write(*,*)'checking if integer values are sorted(3f)'
-     call heapsort(ii,indx)
+     call sort_heap(ii,indx)
      ! use the index array to actually move the input array into a sorted order
      ii=ii(indx)
      do i=1,isz-1
@@ -35,10 +35,10 @@
            write(*,*)'Error in sorting integer small to large ',i,ii(i),ii(i+1)
         endif
      enddo
-     write(*,*)'test of integer heapsort(3f) complete'
+     write(*,*)'test of integer sort_heap(3f) complete'
 
      write(*,*)'checking if character values are sorted(3f)'
-     call heapsort(cc,indx)
+     call sort_heap(cc,indx)
      ! use the index array to actually move the input array into a sorted order
      cc=cc(indx)
      do i=1,isz-1
@@ -46,7 +46,7 @@
            write(*,*)'Error in sorting character small to large ',i,cc(i),cc(i+1)
         endif
      enddo
-     write(*,*)'test of character heapsort(3f) complete'
+     write(*,*)'test of character sort_heap(3f) complete'
 
      contains
 
@@ -72,4 +72,4 @@
         endif
      end function random_string
 
-     end program demo_heapsort
+     end program demo_sort_heap

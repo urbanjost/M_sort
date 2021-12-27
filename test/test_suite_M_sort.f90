@@ -22,7 +22,7 @@ subroutine test_suite_m_sort()
    call test_tree_insert()
    call test_tree_print()
 
-   call test_heapsort()
+   call test_sort_heap()
 
 end subroutine test_suite_m_sort
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
@@ -325,7 +325,7 @@ character(len=16)   :: string2(2)=["The other string","First string    "],string
 
 end subroutine test_swap
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-subroutine test_heapsort()
+subroutine test_sort_heap()
 implicit none
 integer,parameter            :: isz=10000
 real                         :: rr(isz)
@@ -334,7 +334,7 @@ character(len=63)            :: cc(isz)
 integer                      :: indx(isz)
 integer                      :: i
 integer                      :: errorcount
-   call unit_check_start('heapsort',' -library libGPF') ! start tests
+   call unit_check_start('sort_heap',' -library libGPF') ! start tests
    ! initializing array with random numbers
    CALL RANDOM_NUMBER(RR)
    rr=rr*450000.0
@@ -345,45 +345,45 @@ integer                      :: errorcount
 
 
    ! checking if real values are sorted(3f)
-   call heapsort(rr,indx)
+   call sort_heap(rr,indx)
    ! use the index array to actually move the input array into a sorted order
    rr=rr(indx)
    errorcount=0
    do i=1,isz-1
       if(rr(i).gt.rr(i+1))then
-         call unit_check_msg('heapsort','Error in sorting reals small to large ',i,rr(i),rr(i+1))
+         call unit_check_msg('sort_heap','Error in sorting reals small to large ',i,rr(i),rr(i+1))
          errorcount=errorcount+1
       endif
    enddo
-   call unit_check('heapsort',errorcount.eq.0,'real errors is ',errorcount,'out of',isz,'values')
+   call unit_check('sort_heap',errorcount.eq.0,'real errors is ',errorcount,'out of',isz,'values')
 
    ! checking if integer values are sorted(3f)
-   call heapsort(ii,indx)
+   call sort_heap(ii,indx)
    ! use the index array to actually move the input array into a sorted order
    ii=ii(indx)
    errorcount=0
    do i=1,isz-1
       if(ii(i).gt.ii(i+1))then
-         call unit_check_msg('heapsort','Error in sorting integers small to large ',i,rr(i),rr(i+1))
+         call unit_check_msg('sort_heap','Error in sorting integers small to large ',i,rr(i),rr(i+1))
          errorcount=errorcount+1
       endif
    enddo
-   call unit_check('heapsort',errorcount.eq.0,'integer errors is ',errorcount,'out of',isz,'values')
+   call unit_check('sort_heap',errorcount.eq.0,'integer errors is ',errorcount,'out of',isz,'values')
 
    ! checking if character values are sorted(3f)
-   call heapsort(cc,indx)
+   call sort_heap(cc,indx)
    ! use the index array to actually move the input array into a sorted order
    cc=cc(indx)
    errorcount=0
    do i=1,isz-1
       if(cc(i).gt.cc(i+1))then
-         call unit_check_msg('heapsort','Error in sorting characters small to large ',i,rr(i),rr(i+1))
+         call unit_check_msg('sort_heap','Error in sorting characters small to large ',i,rr(i),rr(i+1))
          errorcount=errorcount+1
       endif
    enddo
-   call unit_check('heapsort',errorcount.eq.0,'character errors is ',errorcount,'out of',isz,'values')
+   call unit_check('sort_heap',errorcount.eq.0,'character errors is ',errorcount,'out of',isz,'values')
 
-   call unit_check_done('heapsort')
+   call unit_check_done('sort_heap')
 
 contains
 
@@ -409,7 +409,7 @@ integer                      :: i
    endif
 end function random_string
 
-end subroutine test_heapsort
+end subroutine test_sort_heap
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
 end module M_testsuite_M_sort
 !TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT

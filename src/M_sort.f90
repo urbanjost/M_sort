@@ -11,13 +11,13 @@ private                             ! the PRIVATE declaration requires use of a 
 public sort_quick_rx
 public sort_shell
 public sort_indexed
+public sort_heap
 
 public :: swap
 !-public :: exchange
 public :: swap_any
 
 public unique
-public heapsort
 
 public tree_insert
 public tree_print
@@ -28,32 +28,31 @@ integer,parameter :: ASCII=kind('A')
 
 ! ident_1="@(#)M_sort::sort_shell(3f): Generic subroutine sorts the array X using a shell sort"
 
-! SORT_SHELL is a Generic Interface in a module with PRIVATE specific procedures. This means the individual subroutines
-! cannot be called from outside of this module.
 interface sort_shell
    module procedure sort_shell_integers, sort_shell_reals, sort_shell_strings
    module procedure sort_shell_complex, sort_shell_doubles, sort_shell_complex_double
 end interface
+
+! SORT_SHELL is a Generic Interface in a module with PRIVATE specific procedures. This means the individual subroutines
+! cannot be called from outside of this module.
 !===================================================================================================================================
 
-! ident_2="@(#)M_sort::heapsort(3f): Generic subroutine sorts the array X using a shell sort"
+! ident_2="@(#)M_sort::sort_heap(3f): Generic subroutine sorts the array X using a heap sort"
 
-! heapsort is a Generic Interface in a module with PRIVATE specific procedures. This means the individual subroutines
-! cannot be called from outside of this module.
-interface heapsort
-   module procedure heapsort_integer_int8, heapsort_integer_int16, heapsort_integer_int32, heapsort_integer_int64
-   module procedure heapsort_real_real32, heapsort_real_real64, heapsort_real_real128
-   module procedure heapsort_character_ascii
+interface sort_heap
+   module procedure sort_heap_integer_int8, sort_heap_integer_int16, sort_heap_integer_int32, sort_heap_integer_int64
+   module procedure sort_heap_real_real32, sort_heap_real_real64, sort_heap_real_real128
+   module procedure sort_heap_character_ascii
 end interface
 !===================================================================================================================================
 
 ! ident_3="@(#)M_sort::unique(3f): assuming an array is sorted, return array with duplicate values removed"
 
 interface unique
-   module procedure unique_integer_int8, unique_integer_int16, unique_integer_int32, unique_integer_int64
-   module procedure unique_real_real32, unique_real_real64, unique_real_real128
-   module procedure unique_complex_real32, unique_complex_real64, unique_complex_real128
-   module procedure unique_strings_allocatable_len !!, unique_strings
+module procedure  unique_integer_int8,            unique_integer_int16,   unique_integer_int32,   unique_integer_int64
+module procedure  unique_real_real32,             unique_real_real64,     unique_real_real128
+module procedure  unique_complex_real32,          unique_complex_real64,  unique_complex_real128
+module procedure  unique_strings_allocatable_len  !!,unique_strings
 end interface
 !===================================================================================================================================
 
@@ -117,12 +116,12 @@ contains
 !!
 !!##SYNOPSIS
 !!
-!!    use M_sort, only : sort_shell, sort_quick_rx, unique, sort_indexed
+!!    use M_sort, only : sort_shell, sort_quick_rx, sort_heap
+!!    use M_sort, only : unique
 !!
 !!##DESCRIPTION
 !!    Under development. Currently only provides a few common routines, but it is intended that
 !!    other procedures will provide a variety of sort methods, including ...
-!!
 !!
 !!    Exchange sorts      Bubble sort, Cocktail shaker sort, Odd-even sort, Comb sort, Gnome sort, Quicksort, Stooge sort, Bogosort
 !!    Selection sorts     Selection sort, Heapsort, Smoothsort, Cartesian tree sort, Tournament sort, Cycle sort
@@ -191,7 +190,6 @@ contains
 !!     character(len=*),intent(inout) :: lines(:)
 !!     character(len=*),intent(in)    :: order
 !!     character(len=*),intent(in)    :: type
-!!
 !!
 !!##DESCRIPTION
 !!
@@ -3212,7 +3210,7 @@ end subroutine s_swap
 !!
 !!    subroutine swap_any(X,Y)
 !!##DESCRIPTION
-!!    Generic subroutine swap_any(GEN1,GEN2) swap_anys two variables of
+!!    Generic subroutine swap_any(GEN1,GEN2) swaps any two variables of
 !!    like type.
 !!
 !!    On output, the values of X and Y have been interchanged. Swapping is
@@ -3802,12 +3800,12 @@ end function sort_character
 !===================================================================================================================================
 !>
 !!##NAME
-!!    heapsort(3f) - [M_sort] indexed sort of an array
+!!    sort_heap(3f) - [M_sort] indexed sort of an array
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
 !!
-!!      subroutine heapsort(data,index)
+!!      subroutine sort_heap(data,index)
 !!
 !!       TYPE,intent(in) :: data
 !!       integer,intent(out) :: indx(size(data))
@@ -3833,8 +3831,8 @@ end function sort_character
 !!
 !!  Sample usage:
 !!
-!!    program demo_heapsort
-!!    use M_sort, only : heapsort
+!!    program demo_sort_heap
+!!    use M_sort, only : sort_heap
 !!    implicit none
 !!    integer,parameter            :: isz=10000
 !!    real                         :: rr(isz)
@@ -3850,9 +3848,8 @@ end function sort_character
 !!       cc(i)=random_string('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ',len(cc))
 !!    enddo
 !!
-!!
 !!    write(*,*)'checking if real values are sorted(3f)'
-!!    call heapsort(rr,indx)
+!!    call sort_heap(rr,indx)
 !!    ! use the index array to actually move the input array into a sorted order
 !!    rr=rr(indx)
 !!    do i=1,isz-1
@@ -3860,10 +3857,10 @@ end function sort_character
 !!          write(*,*)'Error in sorting reals small to large ',i,rr(i),rr(i+1)
 !!       endif
 !!    enddo
-!!    write(*,*)'test of real heapsort(3f) complete'
+!!    write(*,*)'test of real sort_heap(3f) complete'
 !!
 !!    write(*,*)'checking if integer values are sorted(3f)'
-!!    call heapsort(ii,indx)
+!!    call sort_heap(ii,indx)
 !!    ! use the index array to actually move the input array into a sorted order
 !!    ii=ii(indx)
 !!    do i=1,isz-1
@@ -3871,10 +3868,10 @@ end function sort_character
 !!          write(*,*)'Error in sorting integer small to large ',i,ii(i),ii(i+1)
 !!       endif
 !!    enddo
-!!    write(*,*)'test of integer heapsort(3f) complete'
+!!    write(*,*)'test of integer sort_heap(3f) complete'
 !!
 !!    write(*,*)'checking if character values are sorted(3f)'
-!!    call heapsort(cc,indx)
+!!    call sort_heap(cc,indx)
 !!    ! use the index array to actually move the input array into a sorted order
 !!    cc=cc(indx)
 !!    do i=1,isz-1
@@ -3882,7 +3879,7 @@ end function sort_character
 !!          write(*,*)'Error in sorting character small to large ',i,cc(i),cc(i+1)
 !!       endif
 !!    enddo
-!!    write(*,*)'test of character heapsort(3f) complete'
+!!    write(*,*)'test of character sort_heap(3f) complete'
 !!
 !!    contains
 !!
@@ -3908,23 +3905,25 @@ end function sort_character
 !!       endif
 !!    end function random_string
 !!
-!!    end program demo_heapsort
+!!    end program demo_sort_heap
 !!
 !!   Results:
 !!
 !!     initializing array with        10000  random numbers
 !!     checking if real values are sorted(3f)
-!!     test of real heapsort(3f) complete
+!!     test of real sort_heap(3f) complete
 !!     checking if integer values are sorted(3f)
-!!     test of integer heapsort(3f) complete
+!!     test of integer sort_heap(3f) complete
 !!     checking if character values are sorted(3f)
-!!     test of character heapsort(3f) complete
+!!     test of character sort_heap(3f) complete
 
-subroutine heapsort_INTEGER_INT8(a,indx)
+
+
+subroutine sort_heap_INTEGER_INT8(a,indx)
 implicit none
 INTEGER(kind=INT8),intent(in)  :: a(:)
 INTEGER(kind=INT8)             :: at
-!>>>>>>>>> heapsort_template
+!>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
@@ -3932,7 +3931,7 @@ integer :: i, j, k, l, it
 ! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
 !
    n=size(a)
-   if (n .eq. 0) stop ' Nonpositive dimension in heapsort'
+   if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
    enddo
@@ -3975,14 +3974,14 @@ integer :: i, j, k, l, it
       enddo INNER
       indx(i) = it
    enddo INFINITE
-!<<<<<<<<< heapsort_template
-end subroutine heapsort_INTEGER_INT8
+!<<<<<<<<< sort_heap_template
+end subroutine sort_heap_INTEGER_INT8
 
-subroutine heapsort_INTEGER_INT16(a,indx)
+subroutine sort_heap_INTEGER_INT16(a,indx)
 implicit none
 INTEGER(kind=INT16),intent(in)  :: a(:)
 INTEGER(kind=INT16)             :: at
-!>>>>>>>>> heapsort_template
+!>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
@@ -3990,7 +3989,7 @@ integer :: i, j, k, l, it
 ! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
 !
    n=size(a)
-   if (n .eq. 0) stop ' Nonpositive dimension in heapsort'
+   if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
    enddo
@@ -4033,14 +4032,14 @@ integer :: i, j, k, l, it
       enddo INNER
       indx(i) = it
    enddo INFINITE
-!<<<<<<<<< heapsort_template
-end subroutine heapsort_INTEGER_INT16
+!<<<<<<<<< sort_heap_template
+end subroutine sort_heap_INTEGER_INT16
 
-subroutine heapsort_INTEGER_INT32(a,indx)
+subroutine sort_heap_INTEGER_INT32(a,indx)
 implicit none
 INTEGER(kind=INT32),intent(in)  :: a(:)
 INTEGER(kind=INT32)             :: at
-!>>>>>>>>> heapsort_template
+!>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
@@ -4048,7 +4047,7 @@ integer :: i, j, k, l, it
 ! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
 !
    n=size(a)
-   if (n .eq. 0) stop ' Nonpositive dimension in heapsort'
+   if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
    enddo
@@ -4091,14 +4090,14 @@ integer :: i, j, k, l, it
       enddo INNER
       indx(i) = it
    enddo INFINITE
-!<<<<<<<<< heapsort_template
-end subroutine heapsort_INTEGER_INT32
+!<<<<<<<<< sort_heap_template
+end subroutine sort_heap_INTEGER_INT32
 
-subroutine heapsort_INTEGER_INT64(a,indx)
+subroutine sort_heap_INTEGER_INT64(a,indx)
 implicit none
 INTEGER(kind=INT64),intent(in)  :: a(:)
 INTEGER(kind=INT64)             :: at
-!>>>>>>>>> heapsort_template
+!>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
@@ -4106,7 +4105,7 @@ integer :: i, j, k, l, it
 ! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
 !
    n=size(a)
-   if (n .eq. 0) stop ' Nonpositive dimension in heapsort'
+   if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
    enddo
@@ -4149,13 +4148,13 @@ integer :: i, j, k, l, it
       enddo INNER
       indx(i) = it
    enddo INFINITE
-!<<<<<<<<< heapsort_template
-end subroutine heapsort_INTEGER_INT64
-subroutine heapsort_real_real32(a,indx)
+!<<<<<<<<< sort_heap_template
+end subroutine sort_heap_INTEGER_INT64
+subroutine sort_heap_real_real32(a,indx)
 implicit none
 real(kind=real32),intent(in)  :: a(:)
 real(kind=real32)             :: at
-!>>>>>>>>> heapsort_template
+!>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
@@ -4163,7 +4162,7 @@ integer :: i, j, k, l, it
 ! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
 !
    n=size(a)
-   if (n .eq. 0) stop ' Nonpositive dimension in heapsort'
+   if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
    enddo
@@ -4206,14 +4205,14 @@ integer :: i, j, k, l, it
       enddo INNER
       indx(i) = it
    enddo INFINITE
-!<<<<<<<<< heapsort_template
-end subroutine heapsort_real_real32
+!<<<<<<<<< sort_heap_template
+end subroutine sort_heap_real_real32
 
-subroutine heapsort_real_real64(a,indx)
+subroutine sort_heap_real_real64(a,indx)
 implicit none
 real(kind=real64),intent(in)  :: a(:)
 real(kind=real64)             :: at
-!>>>>>>>>> heapsort_template
+!>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
@@ -4221,7 +4220,7 @@ integer :: i, j, k, l, it
 ! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
 !
    n=size(a)
-   if (n .eq. 0) stop ' Nonpositive dimension in heapsort'
+   if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
    enddo
@@ -4264,14 +4263,14 @@ integer :: i, j, k, l, it
       enddo INNER
       indx(i) = it
    enddo INFINITE
-!<<<<<<<<< heapsort_template
-end subroutine heapsort_real_real64
+!<<<<<<<<< sort_heap_template
+end subroutine sort_heap_real_real64
 
-subroutine heapsort_real_real128(a,indx)
+subroutine sort_heap_real_real128(a,indx)
 implicit none
 real(kind=real128),intent(in)  :: a(:)
 real(kind=real128)             :: at
-!>>>>>>>>> heapsort_template
+!>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
@@ -4279,7 +4278,7 @@ integer :: i, j, k, l, it
 ! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
 !
    n=size(a)
-   if (n .eq. 0) stop ' Nonpositive dimension in heapsort'
+   if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
    enddo
@@ -4322,13 +4321,13 @@ integer :: i, j, k, l, it
       enddo INNER
       indx(i) = it
    enddo INFINITE
-!<<<<<<<<< heapsort_template
-end subroutine heapsort_real_real128
-subroutine heapsort_character_ascii(a,indx)
+!<<<<<<<<< sort_heap_template
+end subroutine sort_heap_real_real128
+subroutine sort_heap_character_ascii(a,indx)
 implicit none
 character(kind=ascii,len=*),intent(in)  :: a(:)
 character(kind=ascii,len=len(a))        :: at
-!>>>>>>>>> heapsort_template
+!>>>>>>>>> sort_heap_template
 integer :: indx(*)
 integer :: n
 integer :: i, j, k, l, it
@@ -4336,7 +4335,7 @@ integer :: i, j, k, l, it
 ! Construct an index table that can be used to rearrange array A in ascending order using the heapsort algorithm.
 !
    n=size(a)
-   if (n .eq. 0) stop ' Nonpositive dimension in heapsort'
+   if (n .eq. 0) stop ' Nonpositive dimension in sort_heap'
    do i = 1, n
       indx(i) = i
    enddo
@@ -4379,8 +4378,8 @@ integer :: i, j, k, l, it
       enddo INNER
       indx(i) = it
    enddo INFINITE
-!<<<<<<<<< heapsort_template
-end subroutine heapsort_character_ascii
+!<<<<<<<<< sort_heap_template
+end subroutine sort_heap_character_ascii
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
