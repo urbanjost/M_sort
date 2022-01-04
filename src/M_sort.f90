@@ -111,7 +111,7 @@ contains
 !===================================================================================================================================
 !>
 !!##NAME
-!!    M_sort(3fm) - [M_sort] Fortran module containing sorting algorithms for arrays of standard scalar types
+!!    M_sort(3fm) - [M_sort::INTRO] Fortran module containing sorting algorithms for arrays of standard scalar types
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
