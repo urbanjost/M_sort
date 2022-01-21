@@ -57,7 +57,9 @@ or just list it as a dependency in your fpm.toml project file.
 
 There are demo programs extracted from the man pages in the example/ directory
 
-## USER DOCUMENTATION
+## DOCUMENTATION ![docs](docs/images/docs.gif)
+
+### USER 
  - A single page that uses javascript to combine all the HTML descriptions
    of the manpages is at
    [BOOK_M_sort](https://urbanjost.github.io/M_sort/BOOK_M_sort.html).
@@ -67,13 +69,13 @@ There are demo programs extracted from the man pages in the example/ directory
 
 in addition in the docs/ directory there is
 
- - manpages in 
+ - ![manpages](docs/images/manpages.gif)
     + [manpages.zip](https://urbanjost.github.io/M_sort/manpages.zip) 
     + [manpages.tgz](https://urbanjost.github.io/M_sort/manpages.tgz) 
 
  - [CHANGELOG](docs/CHANGELOG.md) provides a history of significant changes
 
-## DEVELOPER DOCUMENTATION
+### DEVELOPER 
 
  - [ford(1) output](https://urbanjost.github.io/M_sort/fpm-ford/index.html).
 <!--
