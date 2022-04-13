@@ -30,7 +30,7 @@ Just download the github repository, enter the src/ directory and run make(1):
      make F90=nvfortran nvfortran
 
      # optionally
-     make run  # run all the demo programs from the manpages
+     make run  # run all the demo programs from the man-pages
      make help # see other developer options
 ```
 This will compile the M_sort(3f) module and optionally build all the
@@ -61,15 +61,15 @@ There are demo programs extracted from the man pages in the example/ directory
 
 ### USER 
  - A single page that uses javascript to combine all the HTML descriptions
-   of the manpages is at
+   of the man-pages is at
    [BOOK_M_sort](https://urbanjost.github.io/M_sort/BOOK_M_sort.html).
 
  - An [index](https://urbanjost.github.io/M_sort/man3.html) to HTML versions
-   of the manpages 
+   of the man-pages 
 
 in addition in the docs/ directory there is
 
- - ![manpages](docs/images/manpages.gif)
+ - ![man-pages](docs/images/manpages.gif)
     + [manpages.zip](https://urbanjost.github.io/M_sort/manpages.zip) 
     + [manpages.tgz](https://urbanjost.github.io/M_sort/manpages.tgz) 
 
@@ -79,7 +79,7 @@ in addition in the docs/ directory there is
 
  - [ford(1) output](https://urbanjost.github.io/M_sort/fpm-ford/index.html).
 <!--
-   - [doxygen(1) output](https://urbanjost.github.io/M_uuid/doxygen_out/html/index.html).
+   - [doxygen(1) output](https://urbanjost.github.io/M_sort/doxygen_out/html/index.html).
 -->
  - [github action status](docs/STATUS.md) 
 
