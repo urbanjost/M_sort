@@ -133,7 +133,8 @@ contains
 !===================================================================================================================================
 !>
 !!##NAME
-!!    M_sort(3fm) - [M_sort::INTRO] Fortran module containing sorting algorithms for arrays of standard scalar types
+!!    M_sort(3fm) - [M_sort::INTRO] Fortran module containing sorting
+!!                  algorithms for arrays of standard scalar types
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -142,25 +143,38 @@ contains
 !!    use M_sort, only : unique
 !!
 !!##DESCRIPTION
-!!    Under development. Currently only provides a few common routines, but it is intended that
-!!    other procedures will provide a variety of sort methods, including ...
+!!    Under development. Currently only provides a few common routines,
+!!    but it is intended that other procedures will provide a variety of
+!!    sort methods, including ...
 !!
-!!    Exchange sorts      Bubble sort, Cocktail shaker sort, Odd-even sort, Comb sort, Gnome sort, Quicksort, Stooge sort, Bogosort
-!!    Selection sorts     Selection sort, Heapsort, Smoothsort, Cartesian tree sort, Tournament sort, Cycle sort
-!!    Insertion sorts     Insertion sort, Shellsort, Splaysort, Tree sort, Library sort, Patience sorting
-!!    Merge sorts         Merge sort, Cascade merge sort, Oscillating merge sort, Polyphase merge sort
-!!    Distribution sorts  American flag sort, Bead sort, Bucket sort, Burstsort, Counting sort, Pigeonhole sort, Proxmap sort,
-!!                        Radix sort, Flashsort
-!!    Concurrent sorts    Bitonic sorter, Batcher odd-even mergesort, Pairwise sorting network
+!!    Exchange sorts      Bubble sort, Cocktail shaker sort, Odd-even sort,
+!!                        Comb sort, Gnome sort, Quicksort, Stooge sort,
+!!                        Bogosort
+!!    Selection sorts     Selection sort, Heapsort, Smoothsort, Cartesian
+!!                        tree sort, Tournament sort, Cycle sort
+!!    Insertion sorts     Insertion sort, Shellsort, Splaysort, Tree sort,
+!!                        Library sort, Patience sorting
+!!    Merge sorts         Merge sort, Cascade merge sort, Oscillating merge
+!!                        sort, Polyphase merge sort
+!!    Distribution sorts  American flag sort, Bead sort, Bucket sort,
+!!                        Burstsort, Counting sort, Pigeonhole sort,
+!!                        Proxmap sort, Radix sort, Flashsort
+!!    Concurrent sorts    Bitonic sorter, Batcher odd-even mergesort,
+!!                        Pairwise sorting network
 !!    Hybrid sorts        Block merge sortTimsort, Introsort, Spreadsort
-!!    Other               Topological sorting, Pancake sorting, Spaghetti sort
+!!    Other               Topological sorting, Pancake sorting, Spaghetti
+!!                        sort
 !!
 !!    and an overview of topics concerning sorting
 !!
-!!    Theory              Computational complexity theory, Big O notation, Total orderLists, InplacementStabilityComparison sort,
-!!                        Adaptive sort, Sorting network, Integer sorting, X + Y sorting, Transdichotomous model, Quantum sort
+!!    Theory              Computational complexity theory, Big O notation,
+!!                        Total orderLists, InplacementStabilityComparison
+!!                        sort, Adaptive sort, Sorting network, Integer
+!!                        sorting, X + Y sorting, Transdichotomous model,
+!!                        Quantum sort
 !!
-!!    In the mean time those keywords can be useful in locating materials on the WWW, especially in Wikipedia.
+!!    In the mean time those keywords can be useful in locating materials
+!!    on the WWW, especially in Wikipedia.
 !!
 !!##RANKING
 !!
@@ -184,7 +198,8 @@ contains
 !!     o All elements less than the pivot must be in the first partition.
 !!     o All elements greater than the pivot must be in the second partition.
 !!     o Use recursion to sort both partitions.
-!!     o Join the first sorted partition, the pivot, and the second sorted partition.
+!!     o Join the first sorted partition, the pivot, and the second sorted
+!!       partition.
 !!
 !!    The best pivot creates partitions of equal length (or lengths differing
 !!    by 1).
@@ -192,15 +207,16 @@ contains
 !!    The worst pivot creates an empty partition (for example, if the pivot
 !!    is the first or last element of a sorted array).
 !!
-!!    The run-time of Quicksort ranges from O(n log n) with the best
-!!    pivots, to O(n2) with the worst pivots, where n is the
-!!    number of elements in the array.
+!!    The run-time of Quicksort ranges from O(n log n) with the best pivots,
+!!    to O(n2) with the worst pivots, where n is the number of elements in
+!!    the array.
 !!
-!!    Quicksort has a reputation as the fastest sort. Optimized variants of
-!!    quicksort are common features of many languages and libraries.
+!!    Quicksort has a reputation as the fastest sort. Optimized variants
+!!    of quicksort are common features of many languages and libraries.
 !>
 !!##NAME
-!!    sort_shell(3f) - [M_sort] Generic subroutine sorts the array X using Shell's Method
+!!    sort_shell(3f) - [M_sort] Generic subroutine sorts the array X using
+!!                     Shell's Method
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -275,7 +291,8 @@ contains
 !!                REAL, DOUBLEPRECISION, COMPLEX, or DOUBLEPRECISION COMPLEX.
 !!     order      sort order
 !!                o A for Ascending  (a-z for strings, small to large for values)
-!!                o D for Descending (z-a for strings, large to small for values, default)
+!!                o D for Descending (z-a for strings, large to small for
+!!                  values, default)
 !!
 !!    FOR CHARACTER DATA:
 !!
@@ -333,14 +350,18 @@ contains
 !!
 !!   Expected output
 !!
-!!       BEFORE red,green,blue,yellow,orange,black,white,brown,gray,cyan,magenta,purple
-!!       A-Z    black,blue,brown,cyan,gray,green,magenta,orange,purple,red,white,yellow
-!!       BEFORE RED,GREEN,BLUE,YELLOW,ORANGE,BLACK,WHITE,BROWN,GRAY,CYAN,MAGENTA,PURPLE
-!!       Z-A    YELLOW,WHITE,RED,PURPLE,ORANGE,MAGENTA,GREEN,GRAY,CYAN,BROWN,BLUE,BLACK
+!!       BEFORE
+!!       red,green,blue,yellow,orange,black,white,brown,gray,cyan,magenta,purple
+!!       A-Z
+!!       black,blue,brown,cyan,gray,green,magenta,orange,purple,red,white,yellow
+!!       BEFORE
+!!       RED,GREEN,BLUE,YELLOW,ORANGE,BLACK,WHITE,BROWN,GRAY,CYAN,MAGENTA,PURPLE
+!!       Z-A
+!!       YELLOW,WHITE,RED,PURPLE,ORANGE,MAGENTA,GREEN,GRAY,CYAN,BROWN,BLUE,BLACK
 !!
 !!##REFERENCE
-!!    1.  ALGORITHM 201, SHELLSORT, J. BOOTHROYD, CACM VOL. 6, NO. 8, P 445, (1963)
-!!    2.  D. L. SHELL, CACM, VOL. 2, P. 30, (1959)
+!!    1. ALGORITHM 201, SHELLSORT, J. BOOTHROYD, CACM VOL. 6, NO. 8, P 445, (1963)
+!!    2. D. L. SHELL, CACM, VOL. 2, P. 30, (1959)
 !!
 !!##AUTHOR
 !!      John S. Urban, 19970201
@@ -951,14 +972,14 @@ end subroutine sort_shell_complex_double
 !!
 !!##DESCRIPTION
 !!    A rank hybrid quicksort. The data is not moved. An integer array is
-!!    generated instead with values that are indices to the sorted order of
-!!    the data. This requires a second array the size of the input array,
-!!    which for large arrays could require a significant amount of memory. One
-!!    major advantage of this method is that any element of a user-defined type
-!!    that is a scalar intrinsic can be used to provide the sort data and
-!!    subsequently the indices can be used to access the entire user-defined
-!!    type in sorted order. This makes this seemingly simple sort procedure
-!!    usuable with the vast majority of user-defined types.
+!!    generated instead with values that are indices to the sorted order
+!!    of the data. This requires a second array the size of the input
+!!    array, which for large arrays could require a significant amount of
+!!    memory. One major advantage of this method is that any element of a
+!!    user-defined type that is a scalar intrinsic can be used to provide the
+!!    sort data and subsequently the indices can be used to access the entire
+!!    user-defined type in sorted order. This makes this seemingly simple
+!!    sort procedure usuable with the vast majority of user-defined types.
 !!
 !!##BACKGROUND
 !!    From Leonard J. Moss of SLAC:
@@ -1016,15 +1037,18 @@ end subroutine sort_shell_complex_double
 !!    write(*,*)'checking index of sort_quick_rx(3f)'
 !!    do i=1,isz-1
 !!       if(rr(ii(i)).gt.rr(ii(i+1)))then
-!!          write(*,*)'Error in sorting reals small to large ',i,rr(ii(i)),rr(ii(i+1))
+!!          write(*,*)'Error in sorting reals small to large ', &
+!!          & i,rr(ii(i)),rr(ii(i+1))
 !!       endif
 !!    enddo
 !!    write(*,*)'test of sort_quick_rx(3f) complete'
-!!    ! use the index array to actually move the input array into a sorted order
+!!    ! use the index array to actually move the input array into a sorted
+!!    ! order
 !!    rr=rr(ii)
 !!    do i=1,isz-1
 !!       if(rr(i).gt.rr(i+1))then
-!!          write(*,*)'Error in sorting reals small to large ',i,rr(i),rr(i+1)
+!!          write(*,*)'Error in sorting reals small to large ', &
+!!          & i,rr(i),rr(i+1)
 !!       endif
 !!    enddo
 !!    write(*,*)'test of sort_quick_rx(3f) complete'
@@ -3869,7 +3893,8 @@ end subroutine sort_quick_rx_complex_int64
 !==================================================================================================================================!
 !>
 !!##NAME
-!!    unique(3f) - [M_sort] return array with adjacent duplicate values removed
+!!    unique(3f) - [M_sort] return array with adjacent duplicate values
+!!    removed
 !!    (LICENSE:PD)
 !!##SYNOPSIS
 !!
@@ -3882,7 +3907,8 @@ end subroutine sort_quick_rx_complex_int64
 !!     Assuming an array is sorted, return the array with adjacent duplicate
 !!     values removed.
 !!
-!!     If the input array is sorted, this will produce a list of unique values.
+!!     If the input array is sorted, this will produce a list of unique
+!!     values.
 !!
 !!##OPTIONS
 !!    array   may be of type INTEGER, REAL, CHARACTER, COMPLEX,
@@ -4258,7 +4284,8 @@ end subroutine unique_allocatable_strings
 !===================================================================================================================================
 !>
 !!##NAME
-!!    swap(3f) - [M_sort] elemental subroutine swaps two standard type variables of like type
+!!    swap(3f) - [M_sort] elemental subroutine swaps two standard type
+!!               variables of like type
 !!    (LICENSE:PD)
 !!##SYNOPSIS
 !!
@@ -4267,11 +4294,11 @@ end subroutine unique_allocatable_strings
 !!    Generic subroutine SWAP(GEN1,GEN2) swaps two variables of like type
 !!    (real, integer, complex, character, double, logical).
 !!
-!!    On output, the values of X and Y have been interchanged.
-!!    Swapping is commonly required in procedures that sort data.
+!!    On output, the values of X and Y have been interchanged. Swapping is
+!!    commonly required in procedures that sort data.
 !!
-!!    SWAP(3f) is elemental, so it can operate on vectors and arrays as well
-!!    as scalar values.
+!!    SWAP(3f) is elemental, so it can operate on vectors and arrays as
+!!    well as scalar values.
 !!
 !!##EXAMPLE
 !!
@@ -4368,8 +4395,8 @@ end subroutine unique_allocatable_strings
 !!    > reals after swap     22.2199993       11.1099997
 !!    > doubles before swap    1234.5678900000000        9876.5432099999998
 !!    > doubles after swap     9876.5432099999998        1234.5678900000000
-!!    > complexes before swap  (  1234.00000    ,  56789.0000    ) (  9876.00000    ,  54321.0000    )
-!!    > complexes after swap   (  9876.00000    ,  54321.0000    ) (  1234.00000    ,  56789.0000    )
+!!    > complexes before swap  (1234.00000,56789.0000) (9876.00000,54321.0000)
+!!    > complexes after swap   (9876.00000,54321.0000) (1234.00000,56789.0000)
 !!    > logicals before swap  T F
 !!    > logicals after swap   F T
 !!    > strings before swap First string    The other string
@@ -4493,7 +4520,7 @@ end subroutine swap_string
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
-!-$BLOCK COMMENT -file exchange.3m_sort.man
+!-$BLOCK COMMENT --file exchange.3m_sort.man
 !-NAME
 !-   exchange(3f) - [M_sort] subroutine exchanges two variables of like type
 !-   (LICENSE:PD)
@@ -4610,8 +4637,8 @@ end subroutine swap_string
 !-   > reals after exchange     22.2199993       11.1099997
 !-   > doubles before exchange    1234.5678900000000        9876.5432099999998
 !-   > doubles after exchange     9876.5432099999998        1234.5678900000000
-!-   > complexes before exchange  (  1234.00000    ,  56789.0000    ) (  9876.00000    ,  54321.0000    )
-!-   > complexes after exchange   (  9876.00000    ,  54321.0000    ) (  1234.00000    ,  56789.0000    )
+!-   > complexes before exchange (1234.00000,56789.0000) (9876.00000,54321.0000)
+!-   > complexes after exchange  (9876.00000,54321.0000) (1234.00000,56789.0000)
 !-   > logicals before exchange  T F
 !-   > logicals after exchange   F T
 !-   > strings before exchange First string    The other string
@@ -4801,8 +4828,8 @@ end subroutine swap_string
 !!    > reals after swap_any     22.2199993       11.1099997
 !!    > doubles before swap_any    1234.5678900000000        9876.5432099999998
 !!    > doubles after swap_any     9876.5432099999998        1234.5678900000000
-!!    > complexes before swap_any  (  1234.00000    ,  56789.0000    ) (  9876.00000    ,  54321.0000    )
-!!    > complexes after swap_any   (  9876.00000    ,  54321.0000    ) (  1234.00000    ,  56789.0000    )
+!!    > complexes before swap_any  (1234.00000,56789.0000) (9876.00000,54321.0000)
+!!    > complexes after swap_any   (9876.00000,54321.0000) (1234.00000,56789.0000)
 !!    > logicals before swap_any  T F
 !!    > logicals after swap_any   F T
 !!    > strings before swap_any First string    The other string
@@ -4882,7 +4909,8 @@ end subroutine swap_any_array
 !===================================================================================================================================
 !>
 !!##NAME
-!!    tree_insert(3f) - [M_sort] sort a number of integers by building a tree, sorted in infix order
+!!    tree_insert(3f) - [M_sort] sort a number of integers by building a
+!!                      tree, sorted in infix order
 !!    (LICENSE:MIT)
 !!##SYNOPSIS
 !!
@@ -4944,7 +4972,8 @@ end subroutine tree_insert
 !===================================================================================================================================
 !>
 !!##NAME
-!!    tree_print(3f) - [M_sort] print a sorted integer tree generated by tree_insert(3f)
+!!    tree_print(3f) - [M_sort] print a sorted integer tree generated by
+!!                     tree_insert(3f)
 !!    (LICENSE:MIT)
 !!##SYNOPSIS
 !!
@@ -5126,7 +5155,8 @@ end function  anything_to_bytes_scalar
 !===================================================================================================================================
 !>
 !!##NAME
-!!    bytes_to_anything(3f) - [M_sort] convert bytes(character)len=1):: array(:)) to standard types
+!!    bytes_to_anything(3f) - [M_sort] convert bytes(character)len=1):: array(:))
+!!    to standard types
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -5296,18 +5326,19 @@ end function sort_character
 !!       integer,intent(out) :: indx(size(dat))
 !!
 !!##DESCRIPTION
-!!    An indexed sort of an array. The data is not moved. An integer array is
-!!    generated instead with values that are indices to the sorted order of
-!!    the data. This requires a second array the size of the input array,
-!!    which for large arrays could require a significant amount of memory. One
-!!    major advantage of this method is that any element of a user-defined type
-!!    that is a scalar intrinsic can be used to provide the sort data and
-!!    subsequently the indices can be used to access the entire user-defined
-!!    type in sorted order. This makes this seemingly simple sort procedure
-!!    usuable with the vast majority of user-defined types.
+!!    An indexed sort of an array. The data is not moved. An integer array
+!!    is generated instead with values that are indices to the sorted
+!!    order of the data. This requires a second array the size of the input
+!!    array, which for large arrays could require a significant amount of
+!!    memory. One major advantage of this method is that any element of a
+!!    user-defined type that is a scalar intrinsic can be used to provide the
+!!    sort data and subsequently the indices can be used to access the entire
+!!    user-defined type in sorted order. This makes this seemingly simple
+!!    sort procedure usuable with the vast majority of user-defined types.
 !!
 !!##OPTIONS
-!!     DAT    an array of type REAL, INTEGER, or CHARACTER(KIND=kind('A') to be sorted
+!!     DAT    an array of type REAL, INTEGER, or CHARACTER(KIND=kind('A')
+!!            to be sorted
 !!##RETURNS
 !!     INDX   an INTEGER array of default kind that contains the sorted
 !!            indices.
@@ -5330,7 +5361,9 @@ end function sort_character
 !!    rr=rr*450000.0
 !!    ii=rr
 !!    do i=1,size(cc)
-!!       cc(i)=random_string('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ',len(cc))
+!!       cc(i)=random_string(&
+!!       & 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ', &
+!!       & len(cc))
 !!    enddo
 !!
 !!    write(*,*)'checking if real values are sorted(3f)'
@@ -5370,7 +5403,7 @@ end function sort_character
 !!
 !!    function random_string(chars,length) result(out)
 !!
-!!    !$@(#) M_random::random_string(3f): create random string composed of provided characters of specified length
+!!    !$@(#) M_random::random_string(3f): create random string from provided chars
 !!
 !!    character(len=*),intent(in)     :: chars
 !!    integer,intent(in)              :: length
