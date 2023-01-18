@@ -1,7 +1,5 @@
-<!--
-![sort](docs/images/sort.gif)
--->
 # M_sort.f90 and associated files
+![sort](docs/images/sort.gif)
 
 ## Name
    M_sort - Fortran modules for sorting
