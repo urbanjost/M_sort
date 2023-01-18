@@ -21,7 +21,7 @@ PROG = ${PROGFILES:.f90=}
 
 CPROG = ${CPROGFILES:.c=}
 
-SRCS =  M_sort.f90 
+SRCS =  M_sort.F90 
 
 OBJS =  M_sort.o
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
@@ -33,6 +33,8 @@ CFLAGS := -O
 FC := gfortran
 FFLAGS := -O
 LDFLAGS := 
+F90 := gfortran
+F90FLAGS := -O
 # 
 # You can either ignore it, or disable the "may be used uninitialized"
 # warnings with -Wno-maybe-uninitialized or compile with optimizations
@@ -74,13 +76,14 @@ clean:
 .PHONY: help
 
 help:
-	: make    '-- build M_sort module'
+	:         '-- build M_sort module'
 	: run     '-- run manpage demo programs and test program'
 #	: test    '-- run test program (requires additional modules)'
 	: man     '-- show all manpages as text'
 	: ship    '-- rebuild archive files of manpages'
 	: clean   '-- clean directory of object files and executables'
 	: doxygen '-- run doxygen(1) if you have it'
+	: ford    '-- run ford(1) if you have it'
 	: help    '-- display this text'
 
 .PHONY: ship
@@ -96,6 +99,7 @@ ship:
 .PHONY: run
 run: $(PROG)
 	# run everything
+	echo "==>$?<=="
 	echo $? | xargs -n 1  
 #	echo $? | xargs -n 1  |xargs -iXX /bin/time XX  \</dev/null
 	echo $? | xargs -n 1  |(set +x;xargs -iXX env XX 2>&1)
@@ -110,6 +114,10 @@ run: $(PROG)
 doxygen: 
 	doxygen dox.in
 
+.PHONY: ford
+ford: 
+	cd ..;ford ford.md
+
 .PHONY: man
 man:
 	@mandb ../man 1>&2
@@ -122,6 +130,7 @@ man:
 	$(F90) $(F90FLAGS) -c $<
 
 .F90.o:
+	echo "==> $< <=="
 	$(F90) $(F90FLAGS) -c $<
 
 M_sort.o:

@@ -3,14 +3,14 @@
 -->
 # M_sort.f90 and associated files
 
-## NAME
+## Name
    M_sort - Fortran modules for sorting
 
-## DESCRIPTION
+## Description
 The `M_sort`(3fm) module is a collection of Fortran procedures that
 do simple sorts.
 
-## DOWNLOAD AND BUILD
+## Download and Build
 Just download the github repository, enter the src/ directory and run make(1):
 ```bash
      git clone https://github.com/urbanjost/M_sort.git
@@ -37,7 +37,9 @@ This will compile the M_sort(3f) module and optionally build all the
 example programs from the document pages in the example/ sub-directory
 and run the unit tests.
 
-## SUPPORTS FPM ![fpm](docs/images/fpm_logo.gif)
+## Supports fpm 
+![fpm](docs/images/fpm_logo.gif)
+
 #### (registered at the [fpm(1) registry](https://github.com/fortran-lang/fpm-registry) )
 
 Alternatively, download the github repository and build it with 
@@ -53,13 +55,15 @@ or just list it as a dependency in your fpm.toml project file.
      [dependencies]
      M_sort        = { git = "https://github.com/urbanjost/M_sort.git" ,tag="v1.0.1"}
 ```
-## DEMO PROGRAMS ![demos](docs/images/demo.gif)
+## Demo Programs 
+![demos](docs/images/demo.gif)
 
-There are demo programs extracted from the man pages in the example/ directory
+There are demo programs extracted from the man pages in the [example/](example/) directory
 
-## DOCUMENTATION ![docs](docs/images/docs.gif)
+## Documentation
+![docs](docs/images/docs.gif)
 
-### USER 
+### User 
  - A single page that uses javascript to combine all the HTML descriptions
    of the man-pages is at
    [BOOK_M_sort](https://urbanjost.github.io/M_sort/BOOK_M_sort.html).
@@ -75,7 +79,7 @@ in addition in the docs/ directory there is
 
  - [CHANGELOG](docs/CHANGELOG.md) provides a history of significant changes
 
-### DEVELOPER 
+### Developer 
 
  - [ford(1) output](https://urbanjost.github.io/M_sort/fpm-ford/index.html).
 <!--
@@ -83,7 +87,7 @@ in addition in the docs/ directory there is
 -->
  - [github action status](docs/STATUS.md) 
 
-## SEE ALSO
+## See Also
 
  * [Fortran Package Manager](https://github.com/fortran-lang/fpm)
  * [Fortran Wiki](http://fortranwiki.org)
