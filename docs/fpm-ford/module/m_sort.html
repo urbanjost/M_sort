@@ -90,7 +90,7 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title="90.4% of total for modules and submodules.">3056 statements</a>
+               title="90.7% of total for modules and submodules.">3158 statements</a>
           </li>
 
             <li id="source-file">
@@ -476,7 +476,7 @@ parameter
 <span class="nv">ii</span><span class="o">=</span><span class="nv">ii</span><span class="ss">(</span><span class="nv">indx</span><span class="ss">)</span>
 <span class="k">do</span> <span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">isz</span><span class="o">-</span><span class="mi">1</span>
    <span class="k">if</span><span class="ss">(</span><span class="nv">ii</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>.<span class="nv">gt</span>.<span class="nv">ii</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">))</span><span class="k">then</span>
-      <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error in sorting integer small to large </span><span class="s1">&#39;</span>,<span class="nv">i</span>,<span class="nv">ii</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>,<span class="nv">ii</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">)</span>
+      <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error sorting integers small to large </span><span class="s1">&#39;</span>,<span class="nv">i</span>,<span class="nv">ii</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>,<span class="nv">ii</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">)</span>
    <span class="k">endif</span>
 <span class="nv">enddo</span>
 <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">test of integer sort_heap(3f) complete</span><span class="s1">&#39;</span>
@@ -487,7 +487,7 @@ parameter
 <span class="nv">cc</span><span class="o">=</span><span class="nv">cc</span><span class="ss">(</span><span class="nv">indx</span><span class="ss">)</span>
 <span class="k">do</span> <span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">isz</span><span class="o">-</span><span class="mi">1</span>
    <span class="k">if</span><span class="ss">(</span><span class="nv">cc</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>.<span class="nv">gt</span>.<span class="nv">cc</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">))</span><span class="k">then</span>
-      <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error in sorting character small to large </span><span class="s1">&#39;</span>,<span class="nv">i</span>,<span class="nv">cc</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>,<span class="nv">cc</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">)</span>
+      <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error sorting characters small to large </span><span class="s1">&#39;</span>,<span class="nv">i</span>,<span class="nv">cc</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>,<span class="nv">cc</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">)</span>
    <span class="k">endif</span>
 <span class="nv">enddo</span>
 <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">test of character sort_heap(3f) complete</span><span class="s1">&#39;</span>
@@ -496,7 +496,7 @@ parameter
 
 <span class="nv">function</span> <span class="nv">random_string</span><span class="ss">(</span><span class="nv">chars</span>,<span class="nv">length</span><span class="ss">)</span> <span class="nb">result</span><span class="ss">(</span><span class="nv">out</span><span class="ss">)</span>
 
-<span class="o">!</span>$@<span class="ss">(</span>#<span class="ss">)</span> <span class="nv">M_random</span>::<span class="nv">random_string</span><span class="ss">(</span><span class="mi">3</span><span class="nv">f</span><span class="ss">)</span>: <span class="nv">create</span> <span class="k">random</span> <span class="nv">string</span> <span class="nv">from</span> <span class="nv">provided</span> <span class="nv">chars</span>
+<span class="o">!</span> <span class="nv">create</span> <span class="k">random</span> <span class="nv">string</span> <span class="nv">from</span> <span class="nv">provided</span> <span class="nv">chars</span>
 
 <span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">intent</span><span class="ss">(</span><span class="nv">in</span><span class="ss">)</span>     :: <span class="nv">chars</span>
 <span class="nv">integer</span>,<span class="nv">intent</span><span class="ss">(</span><span class="nv">in</span><span class="ss">)</span>              :: <span class="nv">length</span>
@@ -889,6 +889,75 @@ parameter
             <td>
               <span class="anchor" ></span>
               real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dat</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              integer
+            </td>
+<td></td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>indx</strong>(*)</td>
+            <td>
+                <blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>sort_heap_template</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private  subroutine sort_heap_real_real128(dat, indx)  
+
+    </h3>
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real(kind=real128),
             </td>
 <td>intent(in)</td>
               <td></td>            <td>
@@ -2649,39 +2718,39 @@ subroutine sort_shell(complexs,order,type)
 
 <h2 id="example">EXAMPLE</h2>
 <p>Sample program</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_sort_shell</span>
-<span class="nv">use</span> <span class="nv">M_sort</span>, <span class="nv">only</span> : <span class="nv">sort_shell</span>
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=</span>:<span class="ss">)</span>,<span class="nv">allocatable</span> :: <span class="nv">array</span><span class="ss">(</span>:<span class="ss">)</span>
+<div class="codehilite"><pre><span></span><code>  <span class="nv">program</span> <span class="nv">demo_sort_shell</span>
+  <span class="nv">use</span> <span class="nv">M_sort</span>, <span class="nv">only</span> : <span class="nv">sort_shell</span>
+  <span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=</span>:<span class="ss">)</span>,<span class="nv">allocatable</span> :: <span class="nv">array</span><span class="ss">(</span>:<span class="ss">)</span>
 
-<span class="nv">array</span><span class="o">=</span> [ <span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=</span><span class="mi">20</span><span class="ss">)</span> ::                               <span class="o">&amp;</span>
-<span class="o">&amp;</span> <span class="s1">&#39;</span><span class="s">red</span><span class="s1">&#39;</span>,    <span class="s1">&#39;</span><span class="s">green</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">blue</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">yellow</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">orange</span><span class="s1">&#39;</span>,   <span class="s1">&#39;</span><span class="s">black</span><span class="s1">&#39;</span>, <span class="o">&amp;</span>
-<span class="o">&amp;</span> <span class="s1">&#39;</span><span class="s">white</span><span class="s1">&#39;</span>,  <span class="s1">&#39;</span><span class="s">brown</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">gray</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">cyan</span><span class="s1">&#39;</span>,   <span class="s1">&#39;</span><span class="s">magenta</span><span class="s1">&#39;</span>,           <span class="o">&amp;</span>
-<span class="o">&amp;</span> <span class="s1">&#39;</span><span class="s">purple</span><span class="s1">&#39;</span>]
+  <span class="nv">array</span> <span class="o">=</span> [                                                     <span class="o">&amp;</span>
+  <span class="o">&amp;</span> <span class="s1">&#39;</span><span class="s">red    </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">green  </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">blue   </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">yellow </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">orange </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">black  </span><span class="s1">&#39;</span>,<span class="o">&amp;</span>
+  <span class="o">&amp;</span> <span class="s1">&#39;</span><span class="s">white  </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">brown  </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">gray   </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">cyan   </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">magenta</span><span class="s1">&#39;</span>,          <span class="o">&amp;</span>
+  <span class="o">&amp;</span> <span class="s1">&#39;</span><span class="s">purple </span><span class="s1">&#39;</span>]
 
-<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(a,*(a:,&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">BEFORE </span><span class="s1">&#39;</span>,<span class="ss">(</span><span class="nv">trim</span><span class="ss">(</span><span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="ss">))</span>,<span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">array</span><span class="ss">))</span>
-<span class="k">call</span> <span class="nl">sort_shell</span><span class="ss">(</span><span class="nv">array</span>,<span class="nv">order</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">a</span><span class="s1">&#39;</span><span class="ss">)</span>
-<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(a,*(a:,&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">A-Z    </span><span class="s1">&#39;</span>,<span class="ss">(</span><span class="nv">trim</span><span class="ss">(</span><span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="ss">))</span>,<span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">array</span><span class="ss">))</span>
-<span class="k">do</span> <span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">array</span><span class="ss">)</span><span class="o">-</span><span class="mi">1</span>
-   <span class="k">if</span><span class="ss">(</span><span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>.<span class="nv">gt</span>.<span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">))</span><span class="k">then</span>
-      <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error in sorting strings a-z</span><span class="s1">&#39;</span>
-   <span class="k">endif</span>
-<span class="nv">enddo</span>
+  <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(a,*(a:,&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">BEFORE </span><span class="s1">&#39;</span>,<span class="ss">(</span><span class="nv">trim</span><span class="ss">(</span><span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="ss">))</span>,<span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">array</span><span class="ss">))</span>
+  <span class="k">call</span> <span class="nl">sort_shell</span><span class="ss">(</span><span class="nv">array</span>,<span class="nv">order</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">a</span><span class="s1">&#39;</span><span class="ss">)</span>
+  <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(a,*(a:,&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">A-Z    </span><span class="s1">&#39;</span>,<span class="ss">(</span><span class="nv">trim</span><span class="ss">(</span><span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="ss">))</span>,<span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">array</span><span class="ss">))</span>
+  <span class="k">do</span> <span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">array</span><span class="ss">)</span><span class="o">-</span><span class="mi">1</span>
+     <span class="k">if</span><span class="ss">(</span><span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>.<span class="nv">gt</span>.<span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">))</span><span class="k">then</span>
+        <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error in sorting strings a-z</span><span class="s1">&#39;</span>
+     <span class="k">endif</span>
+  <span class="nv">enddo</span>
 
-<span class="nv">array</span><span class="o">=</span> [ <span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=</span><span class="mi">20</span><span class="ss">)</span> ::                               <span class="o">&amp;</span>
-<span class="o">&amp;</span> <span class="s1">&#39;</span><span class="s">RED</span><span class="s1">&#39;</span>,    <span class="s1">&#39;</span><span class="s">GREEN</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">BLUE</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">YELLOW</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">ORANGE</span><span class="s1">&#39;</span>,   <span class="s1">&#39;</span><span class="s">BLACK</span><span class="s1">&#39;</span>, <span class="o">&amp;</span>
-<span class="o">&amp;</span> <span class="s1">&#39;</span><span class="s">WHITE</span><span class="s1">&#39;</span>,  <span class="s1">&#39;</span><span class="s">BROWN</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">GRAY</span><span class="s1">&#39;</span>, <span class="s1">&#39;</span><span class="s">CYAN</span><span class="s1">&#39;</span>,   <span class="s1">&#39;</span><span class="s">MAGENTA</span><span class="s1">&#39;</span>,           <span class="o">&amp;</span>
-<span class="o">&amp;</span> <span class="s1">&#39;</span><span class="s">PURPLE</span><span class="s1">&#39;</span>]
+  <span class="nv">array</span><span class="o">=</span> [                                                      <span class="o">&amp;</span>
+  <span class="o">&amp;</span> <span class="s1">&#39;</span><span class="s">RED    </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">GREEN  </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">BLUE   </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">YELLOW </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">ORANGE </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">BLACK  </span><span class="s1">&#39;</span>,<span class="o">&amp;</span>
+  <span class="o">&amp;</span> <span class="s1">&#39;</span><span class="s">WHITE  </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">BROWN  </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">GRAY   </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">CYAN   </span><span class="s1">&#39;</span>,<span class="s1">&#39;</span><span class="s">MAGENTA</span><span class="s1">&#39;</span>,          <span class="o">&amp;</span>
+  <span class="o">&amp;</span> <span class="s1">&#39;</span><span class="s">PURPLE </span><span class="s1">&#39;</span>]
 
-<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(a,*(a:,&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">BEFORE </span><span class="s1">&#39;</span>,<span class="ss">(</span><span class="nv">trim</span><span class="ss">(</span><span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="ss">))</span>,<span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">array</span><span class="ss">))</span>
-<span class="k">call</span> <span class="nl">sort_shell</span><span class="ss">(</span><span class="nv">array</span>,<span class="nv">order</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">d</span><span class="s1">&#39;</span><span class="ss">)</span>
-<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(a,*(a:,&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Z-A    </span><span class="s1">&#39;</span>,<span class="ss">(</span><span class="nv">trim</span><span class="ss">(</span><span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="ss">))</span>,<span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">array</span><span class="ss">))</span>
-<span class="k">do</span> <span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">array</span><span class="ss">)</span><span class="o">-</span><span class="mi">1</span>
-   <span class="k">if</span><span class="ss">(</span><span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>.<span class="nv">lt</span>.<span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">))</span><span class="k">then</span>
-      <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error in sorting strings z-a</span><span class="s1">&#39;</span>
-   <span class="k">endif</span>
-<span class="nv">enddo</span>
+  <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(a,*(a:,&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">BEFORE </span><span class="s1">&#39;</span>,<span class="ss">(</span><span class="nv">trim</span><span class="ss">(</span><span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="ss">))</span>,<span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">array</span><span class="ss">))</span>
+  <span class="k">call</span> <span class="nl">sort_shell</span><span class="ss">(</span><span class="nv">array</span>,<span class="nv">order</span><span class="o">=</span><span class="s1">&#39;</span><span class="s">d</span><span class="s1">&#39;</span><span class="ss">)</span>
+  <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(a,*(a:,&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Z-A    </span><span class="s1">&#39;</span>,<span class="ss">(</span><span class="nv">trim</span><span class="ss">(</span><span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="ss">))</span>,<span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">array</span><span class="ss">))</span>
+  <span class="k">do</span> <span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">array</span><span class="ss">)</span><span class="o">-</span><span class="mi">1</span>
+     <span class="k">if</span><span class="ss">(</span><span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>.<span class="nv">lt</span>.<span class="nv">array</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">))</span><span class="k">then</span>
+        <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error in sorting strings z-a</span><span class="s1">&#39;</span>
+     <span class="k">endif</span>
+  <span class="nv">enddo</span>
 
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_sort_shell</span>
+  <span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_sort_shell</span>
 </code></pre></div>
 
 <p>Expected output</p>
@@ -2696,8 +2765,8 @@ subroutine sort_shell(complexs,order,type)
 </code></pre></div>
 
 <h2 id="reference">REFERENCE</h2>
-<div class="codehilite"><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">ALGORITHM</span><span class="w"> </span><span class="mf">201</span><span class="p">,</span><span class="w"> </span><span class="n">SHELLSORT</span><span class="p">,</span><span class="w"> </span><span class="n">J</span><span class="mf">.</span><span class="w"> </span><span class="n">BOOTHROYD</span><span class="p">,</span><span class="w"> </span><span class="n">CACM</span><span class="w"> </span><span class="n">VOL</span><span class="mf">.</span><span class="w"> </span><span class="mf">6</span><span class="p">,</span><span class="w"> </span><span class="n">NO</span><span class="mf">.</span><span class="w"> </span><span class="mf">8</span><span class="p">,</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="mf">445</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="mf">1963</span><span class="p">)</span><span class="w"></span>
-<span class="mf">2.</span><span class="w"> </span><span class="n">D</span><span class="mf">.</span><span class="w"> </span><span class="n">L</span><span class="mf">.</span><span class="w"> </span><span class="n">SHELL</span><span class="p">,</span><span class="w"> </span><span class="n">CACM</span><span class="p">,</span><span class="w"> </span><span class="n">VOL</span><span class="mf">.</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="n">P</span><span class="mf">.</span><span class="w"> </span><span class="mf">30</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="mf">1959</span><span class="p">)</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="mf">1.</span><span class="w"> </span><span class="n">Algorithm</span><span class="w"> </span><span class="mf">201</span><span class="p">,</span><span class="w"> </span><span class="n">SHELLSORT</span><span class="p">,</span><span class="w"> </span><span class="n">J</span><span class="mf">.</span><span class="w"> </span><span class="n">Boothroyd</span><span class="p">,</span><span class="w"> </span><span class="n">CACM</span><span class="w"> </span><span class="n">Vol</span><span class="mf">.</span><span class="w"> </span><span class="mf">6</span><span class="p">,</span><span class="w"> </span><span class="n">No</span><span class="mf">.</span><span class="w"> </span><span class="mf">8</span><span class="p">,</span><span class="w"> </span><span class="n">P</span><span class="w"> </span><span class="mf">445</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="mf">1963</span><span class="p">)</span><span class="w"></span>
+<span class="mf">2.</span><span class="w"> </span><span class="n">D</span><span class="mf">.</span><span class="w"> </span><span class="n">L</span><span class="mf">.</span><span class="w"> </span><span class="n">Shell</span><span class="p">,</span><span class="w"> </span><span class="n">CACM</span><span class="p">,</span><span class="w"> </span><span class="n">Vol</span><span class="mf">.</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="n">P</span><span class="mf">.</span><span class="w"> </span><span class="mf">30</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="mf">1959</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 <h2 id="author">AUTHOR</h2>
@@ -3234,27 +3303,27 @@ subroutine sort_shell(complexs,order,type)
 <span class="nv">integer</span>             :: <span class="nv">one2</span><span class="ss">(</span><span class="mi">3</span>,<span class="mi">3</span><span class="ss">)</span><span class="o">=</span><span class="mi">1</span>
 <span class="nv">integer</span>             :: <span class="nv">two2</span><span class="ss">(</span><span class="mi">3</span>,<span class="mi">3</span><span class="ss">)</span><span class="o">=</span><span class="mi">2</span>
 
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">integers before swap </span><span class="s2">&quot;</span>, <span class="nv">iarray</span>
+   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">integers before swap</span><span class="s2">&quot;</span>, <span class="nv">iarray</span>
    <span class="k">call</span> <span class="nl">swap</span> <span class="ss">(</span><span class="nv">iarray</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>, <span class="nv">iarray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">))</span>
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">integers after swap  </span><span class="s2">&quot;</span>, <span class="nv">iarray</span>
+   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">integers after swap </span><span class="s2">&quot;</span>, <span class="nv">iarray</span>
 
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">reals before swap </span><span class="s2">&quot;</span>, <span class="nv">rarray</span>
+   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">reals before swap</span><span class="s2">&quot;</span>, <span class="nv">rarray</span>
    <span class="k">call</span> <span class="nl">swap</span> <span class="ss">(</span><span class="nv">rarray</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>, <span class="nv">rarray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">))</span>
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">reals after swap  </span><span class="s2">&quot;</span>, <span class="nv">rarray</span>
+   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">reals after swap </span><span class="s2">&quot;</span>, <span class="nv">rarray</span>
 
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">doubles before swap </span><span class="s2">&quot;</span>, <span class="nv">darray</span>
+   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">doubles before swap</span><span class="s2">&quot;</span>, <span class="nv">darray</span>
    <span class="k">call</span> <span class="nl">swap</span> <span class="ss">(</span><span class="nv">darray</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>, <span class="nv">darray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">))</span>
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">doubles after swap  </span><span class="s2">&quot;</span>, <span class="nv">darray</span>
+   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">doubles after swap </span><span class="s2">&quot;</span>, <span class="nv">darray</span>
 
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">complexes before swap </span><span class="s2">&quot;</span>, <span class="nv">carray</span>
+   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">complexes before swap</span><span class="s2">&quot;</span>, <span class="nv">carray</span>
    <span class="k">call</span> <span class="nl">swap</span> <span class="ss">(</span><span class="nv">carray</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>, <span class="nv">carray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">))</span>
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">complexes after swap  </span><span class="s2">&quot;</span>, <span class="nv">carray</span>
+   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">complexes after swap </span><span class="s2">&quot;</span>, <span class="nv">carray</span>
 
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">logicals before swap </span><span class="s2">&quot;</span>, <span class="nv">larray</span>
+   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">logicals before swap</span><span class="s2">&quot;</span>, <span class="nv">larray</span>
    <span class="k">call</span> <span class="nl">swap</span> <span class="ss">(</span><span class="nv">larray</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>, <span class="nv">larray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">))</span>
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">logicals after swap  </span><span class="s2">&quot;</span>, <span class="nv">larray</span>
+   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">logicals after swap </span><span class="s2">&quot;</span>, <span class="nv">larray</span>
 
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">strings before swap </span><span class="s2">&quot;</span>, <span class="nv">string</span>
+   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">strings before swap</span><span class="s2">&quot;</span>, <span class="nv">string</span>
    <span class="k">call</span> <span class="nl">swap</span> <span class="ss">(</span><span class="nv">string</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>, <span class="nv">string</span><span class="ss">(</span><span class="mi">2</span><span class="ss">))</span>
    <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">strings after swap </span><span class="s2">&quot;</span>, <span class="nv">string</span>
 
@@ -3304,18 +3373,18 @@ subroutine sort_shell(complexs,order,type)
 </code></pre></div>
 
 <p>Expected Results:</p>
-<div class="codehilite"><pre><span></span><code>&gt; integers before swap           10          20
-&gt; integers after swap            20          10
-&gt; reals before swap    11.1099997       22.2199993
-&gt; reals after swap     22.2199993       11.1099997
-&gt; doubles before swap    1234.5678900000000        9876.5432099999998
-&gt; doubles after swap     9876.5432099999998        1234.5678900000000
-&gt; complexes before swap  (1234.00000,56789.0000) (9876.00000,54321.0000)
-&gt; complexes after swap   (9876.00000,54321.0000) (1234.00000,56789.0000)
-&gt; logicals before swap  T F
-&gt; logicals after swap   F T
+<div class="codehilite"><pre><span></span><code>&gt; integers before swap          10          20
+&gt; integers after swap           20          10
+&gt; reals before swap   11.1099997       22.2199993
+&gt; reals after swap    22.2199993       11.1099997
+&gt; doubles before swap   1234.5678900000000        9876.5432099999998
+&gt; doubles after swap    9876.5432099999998        1234.5678900000000
+&gt; complexes before swap (1234.00000,56789.0000) (9876.00000,54321.0000)
+&gt; complexes after swap  (9876.00000,54321.0000) (1234.00000,56789.0000)
+&gt; logicals before swap T F
+&gt; logicals after swap  F T
 &gt; strings before swap First string    The other string
-&gt; strings after swap The other stringFirst string
+&gt; strings after swap  The other stringFirst string
 &gt; swap two vectors
 &gt;one before: 1,1,1,1,1,1,1,1,1,1,1,1,1
 &gt;two before: 2,2,2,2,2,2,2,2,2,2,2,2,2
@@ -3802,10 +3871,10 @@ subroutine sort_shell(complexs,order,type)
 &gt; integers after swap_any            20          10
 &gt; reals before swap_any    11.1099997       22.2199993
 &gt; reals after swap_any     22.2199993       11.1099997
-&gt; doubles before swap_any    1234.5678900000000        9876.5432099999998
-&gt; doubles after swap_any     9876.5432099999998        1234.5678900000000
-&gt; complexes before swap_any  (1234.00000,56789.0000) (9876.00000,54321.0000)
-&gt; complexes after swap_any   (9876.00000,54321.0000) (1234.00000,56789.0000)
+&gt; doubles before swap_any   1234.5678900000000        9876.5432099999998
+&gt; doubles after swap_any    9876.5432099999998        1234.5678900000000
+&gt; complexes before swap_any (1234.00000,56789.0000) (9876.00000,54321.0000)
+&gt; complexes after swap_any  (9876.00000,54321.0000) (1234.00000,56789.0000)
 &gt; logicals before swap_any  T F
 &gt; logicals after swap_any   F T
 &gt; strings before swap_any First string    The other string
@@ -4463,6 +4532,112 @@ ivals   returned number of unique values packed into beginning of array
           </li>
           <li class="list-group-item">
                 <h3>
+    private  subroutine unique_real_real128(array, ivals)  
+
+    </h3>
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real(kind=real128),
+            </td>
+<td>intent(inout)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>array</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              integer,
+            </td>
+<td>intent(out)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>ivals</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private  subroutine unique_complex_real128(array, ivals)  
+
+    </h3>
+  
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              complex(kind=real128),
+            </td>
+<td>intent(inout)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>array</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              integer,
+            </td>
+<td>intent(out)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>ivals</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          </li>
+          <li class="list-group-item">
+                <h3>
     private  subroutine unique_strings_allocatable_len(array, ivals)  
 
     </h3>
@@ -4727,7 +4902,7 @@ ivals   returned number of unique values packed into beginning of array
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2023-01-17 20:36            </p>
+ on 2023-01-18 17:36            </p>
         </div>
       </div>
       <br>

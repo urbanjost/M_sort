@@ -5120,9 +5120,11 @@ implicit none
 
 class(*),intent(in)          :: anything(:)
 character(len=1),allocatable :: chars(:)
-   allocate(chars(1)) ! ifort bug; requires MOLD to be allocated; documentation for TRANSFER does not mention this
-   select type(anything)
 
+   if(allocated(chars))deallocate(chars)
+   allocate(chars( storage_size(anything)/8 * size(anything) ) )
+
+   select type(anything)
     type is (character(len=*));     chars=transfer(anything,chars)
     type is (complex);              chars=transfer(anything,chars)
     type is (complex(kind=dp));     chars=transfer(anything,chars)
@@ -5137,9 +5139,10 @@ character(len=1),allocatable :: chars(:)
 #endif
     type is (logical);              chars=transfer(anything,chars)
     class default
-      stop 'crud. anything_to_bytes_arr(1) does not know about this type'
-
+      chars=transfer(anything,chars) ! should work for everything, does not with some compilers
+      !stop 'crud. anything_to_bytes_arr(1) does not know about this type'
    end select
+
 end function anything_to_bytes_arr
 !-----------------------------------------------------------------------------------------------------------------------------------
 function  anything_to_bytes_scalar(anything) result(chars)
@@ -5149,9 +5152,10 @@ implicit none
 
 class(*),intent(in)          :: anything
 character(len=1),allocatable :: chars(:)
-   allocate(chars(1))
-   select type(anything)
+   if(allocated(chars))deallocate(chars)
+   allocate(chars( storage_size(anything)/8) )
 
+   select type(anything)
     type is (character(len=*));     chars=transfer(anything,chars)
     type is (complex);              chars=transfer(anything,chars)
     type is (complex(kind=dp));     chars=transfer(anything,chars)
@@ -5166,9 +5170,10 @@ character(len=1),allocatable :: chars(:)
 #endif
     type is (logical);              chars=transfer(anything,chars)
     class default
-      stop 'crud. anything_to_bytes_scalar(1) does not know about this type'
-
+      chars=transfer(anything,chars) ! should work for everything, does not with some compilers
+      !stop 'crud. anything_to_bytes_scalar(1) does not know about this type'
    end select
+
 end function  anything_to_bytes_scalar
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
@@ -5208,7 +5213,33 @@ end function  anything_to_bytes_scalar
 !!
 !!   Sample program
 !!
-!!   Expected output
+!!      program demo_bytes_to_anything
+!!      use M_sort, only : bytes_to_anything
+!!      use M_sort, only : anything_to_bytes
+!!      implicit none
+!!      character(len=1),allocatable :: chars(:)
+!!      integer :: ints(10)
+!!      integer :: i
+!!         chars=anything_to_bytes([(i*i,i=1,size(ints))])
+!!         write(*,'(/,4(1x,z2.2))')chars
+!!         call bytes_to_anything(chars,ints)
+!!         write(*,'(*(g0,1x))')ints
+!!      end program demo_bytes_to_anything
+!!
+!! Results:
+!!
+!!     >
+!!     >  01 00 00 00
+!!     >  04 00 00 00
+!!     >  09 00 00 00
+!!     >  10 00 00 00
+!!     >  19 00 00 00
+!!     >  24 00 00 00
+!!     >  31 00 00 00
+!!     >  40 00 00 00
+!!     >  51 00 00 00
+!!     >  64 00 00 00
+!!     >  1     4     9    16    25    36    49    64    81   100
 !!
 !!##AUTHOR
 !!    John S. Urban

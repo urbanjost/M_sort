@@ -90,7 +90,7 @@
           <li id="statements"><i class="fa fa-list-ol"></i>
             <a data-toggle="tooltip"
                data-placement="bottom" data-html="true"
-               title="<p> 3.7% of total for procedures.</p>Including implementation: 362 statements, 268.1% of total for procedures.">5 statements</a>
+               title="<p> 4.4% of total for procedures.</p>Including implementation: 414 statements, 302.2% of total for procedures.">6 statements</a>
           </li>
 
             <li id="source-file">
@@ -150,6 +150,7 @@
             <a class="list-group-item" href="../interface/sort_heap.html#moduleprocedure-sort_heap_integer_int64">sort_heap_integer_int64</a>
             <a class="list-group-item" href="../interface/sort_heap.html#moduleprocedure-sort_heap_real_real32">sort_heap_real_real32</a>
             <a class="list-group-item" href="../interface/sort_heap.html#moduleprocedure-sort_heap_real_real64">sort_heap_real_real64</a>
+            <a class="list-group-item" href="../interface/sort_heap.html#moduleprocedure-sort_heap_real_real128">sort_heap_real_real128</a>
             <a class="list-group-item" href="../interface/sort_heap.html#moduleprocedure-sort_heap_character_ascii">sort_heap_character_ascii</a>
         </div>
       </div>
@@ -199,6 +200,7 @@
             <a class="list-group-item" href="../interface/sort_heap.html#moduleprocedure-sort_heap_integer_int64">sort_heap_integer_int64</a>
             <a class="list-group-item" href="../interface/sort_heap.html#moduleprocedure-sort_heap_real_real32">sort_heap_real_real32</a>
             <a class="list-group-item" href="../interface/sort_heap.html#moduleprocedure-sort_heap_real_real64">sort_heap_real_real64</a>
+            <a class="list-group-item" href="../interface/sort_heap.html#moduleprocedure-sort_heap_real_real128">sort_heap_real_real128</a>
             <a class="list-group-item" href="../interface/sort_heap.html#moduleprocedure-sort_heap_character_ascii">sort_heap_character_ascii</a>
         </div>
       </div>
@@ -288,7 +290,7 @@
 <span class="nv">ii</span><span class="o">=</span><span class="nv">ii</span><span class="ss">(</span><span class="nv">indx</span><span class="ss">)</span>
 <span class="k">do</span> <span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">isz</span><span class="o">-</span><span class="mi">1</span>
    <span class="k">if</span><span class="ss">(</span><span class="nv">ii</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>.<span class="nv">gt</span>.<span class="nv">ii</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">))</span><span class="k">then</span>
-      <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error in sorting integer small to large </span><span class="s1">&#39;</span>,<span class="nv">i</span>,<span class="nv">ii</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>,<span class="nv">ii</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">)</span>
+      <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error sorting integers small to large </span><span class="s1">&#39;</span>,<span class="nv">i</span>,<span class="nv">ii</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>,<span class="nv">ii</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">)</span>
    <span class="k">endif</span>
 <span class="nv">enddo</span>
 <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">test of integer sort_heap(3f) complete</span><span class="s1">&#39;</span>
@@ -299,7 +301,7 @@
 <span class="nv">cc</span><span class="o">=</span><span class="nv">cc</span><span class="ss">(</span><span class="nv">indx</span><span class="ss">)</span>
 <span class="k">do</span> <span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">isz</span><span class="o">-</span><span class="mi">1</span>
    <span class="k">if</span><span class="ss">(</span><span class="nv">cc</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>.<span class="nv">gt</span>.<span class="nv">cc</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">))</span><span class="k">then</span>
-      <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error in sorting character small to large </span><span class="s1">&#39;</span>,<span class="nv">i</span>,<span class="nv">cc</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>,<span class="nv">cc</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">)</span>
+      <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error sorting characters small to large </span><span class="s1">&#39;</span>,<span class="nv">i</span>,<span class="nv">cc</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>,<span class="nv">cc</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">)</span>
    <span class="k">endif</span>
 <span class="nv">enddo</span>
 <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">test of character sort_heap(3f) complete</span><span class="s1">&#39;</span>
@@ -308,7 +310,7 @@
 
 <span class="nv">function</span> <span class="nv">random_string</span><span class="ss">(</span><span class="nv">chars</span>,<span class="nv">length</span><span class="ss">)</span> <span class="nb">result</span><span class="ss">(</span><span class="nv">out</span><span class="ss">)</span>
 
-<span class="o">!</span>$@<span class="ss">(</span>#<span class="ss">)</span> <span class="nv">M_random</span>::<span class="nv">random_string</span><span class="ss">(</span><span class="mi">3</span><span class="nv">f</span><span class="ss">)</span>: <span class="nv">create</span> <span class="k">random</span> <span class="nv">string</span> <span class="nv">from</span> <span class="nv">provided</span> <span class="nv">chars</span>
+<span class="o">!</span> <span class="nv">create</span> <span class="k">random</span> <span class="nv">string</span> <span class="nv">from</span> <span class="nv">provided</span> <span class="nv">chars</span>
 
 <span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=*</span><span class="ss">)</span>,<span class="nv">intent</span><span class="ss">(</span><span class="nv">in</span><span class="ss">)</span>     :: <span class="nv">chars</span>
 <span class="nv">integer</span>,<span class="nv">intent</span><span class="ss">(</span><span class="nv">in</span><span class="ss">)</span>              :: <span class="nv">length</span>
@@ -756,6 +758,76 @@
   </div>
 
       <div class="panel panel-default">
+    <div class="panel-heading codesum"><span class="anchor" id="proc-sort_heap_real_real128"></span><h3>private  subroutine sort_heap_real_real128(dat, indx)  
+</h3></div>
+    <div class="panel-body">
+        
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th>Type</th>
+<th>Intent</th><th>Optional</th>        <th>Attributes</th>
+        <th></th>
+        <th>Name</th>
+        <th></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              real(kind=real128),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dat</strong>(:)</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" ></span>
+              integer
+            </td>
+<td></td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>indx</strong>(*)</td>
+            <td>
+                <blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>sort_heap_template</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+    </div>
+  </div>
+
+      <div class="panel panel-default">
     <div class="panel-heading codesum"><span class="anchor" id="proc-sort_heap_character_ascii"></span><h3>private  subroutine sort_heap_character_ascii(dat, indx)  
 </h3></div>
     <div class="panel-body">
@@ -841,7 +913,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2023-01-17 20:36            </p>
+ on 2023-01-18 17:36            </p>
         </div>
       </div>
       <br>

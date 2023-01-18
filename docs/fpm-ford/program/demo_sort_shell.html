@@ -125,7 +125,7 @@
       </div>
       <div id="vars-0" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../program/demo_sort_shell.html#variable-array~14">array</a>
+            <a class="list-group-item" href="../program/demo_sort_shell.html#variable-array~16">array</a>
         </div>
       </div>
     </div>
@@ -186,7 +186,7 @@
       </div>
       <div id="vars-1" class="panel-collapse collapse">
         <div class="list-group">
-            <a class="list-group-item" href="../program/demo_sort_shell.html#variable-array~14">array</a>
+            <a class="list-group-item" href="../program/demo_sort_shell.html#variable-array~16">array</a>
         </div>
       </div>
     </div>
@@ -234,7 +234,7 @@
     <tbody>
         <tr>
             <td>
-              <span class="anchor" id="variable-array~14"></span>
+              <span class="anchor" id="variable-array~16"></span>
               character(len=:),
             </td>
             <td>
@@ -263,39 +263,39 @@
     
     <section>
     <h2 id="src">Source Code</h2>
-    <div class="highlight"><pre><span></span><span class="w">     </span><span class="k">program </span><span class="n">demo_sort_shell</span><span class="w"></span>
-<span class="w">     </span><span class="k">use </span><span class="n">M_sort</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">sort_shell</span><span class="w"></span>
-<span class="w">     </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="k">array</span><span class="p">(:)</span><span class="w"></span>
+    <div class="highlight"><pre><span></span><span class="w">       </span><span class="k">program </span><span class="n">demo_sort_shell</span><span class="w"></span>
+<span class="w">       </span><span class="k">use </span><span class="n">M_sort</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">sort_shell</span><span class="w"></span>
+<span class="w">       </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="k">array</span><span class="p">(:)</span><span class="w"></span>
 
-<span class="w">     </span><span class="k">array</span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w">                               </span><span class="p">&amp;</span><span class="w"></span>
-<span class="w">     </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="w">    </span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="w">   </span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span><span class="w"></span>
-<span class="w">     </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;white&#39;</span><span class="p">,</span><span class="w">  </span><span class="s1">&#39;brown&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cyan&#39;</span><span class="p">,</span><span class="w">   </span><span class="s1">&#39;magenta&#39;</span><span class="p">,</span><span class="w">           </span><span class="p">&amp;</span><span class="w"></span>
-<span class="w">     </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;purple&#39;</span><span class="p">]</span><span class="w"></span>
+<span class="w">       </span><span class="k">array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w">                                                     </span><span class="p">&amp;</span><span class="w"></span>
+<span class="w">       </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;red    &#39;</span><span class="p">,</span><span class="s1">&#39;green  &#39;</span><span class="p">,</span><span class="s1">&#39;blue   &#39;</span><span class="p">,</span><span class="s1">&#39;yellow &#39;</span><span class="p">,</span><span class="s1">&#39;orange &#39;</span><span class="p">,</span><span class="s1">&#39;black  &#39;</span><span class="p">,&amp;</span><span class="w"></span>
+<span class="w">       </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;white  &#39;</span><span class="p">,</span><span class="s1">&#39;brown  &#39;</span><span class="p">,</span><span class="s1">&#39;gray   &#39;</span><span class="p">,</span><span class="s1">&#39;cyan   &#39;</span><span class="p">,</span><span class="s1">&#39;magenta&#39;</span><span class="p">,</span><span class="w">          </span><span class="p">&amp;</span><span class="w"></span>
+<span class="w">       </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;purple &#39;</span><span class="p">]</span><span class="w"></span>
 
-<span class="w">     </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;(a,*(a:,&quot;,&quot;))&#39;</span><span class="p">)</span><span class="s1">&#39;BEFORE &#39;</span><span class="p">,(</span><span class="nb">trim</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="k">array</span><span class="p">))</span><span class="w"></span>
-<span class="w">     </span><span class="k">call </span><span class="n">sort_shell</span><span class="p">(</span><span class="k">array</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="w">     </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;(a,*(a:,&quot;,&quot;))&#39;</span><span class="p">)</span><span class="s1">&#39;A-Z    &#39;</span><span class="p">,(</span><span class="nb">trim</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="k">array</span><span class="p">))</span><span class="w"></span>
-<span class="w">     </span><span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="k">array</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">gt</span><span class="p">.</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="k">then</span>
-<span class="k">           write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;Error in sorting strings a-z&#39;</span><span class="w"></span>
-<span class="w">        </span><span class="k">endif</span>
-<span class="k">     enddo</span>
+<span class="w">       </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;(a,*(a:,&quot;,&quot;))&#39;</span><span class="p">)</span><span class="s1">&#39;BEFORE &#39;</span><span class="p">,(</span><span class="nb">trim</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="k">array</span><span class="p">))</span><span class="w"></span>
+<span class="w">       </span><span class="k">call </span><span class="n">sort_shell</span><span class="p">(</span><span class="k">array</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="w">       </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;(a,*(a:,&quot;,&quot;))&#39;</span><span class="p">)</span><span class="s1">&#39;A-Z    &#39;</span><span class="p">,(</span><span class="nb">trim</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="k">array</span><span class="p">))</span><span class="w"></span>
+<span class="w">       </span><span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="k">array</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="w"></span>
+<span class="w">          </span><span class="k">if</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">gt</span><span class="p">.</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="k">then</span>
+<span class="k">             write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;Error in sorting strings a-z&#39;</span><span class="w"></span>
+<span class="w">          </span><span class="k">endif</span>
+<span class="k">       enddo</span>
 
-<span class="k">     array</span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w">                               </span><span class="p">&amp;</span><span class="w"></span>
-<span class="w">     </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;RED&#39;</span><span class="p">,</span><span class="w">    </span><span class="s1">&#39;GREEN&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;BLUE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;YELLOW&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ORANGE&#39;</span><span class="p">,</span><span class="w">   </span><span class="s1">&#39;BLACK&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span><span class="w"></span>
-<span class="w">     </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;WHITE&#39;</span><span class="p">,</span><span class="w">  </span><span class="s1">&#39;BROWN&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;GRAY&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;CYAN&#39;</span><span class="p">,</span><span class="w">   </span><span class="s1">&#39;MAGENTA&#39;</span><span class="p">,</span><span class="w">           </span><span class="p">&amp;</span><span class="w"></span>
-<span class="w">     </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;PURPLE&#39;</span><span class="p">]</span><span class="w"></span>
+<span class="k">       array</span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w">                                                      </span><span class="p">&amp;</span><span class="w"></span>
+<span class="w">       </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;RED    &#39;</span><span class="p">,</span><span class="s1">&#39;GREEN  &#39;</span><span class="p">,</span><span class="s1">&#39;BLUE   &#39;</span><span class="p">,</span><span class="s1">&#39;YELLOW &#39;</span><span class="p">,</span><span class="s1">&#39;ORANGE &#39;</span><span class="p">,</span><span class="s1">&#39;BLACK  &#39;</span><span class="p">,&amp;</span><span class="w"></span>
+<span class="w">       </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;WHITE  &#39;</span><span class="p">,</span><span class="s1">&#39;BROWN  &#39;</span><span class="p">,</span><span class="s1">&#39;GRAY   &#39;</span><span class="p">,</span><span class="s1">&#39;CYAN   &#39;</span><span class="p">,</span><span class="s1">&#39;MAGENTA&#39;</span><span class="p">,</span><span class="w">          </span><span class="p">&amp;</span><span class="w"></span>
+<span class="w">       </span><span class="p">&amp;</span><span class="w"> </span><span class="s1">&#39;PURPLE &#39;</span><span class="p">]</span><span class="w"></span>
 
-<span class="w">     </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;(a,*(a:,&quot;,&quot;))&#39;</span><span class="p">)</span><span class="s1">&#39;BEFORE &#39;</span><span class="p">,(</span><span class="nb">trim</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="k">array</span><span class="p">))</span><span class="w"></span>
-<span class="w">     </span><span class="k">call </span><span class="n">sort_shell</span><span class="p">(</span><span class="k">array</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span><span class="w"></span>
-<span class="w">     </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;(a,*(a:,&quot;,&quot;))&#39;</span><span class="p">)</span><span class="s1">&#39;Z-A    &#39;</span><span class="p">,(</span><span class="nb">trim</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="k">array</span><span class="p">))</span><span class="w"></span>
-<span class="w">     </span><span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="k">array</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="w"></span>
-<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">lt</span><span class="p">.</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="k">then</span>
-<span class="k">           write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;Error in sorting strings z-a&#39;</span><span class="w"></span>
-<span class="w">        </span><span class="k">endif</span>
-<span class="k">     enddo</span>
+<span class="w">       </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;(a,*(a:,&quot;,&quot;))&#39;</span><span class="p">)</span><span class="s1">&#39;BEFORE &#39;</span><span class="p">,(</span><span class="nb">trim</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="k">array</span><span class="p">))</span><span class="w"></span>
+<span class="w">       </span><span class="k">call </span><span class="n">sort_shell</span><span class="p">(</span><span class="k">array</span><span class="p">,</span><span class="n">order</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="w">       </span><span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="s1">&#39;(a,*(a:,&quot;,&quot;))&#39;</span><span class="p">)</span><span class="s1">&#39;Z-A    &#39;</span><span class="p">,(</span><span class="nb">trim</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="p">)),</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="k">array</span><span class="p">))</span><span class="w"></span>
+<span class="w">       </span><span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="k">array</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="w"></span>
+<span class="w">          </span><span class="k">if</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">lt</span><span class="p">.</span><span class="k">array</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="k">then</span>
+<span class="k">             write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;Error in sorting strings z-a&#39;</span><span class="w"></span>
+<span class="w">          </span><span class="k">endif</span>
+<span class="k">       enddo</span>
 
-<span class="k">     end program </span><span class="n">demo_sort_shell</span><span class="w"></span>
+<span class="k">       end program </span><span class="n">demo_sort_shell</span><span class="w"></span>
 </pre></div>
 
     </section>
@@ -315,7 +315,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2023-01-17 20:36            </p>
+ on 2023-01-18 17:36            </p>
         </div>
       </div>
       <br>

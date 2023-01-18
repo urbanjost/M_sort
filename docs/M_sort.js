@@ -1,6 +1,5 @@
 function loadthem(){
 append("M_sort.3m_sort.html");
-append("bytes_to_anything.3m_sort.html");
 append("sort_heap.3m_sort.html");
 append("sort_quick_rx.3m_sort.html");
 append("sort_shell.3m_sort.html");
