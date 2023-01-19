@@ -65,7 +65,7 @@ module procedure  unique_complex_real32,          unique_complex_real64
 #ifdef HAS_REAL128
 module procedure  unique_real_real128,            unique_complex_real128
 #endif
-module procedure  unique_strings_allocatable_len  !!,unique_strings
+module procedure  unique_strings_allocatable_len  !x!,unique_strings
 end interface
 !===================================================================================================================================
 
@@ -5077,9 +5077,7 @@ end subroutine tree_print
 !!   Sample program
 !!
 !!    program demo_anything_to_bytes
-!!    use M_sort,      only : anything_to_bytes
-!!    !!use, intrinsic :: iso_fortran_env, only : int8, int16, int32, int64
-!!    !!use, intrinsic :: iso_fortran_env, only : real32, real64, real128
+!!    use M_sort, only : anything_to_bytes
 !!    implicit none
 !!    integer :: i
 !!       write(*,'(/,4(1x,z2.2))')anything_to_bytes([(i*i,i=1,10)])
