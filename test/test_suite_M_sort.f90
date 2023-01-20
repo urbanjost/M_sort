@@ -279,11 +279,13 @@ end subroutine test_sort_quick_rx_r
 subroutine test_unique
 integer,allocatable :: ints(:)
 integer             :: ic
+character(len=:),allocatable :: string
 call unit_check_start('unique', '-library libGPF') ! start tests
 
 ints=[1,1,2,3,4,4,10,20,20,30]
 call unique(ints,ic)
-call unit_check('unique',ic.eq.7.and.all(ints(:ic).eq.[1,2,3,4,10,20,30]),'expect 7 ic=',ic, 'ints=',str(ints(:ic)))
+string=str(ints(:ic))
+call unit_check('unique',ic.eq.7.and.all(ints(:ic).eq.[1,2,3,4,10,20,30]),'expect 7 ic=',ic, 'ints=',string)
 
 ints=[integer ::]
 call unique(ints,ic)
