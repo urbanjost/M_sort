@@ -122,7 +122,7 @@ ford:
 man:
 	@mandb ../man 1>&2
 	@env MANPATH=../man MANWIDTH=256 man -k .|col -b
-	@env MANPATH=../man MANWIDTH=80  man --regex '.*'|col -b
+	@env MANPATH=../man MANWIDTH=80  man -Tutf8 --regex '.*'|col -b
 
 .SUFFIXES: $(SUFFIXES) .f90 .F90
 
