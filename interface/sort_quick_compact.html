@@ -233,8 +233,8 @@
 </h3></div>
     <div class="panel-body">
         <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">sort_quick_compact</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sort</span><span class="o">]</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">quicksort</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="k">array</span><span class="w"></span>
-<span class="p">(</span><span class="nl">LICENSE</span><span class="p">:</span><span class="w"> </span><span class="n">CC</span><span class="o">-</span><span class="k">BY</span><span class="p">)</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code>sort_quick_compact(3f) - [M_sort:sort:quicksort] recursive quicksort of an array
+(LICENSE: CC BY 3.0)
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -249,7 +249,8 @@
 </code></pre></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<div class="codehilite"><pre><span></span><code>A quicksort using a very compact recursive algorithm.
+<div class="codehilite"><pre><span></span><code>A quicksort from high to low (descending order) using a
+compact recursive algorithm.
 </code></pre></div>
 
 <h2 id="background">BACKGROUND</h2>
@@ -259,27 +260,27 @@
      John S. Urban 20210110</p>
 <h2 id="example">EXAMPLE</h2>
 <p>Sample usage:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_sort_quick_compact</span>
-<span class="nv">use</span> <span class="nv">M_sort</span>, <span class="nv">only</span> : <span class="nv">sort_quick_compact</span>
-<span class="nv">implicit</span> <span class="nv">none</span>
-<span class="nv">integer</span>,<span class="nv">parameter</span>            :: <span class="nv">isz</span><span class="o">=</span><span class="mi">10000</span>
-<span class="nv">real</span>                         :: <span class="nv">rr</span><span class="ss">(</span><span class="nv">isz</span><span class="ss">)</span>
-<span class="nv">integer</span>                      :: <span class="nv">ii</span><span class="ss">(</span><span class="nv">isz</span><span class="ss">)</span>
-<span class="nv">integer</span>                      :: <span class="nv">i</span>
-<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">initializing array with </span><span class="s1">&#39;</span>,<span class="nv">isz</span>,<span class="s1">&#39;</span><span class="s"> random numbers</span><span class="s1">&#39;</span>
-<span class="k">CALL</span> <span class="nl">RANDOM_NUMBER</span><span class="ss">(</span><span class="nv">RR</span><span class="ss">)</span>
-<span class="nv">rr</span><span class="o">=</span><span class="nv">rr</span><span class="o">*</span><span class="mi">450000</span>.<span class="mi">0</span>
-<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">sort real array with sort_quick_compact(3f)</span><span class="s1">&#39;</span>
-<span class="nv">rr</span><span class="o">=</span><span class="nv">sort_quick_compact</span><span class="ss">(</span><span class="nv">rr</span><span class="ss">)</span>
-<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">checking </span><span class="s1">&#39;</span>
-<span class="k">do</span> <span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">isz</span><span class="o">-</span><span class="mi">1</span>
-   <span class="k">if</span><span class="ss">(</span><span class="nv">rr</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>.<span class="nv">gt</span>.<span class="nv">rr</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">))</span><span class="k">then</span>
-      <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error in sorting reals small to large </span><span class="s1">&#39;</span>, <span class="o">&amp;</span>
-      <span class="o">&amp;</span> <span class="nv">i</span>,<span class="nv">rr</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>,<span class="nv">rr</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">)</span>
-   <span class="k">endif</span>
-<span class="nv">enddo</span>
-<span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">test of sort_quick_compact(3f) complete</span><span class="s1">&#39;</span>
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_sort_quick_compact</span>
+<div class="codehilite"><pre><span></span><code>  <span class="nv">program</span> <span class="nv">demo_sort_quick_compact</span>
+  <span class="nv">use</span> <span class="nv">M_sort</span>, <span class="nv">only</span> : <span class="nv">sort_quick_compact</span>
+  <span class="nv">implicit</span> <span class="nv">none</span>
+  <span class="nv">integer</span>,<span class="nv">parameter</span>            :: <span class="nv">isz</span><span class="o">=</span><span class="mi">10000</span>
+  <span class="nv">real</span>                         :: <span class="nv">rrin</span><span class="ss">(</span><span class="nv">isz</span><span class="ss">)</span>
+  <span class="nv">real</span>                         :: <span class="nv">rrout</span><span class="ss">(</span><span class="nv">isz</span><span class="ss">)</span>
+  <span class="nv">integer</span>                      :: <span class="nv">i</span>
+  <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">initializing array with </span><span class="s1">&#39;</span>,<span class="nv">isz</span>,<span class="s1">&#39;</span><span class="s"> random numbers</span><span class="s1">&#39;</span>
+  <span class="k">CALL</span> <span class="nl">RANDOM_NUMBER</span><span class="ss">(</span><span class="nv">rrin</span><span class="ss">)</span>
+  <span class="nv">rrin</span><span class="o">=</span><span class="nv">rrin</span><span class="o">*</span><span class="mi">450000</span>.<span class="mi">0</span>
+  <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">sort real array with sort_quick_compact(3f)</span><span class="s1">&#39;</span>
+  <span class="nv">rrout</span><span class="o">=</span><span class="nv">sort_quick_compact</span><span class="ss">(</span><span class="nv">rrin</span><span class="ss">)</span>
+  <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">checking </span><span class="s1">&#39;</span>
+  <span class="k">do</span> <span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">isz</span><span class="o">-</span><span class="mi">1</span>
+     <span class="k">if</span><span class="ss">(</span><span class="nv">rrout</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>.<span class="nv">lt</span>.<span class="nv">rrout</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">))</span><span class="k">then</span>
+        <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">Error in sorting reals</span><span class="s1">&#39;</span>, <span class="o">&amp;</span>
+        <span class="o">&amp;</span> <span class="nv">i</span>,<span class="nv">rrout</span><span class="ss">(</span><span class="nv">i</span><span class="ss">)</span>,<span class="nv">rrout</span><span class="ss">(</span><span class="nv">i</span><span class="o">+</span><span class="mi">1</span><span class="ss">)</span>
+     <span class="k">endif</span>
+  <span class="nv">enddo</span>
+  <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">test of sort_quick_compact(3f) complete</span><span class="s1">&#39;</span>
+  <span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_sort_quick_compact</span>
 </code></pre></div>
 
 <p>Results:</p>
@@ -742,7 +743,7 @@
             <p class="text-right">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2023-03-20 01:41              </p>
+ on 2023-03-20 04:05              </p>
           </div>
         </div>
         <br>
