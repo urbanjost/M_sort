@@ -16,6 +16,7 @@ integer,parameter :: cs=kind(0.0)
 integer,parameter :: lk=kind(.false.)
 private                             ! the PRIVATE declaration requires use of a module, and changes the default from PUBLIC
 public sort_quick_rx
+public sort_quick_compact
 public sort_shell
 public sort_indexed
 public sort_heap
@@ -56,20 +57,34 @@ interface sort_heap
 end interface
 !===================================================================================================================================
 
-! ident_3="@(#) M_sort unique(3f) assuming an array is sorted return array with duplicate values removed"
+! ident_3="@(#) M_sort sort_quick_compact(3f) Generic subroutine sorts the array X using a compact recursive quicksort"
+
+interface sort_quick_compact
+   module procedure sort_quick_compact_integer_int8,   sort_quick_compact_integer_int16,  &
+          &         sort_quick_compact_integer_int32,  sort_quick_compact_integer_int64
+   module procedure sort_quick_compact_real_real32,    sort_quick_compact_real_real64
+#ifdef HAS_REAL128
+   module procedure sort_quick_compact_real_real128
+#endif
+   module procedure sort_quick_compact_complex_real32, sort_quick_compact_complex_real64
+   module procedure sort_quick_compact_character_ascii
+end interface
+!===================================================================================================================================
+
+! ident_4="@(#) M_sort unique(3f) assuming an array is sorted return array with duplicate values removed"
 
 interface unique
 module procedure  unique_integer_int8,            unique_integer_int16,   unique_integer_int32,   unique_integer_int64
 module procedure  unique_real_real32,             unique_real_real64
 module procedure  unique_complex_real32,          unique_complex_real64
+module procedure  unique_strings_allocatable_len  !x!,unique_strings
 #ifdef HAS_REAL128
 module procedure  unique_real_real128,            unique_complex_real128
 #endif
-module procedure  unique_strings_allocatable_len  !x!,unique_strings
 end interface
 !===================================================================================================================================
 
-! ident_4="@(#) M_sort swap(3f) swap two variables of like type (real integer complex character double)"
+! ident_5="@(#) M_sort swap(3f) swap two variables of like type (real integer complex character double)"
 
 interface swap
    module procedure swap_int8
@@ -150,7 +165,8 @@ contains
 !!
 !!##SYNOPSIS
 !!
-!!    use M_sort, only : sort_shell, sort_quick_rx, sort_heap
+!!    use M_sort, only : sort_quick_rx, sort_quick_compact
+!!    use M_sort, only : sort_shell, sort_heap
 !!    use M_sort, only : unique
 !!
 !!##DESCRIPTION
@@ -226,7 +242,7 @@ contains
 !!    of quicksort are common features of many languages and libraries.
 !>
 !!##NAME
-!!    sort_shell(3f) - [M_sort] Generic subroutine sorts the array X using
+!!    sort_shell(3f) - [M_sort:sort:shellsort] Generic subroutine sorts the array X using
 !!                     Shell's Method
 !!    (LICENSE:PD)
 !!
@@ -381,14 +397,14 @@ contains
 !===================================================================================================================================
 subroutine sort_shell_strings(lines,order,startcol,endcol)
 
-! ident_5="@(#) M_sort sort_shell_strings(3fp) sort strings over specified field using shell sort"
+! ident_6="@(#) M_sort sort_shell_strings(3fp) sort strings over specified field using shell sort"
 
-character(len=*),  intent(inout)          :: lines(:)       ! input/output array
-character(len=*),  intent(in)             :: order          ! sort order 'ascending'|'descending'
-integer,           optional,intent(in)    :: startcol,  endcol  ! beginning and ending column to sort by
-   integer                                :: imax, is, ie
+character(len=*),  intent(inout)       :: lines(:)            ! input/output array
+character(len=*),  intent(in)          :: order               ! sort order 'ascending'|'descending'
+integer,           optional,intent(in) :: startcol,  endcol   ! beginning and ending column to sort by
+   integer                             :: imax, is, ie
 
-   imax=len(lines(1))                                       ! maximum length of the character variables being sorted
+   imax=len(lines(1))                                         ! maximum length of the character variables being sorted
    if(imax.eq.0)return
 
    if(present(startcol))then                                  ! if the optional parameter is present, use it
@@ -404,16 +420,16 @@ integer,           optional,intent(in)    :: startcol,  endcol  ! beginning and 
    endif
 
    if(order(1:1).eq.'a' .or. order(1:1).eq.'A') then
-      call sort_shell_strings_lh(lines,is,ie)               ! sort a-z
+      call sort_shell_strings_lh(lines,is,ie)                 ! sort a-z
    else
-      call sort_shell_strings_hl(lines,is,ie)               ! sort z-a
+      call sort_shell_strings_hl(lines,is,ie)                 ! sort z-a
    endif
 !-----------------------------------------------------------------------------------------------------------------------------------
 contains
 !-----------------------------------------------------------------------------------------------------------------------------------
 subroutine sort_shell_strings_lh(lines,startcol,endcol)
 
-! ident_6="@(#) M_sort sort_shell_strings_lh(3fp) sort strings(a-z) over specified field using shell sort"
+! ident_7="@(#) M_sort sort_shell_strings_lh(3fp) sort strings(a-z) over specified field using shell sort"
 
 !  1989 John S. Urban
 !  lle to sort 'a-z', lge to sort 'z-a'
@@ -463,7 +479,7 @@ end subroutine sort_shell_strings_lh
 !-----------------------------------------------------------------------------------------------------------------------------------
 subroutine sort_shell_strings_hl(lines,startcol,endcol)
 
-! ident_7="@(#) M_sort sort_shell_strings_hl(3fp) sort strings(z-a) over specified field using shell sort"
+! ident_8="@(#) M_sort sort_shell_strings_hl(3fp) sort strings(z-a) over specified field using shell sort"
 
 !  1989 John S. Urban
 !  lle to sort 'a-z', lge to sort 'z-a'
@@ -517,7 +533,7 @@ end subroutine sort_shell_strings
 !===================================================================================================================================
 subroutine sort_shell_integers(iarray,order)
 
-! ident_8="@(#) M_sort sort_shell_integers(3fp) sort integer array using Shell sort and specified order"
+! ident_9="@(#) M_sort sort_shell_integers(3fp) sort integer array using Shell sort and specified order"
 
 integer,intent(inout)          :: iarray(:)   ! iarray input/output array
 character(len=*),  intent(in)  ::  order      ! sort order 'ascending'|'descending'
@@ -533,7 +549,7 @@ contains
 subroutine sort_shell_integers_hl(iarray)
 ! Copyright (C) 1989,1996 John S. Urban;  all rights reserved
 
-! ident_9="@(#) M_sort sort_shell_integers_hl(3fp) sort integer array using Shell sort (high to low)"
+! ident_10="@(#) M_sort sort_shell_integers_hl(3fp) sort integer array using Shell sort (high to low)"
 
 integer,intent(inout)      :: iarray(:)  ! input/output array
 integer                    :: n          ! number of elements in input array (iarray)
@@ -563,7 +579,7 @@ end subroutine sort_shell_integers_hl
 subroutine sort_shell_integers_lh(iarray) ! sort an integer array in ascending order (low to high)
 ! Copyright (C) 1989,1996 John S. Urban;  all rights reserved
 
-! ident_10="@(#) M_sort sort_shell_integers_lh(3fp) sort integer array using Shell sort low to high"
+! ident_11="@(#) M_sort sort_shell_integers_lh(3fp) sort integer array using Shell sort low to high"
 
 integer,intent(inout) :: iarray(:)      ! iarray input/output array
    integer            :: n
@@ -597,7 +613,7 @@ end subroutine sort_shell_integers
 !===================================================================================================================================
 subroutine sort_shell_reals(array,order)
 
-! ident_11="@(#) M_sort sort_shell_reals(3fp) sort real array using Shell sort and specified order"
+! ident_12="@(#) M_sort sort_shell_reals(3fp) sort real array using Shell sort and specified order"
 
 real,intent(inout)          :: array(:)   ! input/output array
 character(len=*),intent(in) :: order      ! sort order 'ascending'|'descending'
@@ -612,7 +628,7 @@ contains
 !-----------------------------------------------------------------------------------------------------------------------------------
 subroutine sort_shell_reals_hl(array)
 
-! ident_12="@(#) M_sort sort_shell_reals_hl(3fp) sort real array using Shell sort (high to low)"
+! ident_13="@(#) M_sort sort_shell_reals_hl(3fp) sort real array using Shell sort (high to low)"
 
 !  Copyright(C) 1989 John S. Urban
 real,intent(inout) :: array(:) ! input array
@@ -642,7 +658,7 @@ end subroutine sort_shell_reals_hl
 !-----------------------------------------------------------------------------------------------------------------------------------
 subroutine sort_shell_reals_lh(array)
 
-! ident_13="@(#) M_sort sort_shell_reals_lh(3fp) sort real array using Shell sort (low to high)"
+! ident_14="@(#) M_sort sort_shell_reals_lh(3fp) sort real array using Shell sort (low to high)"
 
 !  Copyright(C) 1989 John S. Urban
 real,intent(inout) :: array(:)            ! input array
@@ -676,7 +692,7 @@ end subroutine sort_shell_reals
 !===================================================================================================================================
 subroutine sort_shell_doubles(array,order)
 
-! ident_14="@(#) M_sort sort_shell_doubles(3fp) sort double array using Shell sort and specified order"
+! ident_15="@(#) M_sort sort_shell_doubles(3fp) sort double array using Shell sort and specified order"
 
 doubleprecision,intent(inout)          :: array(:)   ! input/output array
 character(len=*),intent(in) :: order      ! sort order 'ascending'|'descending'
@@ -691,7 +707,7 @@ contains
 !-----------------------------------------------------------------------------------------------------------------------------------
 subroutine sort_shell_doubles_hl(array)
 
-! ident_15="@(#) M_sort sort_shell_doubles_hl(3fp) sort double array using Shell sort (high to low)"
+! ident_16="@(#) M_sort sort_shell_doubles_hl(3fp) sort double array using Shell sort (high to low)"
 
 !  Copyright(C) 1989 John S. Urban
 doubleprecision,intent(inout) :: array(:) ! input array
@@ -721,7 +737,7 @@ end subroutine sort_shell_doubles_hl
 !-----------------------------------------------------------------------------------------------------------------------------------
 subroutine sort_shell_doubles_lh(array)
 
-! ident_16="@(#) M_sort sort_shell_doubles_lh(3fp) sort double array using Shell sort (low to high)"
+! ident_17="@(#) M_sort sort_shell_doubles_lh(3fp) sort double array using Shell sort (low to high)"
 
 !  Copyright(C) 1989 John S. Urban
 doubleprecision,intent(inout) :: array(:)            ! input array
@@ -755,7 +771,7 @@ end subroutine sort_shell_doubles
 !===================================================================================================================================
 subroutine sort_shell_complex(array,order,type)  ! select ascending or descending order
 
-! ident_17="@(#) M_sort sort_shell_complex(3fp) sort complex array using Shell sort"
+! ident_18="@(#) M_sort sort_shell_complex(3fp) sort complex array using Shell sort"
 
 complex,intent(inout)         :: array(:)   ! array  input/output array
 character(len=*),  intent(in) :: order      ! sort order 'ascending'|'descending'
@@ -771,14 +787,13 @@ contains
 !-----------------------------------------------------------------------------------------------------------------------------------
 subroutine sort_shell_complex_hl(array,type)
 
-! ident_18="@(#) M_sort sort_shell_reals_hl(3fp) sort complex array using Shell sort (high to low)"
+! ident_19="@(#) M_sort sort_shell_reals_hl(3fp) sort complex array using Shell sort (high to low)"
 
 !     Copyright(C) 1989 John S. Urban   all rights reserved
    complex,intent(inout)       :: array(:)            ! input array
    character(len=*),intent(in) :: type
    integer                     :: n                   ! number of elements in input array (array)
    integer                     :: igap, k, i, j, jg
-   doubleprecision             :: csize1, csize2
    n=size(array)
    igap=n
    if(len(type).le.0)return
@@ -797,9 +812,7 @@ subroutine sort_shell_complex_hl(array,type)
             case('i','I')
                if(aimag(array(j)).ge.aimag(array(jg)))exit INSIDE
             case default
-               csize1=sqrt(dble(array(j))**2+aimag(array(j))**2)
-               csize2=sqrt(dble(array(jg))**2+aimag(array(jg))**2)
-               if(csize1.ge.csize2)exit INSIDE
+               if(abs(array(j)).ge.abs(array(jg)))exit INSIDE
             end select
             call swap(array(j),array(jg))
             j=j-igap
@@ -813,7 +826,7 @@ end subroutine sort_shell_complex_hl
 !-----------------------------------------------------------------------------------------------------------------------------------
 subroutine sort_shell_complex_lh(array,type)
 
-! ident_19="@(#) M_sort sort_shell_reals_lh(3fp) sort complex array using Shell sort (low to high)"
+! ident_20="@(#) M_sort sort_shell_reals_lh(3fp) sort complex array using Shell sort (low to high)"
 
 !  Copyright(C) 1989 John S. Urban   all rights reserved
 !  array    input array
@@ -822,7 +835,6 @@ subroutine sort_shell_complex_lh(array,type)
    character(len=*),  intent(in) :: type       ! sort by real part, imaginary part, or sqrt(R**2+I**2) ('R','I','S')
    integer                       :: n
    integer                       :: igap, k, i, j, jg
-   doubleprecision               :: csize1, csize2
    n=size(array)
    igap=n
    INFINITE: do
@@ -840,9 +852,7 @@ subroutine sort_shell_complex_lh(array,type)
             case('i','I')
                if(aimag(array(j)).le.aimag(array(jg)))exit INSIDE
             case default
-               csize1=sqrt(dble(array(j))**2+aimag(array(j))**2)
-               csize2=sqrt(dble(array(jg))**2+aimag(array(jg))**2)
-               if(csize1.le.csize2)exit INSIDE
+               if(abs(array(j)).le.abs(array(jg)))exit INSIDE
             end select
             call swap(array(j),array(jg))
             j=j-igap
@@ -860,7 +870,7 @@ end subroutine sort_shell_complex
 !===================================================================================================================================
 subroutine sort_shell_complex_double(array,order,type)  ! select ascending or descending order
 
-! ident_20="@(#) M_sort sort_shell_complex_double(3fp) sort double complex array using Shell sort"
+! ident_21="@(#) M_sort sort_shell_complex_double(3fp) sort double complex array using Shell sort"
 
 complex(kind=cd),intent(inout)         :: array(:)   ! array  input/output array
 character(len=*),  intent(in) :: order      ! sort order 'ascending'|'descending'
@@ -876,14 +886,13 @@ contains
 !-----------------------------------------------------------------------------------------------------------------------------------
 subroutine sort_shell_complex_double_hl(array,type)
 
-! ident_21="@(#) M_sort sort_shell_reals_hl(3fp) sort double complex array using Shell sort (high to low)"
+! ident_22="@(#) M_sort sort_shell_reals_hl(3fp) sort double complex array using Shell sort (high to low)"
 
 !     Copyright(C) 1989 John S. Urban   all rights reserved
    complex(kind=cd),intent(inout)       :: array(:)            ! input array
    character(len=*),intent(in) :: type
    integer                     :: n                   ! number of elements in input array (array)
    integer                     :: igap, k, i, j, jg
-   doubleprecision             :: cdsize1, cdsize2
    n=size(array)
    igap=n
    if(len(type).le.0)return
@@ -902,9 +911,7 @@ subroutine sort_shell_complex_double_hl(array,type)
             case('i','I')
                if(aimag(array(j)).ge.aimag(array(jg)))exit INSIDE
             case default
-               cdsize1=sqrt(dble(array(j))**2+aimag(array(j))**2)
-               cdsize2=sqrt(dble(array(jg))**2+aimag(array(jg))**2)
-               if(cdsize1.ge.cdsize2)exit INSIDE
+               if(abs(array(j)).ge.abs(array(jg)))exit INSIDE
             end select
             call swap(array(j),array(jg))
             j=j-igap
@@ -918,7 +925,7 @@ end subroutine sort_shell_complex_double_hl
 !-----------------------------------------------------------------------------------------------------------------------------------
 subroutine sort_shell_complex_double_lh(array,type)
 
-! ident_22="@(#) M_sort sort_shell_reals_lh(3fp) sort double complex array using Shell sort (low to high)"
+! ident_23="@(#) M_sort sort_shell_reals_lh(3fp) sort double complex array using Shell sort (low to high)"
 
 !  Copyright(C) 1989 John S. Urban   all rights reserved
 !  array    input array
@@ -927,7 +934,6 @@ subroutine sort_shell_complex_double_lh(array,type)
    character(len=*),  intent(in) :: type       ! sort by real part, imaginary part, or sqrt(R**2+I**2) ('R','I','S')
    integer                       :: n
    integer                       :: igap, k, i, j, jg
-   doubleprecision               :: cdsize1, cdsize2
    n=size(array)
    igap=n
    INFINITE: do
@@ -945,9 +951,7 @@ subroutine sort_shell_complex_double_lh(array,type)
             case('i','I')
                if(aimag(array(j)).le.aimag(array(jg)))exit INSIDE
             case default
-               cdsize1=sqrt(dble(array(j))**2+aimag(array(j))**2)
-               cdsize2=sqrt(dble(array(jg))**2+aimag(array(jg))**2)
-               if(cdsize1.le.cdsize2)exit INSIDE
+               if(abs(array(j)).le.abs(array(jg)))exit INSIDE
             end select
             call swap(array(j),array(jg))
             j=j-igap
@@ -965,7 +969,7 @@ end subroutine sort_shell_complex_double
 !===================================================================================================================================
 !>
 !!##NAME
-!!    sort_quick_rx(3f) - [M_sort] indexed hybrid quicksort of an array
+!!    sort_quick_rx(3f) - [M_sort:sort:quicksort] indexed hybrid quicksort of an array
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
@@ -1080,7 +1084,7 @@ end subroutine sort_shell_complex_double
 
 subroutine sort_quick_rx_integer_int8_int32(data,indx)
 
-! ident_23="@(#) M_sort sort_quick_rx_integer_int8_int32(3f) indexed hybrid quicksort of a integer(kind=int8) array"
+! ident_24="@(#) M_sort sort_quick_rx_integer_int8_int32(3f) indexed hybrid quicksort of a integer(kind=int8) array"
 
 integer(kind=int8),intent(in)   :: data(:)
 integer(kind=int32),intent(out)                :: indx(:)
@@ -1254,7 +1258,7 @@ enddo
 end subroutine sort_quick_rx_integer_int8_int32
 subroutine sort_quick_rx_integer_int16_int32(data,indx)
 
-! ident_24="@(#) M_sort sort_quick_rx_integer_int16_int32(3f) indexed hybrid quicksort of a integer(kind=int16) array"
+! ident_25="@(#) M_sort sort_quick_rx_integer_int16_int32(3f) indexed hybrid quicksort of a integer(kind=int16) array"
 
 integer(kind=int16),intent(in)   :: data(:)
 integer(kind=int32),intent(out)                :: indx(:)
@@ -1428,7 +1432,7 @@ enddo
 end subroutine sort_quick_rx_integer_int16_int32
 subroutine sort_quick_rx_integer_int32_int32(data,indx)
 
-! ident_25="@(#) M_sort sort_quick_rx_integer_int32_int32(3f) indexed hybrid quicksort of a integer(kind=int32) array"
+! ident_26="@(#) M_sort sort_quick_rx_integer_int32_int32(3f) indexed hybrid quicksort of a integer(kind=int32) array"
 
 integer(kind=int32),intent(in)   :: data(:)
 integer(kind=int32),intent(out)                :: indx(:)
@@ -1602,7 +1606,7 @@ enddo
 end subroutine sort_quick_rx_integer_int32_int32
 subroutine sort_quick_rx_integer_int64_int32(data,indx)
 
-! ident_26="@(#) M_sort sort_quick_rx_integer_int64_int32(3f) indexed hybrid quicksort of a integer(kind=int64) array"
+! ident_27="@(#) M_sort sort_quick_rx_integer_int64_int32(3f) indexed hybrid quicksort of a integer(kind=int64) array"
 
 integer(kind=int64),intent(in)   :: data(:)
 integer(kind=int32),intent(out)                :: indx(:)
@@ -1776,7 +1780,7 @@ enddo
 end subroutine sort_quick_rx_integer_int64_int32
 subroutine sort_quick_rx_real_real32_int32(data,indx)
 
-! ident_27="@(#) M_sort sort_quick_rx_real_real32_int32(3f) indexed hybrid quicksort of a real(kind=real32) array"
+! ident_28="@(#) M_sort sort_quick_rx_real_real32_int32(3f) indexed hybrid quicksort of a real(kind=real32) array"
 
 real(kind=real32),intent(in)   :: data(:)
 integer(kind=int32),intent(out)                :: indx(:)
@@ -1950,7 +1954,7 @@ enddo
 end subroutine sort_quick_rx_real_real32_int32
 subroutine sort_quick_rx_real_real64_int32(data,indx)
 
-! ident_28="@(#) M_sort sort_quick_rx_real_real64_int32(3f) indexed hybrid quicksort of a real(kind=real64) array"
+! ident_29="@(#) M_sort sort_quick_rx_real_real64_int32(3f) indexed hybrid quicksort of a real(kind=real64) array"
 
 real(kind=real64),intent(in)   :: data(:)
 integer(kind=int32),intent(out)                :: indx(:)
@@ -2124,7 +2128,7 @@ enddo
 end subroutine sort_quick_rx_real_real64_int32
 subroutine sort_quick_rx_character_ascii_int32(data,indx)
 
-! ident_29="@(#) M_sort sort_quick_rx_character_ascii_int32(3f) indexed hybrid quicksort of a character(kind=ascii) array"
+! ident_30="@(#) M_sort sort_quick_rx_character_ascii_int32(3f) indexed hybrid quicksort of a character(kind=ascii) array"
 
 character(kind=ascii,len=*),intent(in)   :: data(:)
 integer(kind=int32),intent(out)                  :: indx(:)
@@ -2300,7 +2304,7 @@ end subroutine sort_quick_rx_character_ascii_int32
 
 subroutine sort_quick_rx_integer_int8_int64(data,indx)
 
-! ident_30="@(#) M_sort sort_quick_rx_integer_int8_int64(3f) indexed hybrid quicksort of a integer(kind=int8) array"
+! ident_31="@(#) M_sort sort_quick_rx_integer_int8_int64(3f) indexed hybrid quicksort of a integer(kind=int8) array"
 
 integer(kind=int8),intent(in)   :: data(:)
 integer(kind=int64),intent(out)                :: indx(:)
@@ -2474,7 +2478,7 @@ enddo
 end subroutine sort_quick_rx_integer_int8_int64
 subroutine sort_quick_rx_integer_int16_int64(data,indx)
 
-! ident_31="@(#) M_sort sort_quick_rx_integer_int16_int64(3f) indexed hybrid quicksort of a integer(kind=int16) array"
+! ident_32="@(#) M_sort sort_quick_rx_integer_int16_int64(3f) indexed hybrid quicksort of a integer(kind=int16) array"
 
 integer(kind=int16),intent(in)   :: data(:)
 integer(kind=int64),intent(out)                :: indx(:)
@@ -2648,7 +2652,7 @@ enddo
 end subroutine sort_quick_rx_integer_int16_int64
 subroutine sort_quick_rx_integer_int32_int64(data,indx)
 
-! ident_32="@(#) M_sort sort_quick_rx_integer_int32_int64(3f) indexed hybrid quicksort of a integer(kind=int32) array"
+! ident_33="@(#) M_sort sort_quick_rx_integer_int32_int64(3f) indexed hybrid quicksort of a integer(kind=int32) array"
 
 integer(kind=int32),intent(in)   :: data(:)
 integer(kind=int64),intent(out)                :: indx(:)
@@ -2822,7 +2826,7 @@ enddo
 end subroutine sort_quick_rx_integer_int32_int64
 subroutine sort_quick_rx_integer_int64_int64(data,indx)
 
-! ident_33="@(#) M_sort sort_quick_rx_integer_int64_int64(3f) indexed hybrid quicksort of a integer(kind=int64) array"
+! ident_34="@(#) M_sort sort_quick_rx_integer_int64_int64(3f) indexed hybrid quicksort of a integer(kind=int64) array"
 
 integer(kind=int64),intent(in)   :: data(:)
 integer(kind=int64),intent(out)                :: indx(:)
@@ -2996,7 +3000,7 @@ enddo
 end subroutine sort_quick_rx_integer_int64_int64
 subroutine sort_quick_rx_real_real32_int64(data,indx)
 
-! ident_34="@(#) M_sort sort_quick_rx_real_real32_int64(3f) indexed hybrid quicksort of a real(kind=real32) array"
+! ident_35="@(#) M_sort sort_quick_rx_real_real32_int64(3f) indexed hybrid quicksort of a real(kind=real32) array"
 
 real(kind=real32),intent(in)   :: data(:)
 integer(kind=int64),intent(out)                :: indx(:)
@@ -3170,7 +3174,7 @@ enddo
 end subroutine sort_quick_rx_real_real32_int64
 subroutine sort_quick_rx_real_real64_int64(data,indx)
 
-! ident_35="@(#) M_sort sort_quick_rx_real_real64_int64(3f) indexed hybrid quicksort of a real(kind=real64) array"
+! ident_36="@(#) M_sort sort_quick_rx_real_real64_int64(3f) indexed hybrid quicksort of a real(kind=real64) array"
 
 real(kind=real64),intent(in)   :: data(:)
 integer(kind=int64),intent(out)                :: indx(:)
@@ -3344,7 +3348,7 @@ enddo
 end subroutine sort_quick_rx_real_real64_int64
 subroutine sort_quick_rx_character_ascii_int64(data,indx)
 
-! ident_36="@(#) M_sort sort_quick_rx_character_ascii_int64(3f) indexed hybrid quicksort of a character(kind=ascii) array"
+! ident_37="@(#) M_sort sort_quick_rx_character_ascii_int64(3f) indexed hybrid quicksort of a character(kind=ascii) array"
 
 character(kind=ascii,len=*),intent(in)   :: data(:)
 integer(kind=int64),intent(out)                  :: indx(:)
@@ -3522,7 +3526,7 @@ end subroutine sort_quick_rx_character_ascii_int64
 !==================================================================================================================================!
 subroutine sort_quick_rx_complex_int32(data,indx)
 
-! ident_37="@(#) M_sort sort_quick_rx_complex_int32(3f) indexed hybrid quicksort of a real array"
+! ident_38="@(#) M_sort sort_quick_rx_complex_int32(3f) indexed hybrid quicksort of an array"
 
 complex,intent(in)   :: data(:)
 integer(kind=int32),intent(out)  :: indx(:)
@@ -3585,8 +3589,8 @@ if (N.gt.M)then
       indexp=indx(p)
       datap=data(indexp)
 
-      cdsize1=sqrt(dble(data(indx(l)))**2+aimag(data(indx(l)))**2)
-      cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
+      cdsize1=abs(data(indx(l)))  ! sqrt(dble(data(indx(l)))**2+aimag(data(indx(l)))**2)
+      cdsize2=abs(datap)          ! sqrt(dble(datap**2+aimag(datap)**2))
       if (cdsize1 .gt. cdsize2) then
          indx(p)=indx(l)
          indx(l)=indexp
@@ -3594,12 +3598,12 @@ if (N.gt.M)then
          datap=data(indexp)
       endif
 
-      cdsize1=sqrt(dble(data(indx(r)))**2+aimag(data(indx(r)))**2)
-      cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
+      cdsize1=abs(data(indx(r)))  !  cdsize1=sqrt(dble(data(indx(r)))**2+aimag(data(indx(r)))**2)
+      cdsize2=abs(datap)          !  cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
       if (cdsize2 .gt. cdsize1) then
 
-      cdsize1=sqrt(dble(data(indx(l)))**2+aimag(data(indx(l)))**2)
-      cdsize2=sqrt(dble(data(indx(r)))**2+aimag(data(indx(r)))**2)
+         cdsize1=abs(data(indx(l)))  !  cdsize1=sqrt(dble(data(indx(l)))**2+aimag(data(indx(l)))**2)
+         cdsize1=abs(data(indx(r)))  !  cdsize2=sqrt(dble(data(indx(r)))**2+aimag(data(indx(r)))**2)
          if (cdsize1 .gt. cdsize2) then
             indx(p)=indx(l)
             indx(l)=indx(r)
@@ -3620,8 +3624,8 @@ if (N.gt.M)then
          !   At this point, DATA[L] <= DATAP. We can therefore start scanning up from L, looking for a value >= DATAP
          !   (this scan is guaranteed to terminate since we initially placed DATAP near the middle of the subsequence).
          I=I+1
-         cdsize1=sqrt(dble(data(indx(i)))**2+aimag(data(indx(i)))**2)
-         cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
+         cdsize1=abs(data(indx(i)))  !  cdsize1=sqrt(dble(data(indx(i)))**2+aimag(data(indx(i)))**2)
+         cdsize2=abs(datap)          !  cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
          if (cdsize1.lt.cdsize2)then
             cycle Q3
          endif
@@ -3632,8 +3636,8 @@ if (N.gt.M)then
          !   (this scan is guaranteed to terminate since we initially placed DATAP near the middle of the subsequence).
          Q4: do
             j=j-1
-            cdsize1=sqrt(dble(data(indx(j)))**2+aimag(data(indx(j)))**2)
-            cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
+            cdsize1=abs(data(indx(j)))  ! cdsize1=sqrt(dble(data(indx(j)))**2+aimag(data(indx(j)))**2)
+            cdsize2=abs(datap)          ! cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
             if (cdsize1.le.cdsize2) then
                exit Q4
             endif
@@ -3685,8 +3689,8 @@ endif
 !===================================================================================================================================
 ! Q9: Straight Insertion sort
 do i=2,n
-   cdsize1=sqrt(dble(data(indx(i-1)))**2+aimag(data(indx(i-1)))**2)
-   cdsize2=sqrt(dble(data(indx(i)))**2+aimag(data(indx(i)))**2)
+   cdsize1=abs(data(indx(i-1))) ! cdsize1=sqrt(dble(data(indx(i-1)))**2+aimag(data(indx(i-1)))**2)
+   cdsize1=abs(data(indx(i)))   ! cdsize2=sqrt(dble(data(indx(i)))**2+aimag(data(indx(i)))**2)
    if (cdsize1 .gt. cdsize2) then
       indexp=indx(i)
       datap=data(indexp)
@@ -3697,8 +3701,8 @@ do i=2,n
          if (p.le.0)then
             exit INNER
          endif
-         cdsize1=sqrt(dble(data(indx(p)))**2+aimag(data(indx(p)))**2)
-         cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
+         cdsize1=abs(data(indx(p)))  ! cdsize1=sqrt(dble(data(indx(p)))**2+aimag(data(indx(p)))**2)
+         cdsize2=abs(datap)          ! cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
          if (cdsize1.le.cdsize2)then
             exit INNER
          endif
@@ -3712,7 +3716,7 @@ end subroutine sort_quick_rx_complex_int32
 !==================================================================================================================================!
 subroutine sort_quick_rx_complex_int64(data,indx)
 
-! ident_38="@(#) M_sort sort_quick_rx_complex_int64(3f) indexed hybrid quicksort of a real array"
+! ident_39="@(#) M_sort sort_quick_rx_complex_int64(3f) indexed hybrid quicksort of an array"
 
 complex,intent(in)   :: data(:)
 integer(kind=int64),intent(out)  :: indx(:)
@@ -3775,8 +3779,8 @@ if (N.gt.M)then
       indexp=indx(p)
       datap=data(indexp)
 
-      cdsize1=sqrt(dble(data(indx(l)))**2+aimag(data(indx(l)))**2)
-      cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
+      cdsize1=abs(data(indx(l)))  ! sqrt(dble(data(indx(l)))**2+aimag(data(indx(l)))**2)
+      cdsize2=abs(datap)          ! sqrt(dble(datap**2+aimag(datap)**2))
       if (cdsize1 .gt. cdsize2) then
          indx(p)=indx(l)
          indx(l)=indexp
@@ -3784,12 +3788,12 @@ if (N.gt.M)then
          datap=data(indexp)
       endif
 
-      cdsize1=sqrt(dble(data(indx(r)))**2+aimag(data(indx(r)))**2)
-      cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
+      cdsize1=abs(data(indx(r)))  !  cdsize1=sqrt(dble(data(indx(r)))**2+aimag(data(indx(r)))**2)
+      cdsize2=abs(datap)          !  cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
       if (cdsize2 .gt. cdsize1) then
 
-      cdsize1=sqrt(dble(data(indx(l)))**2+aimag(data(indx(l)))**2)
-      cdsize2=sqrt(dble(data(indx(r)))**2+aimag(data(indx(r)))**2)
+         cdsize1=abs(data(indx(l)))  !  cdsize1=sqrt(dble(data(indx(l)))**2+aimag(data(indx(l)))**2)
+         cdsize1=abs(data(indx(r)))  !  cdsize2=sqrt(dble(data(indx(r)))**2+aimag(data(indx(r)))**2)
          if (cdsize1 .gt. cdsize2) then
             indx(p)=indx(l)
             indx(l)=indx(r)
@@ -3810,8 +3814,8 @@ if (N.gt.M)then
          !   At this point, DATA[L] <= DATAP. We can therefore start scanning up from L, looking for a value >= DATAP
          !   (this scan is guaranteed to terminate since we initially placed DATAP near the middle of the subsequence).
          I=I+1
-         cdsize1=sqrt(dble(data(indx(i)))**2+aimag(data(indx(i)))**2)
-         cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
+         cdsize1=abs(data(indx(i)))  !  cdsize1=sqrt(dble(data(indx(i)))**2+aimag(data(indx(i)))**2)
+         cdsize2=abs(datap)          !  cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
          if (cdsize1.lt.cdsize2)then
             cycle Q3
          endif
@@ -3822,8 +3826,8 @@ if (N.gt.M)then
          !   (this scan is guaranteed to terminate since we initially placed DATAP near the middle of the subsequence).
          Q4: do
             j=j-1
-            cdsize1=sqrt(dble(data(indx(j)))**2+aimag(data(indx(j)))**2)
-            cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
+            cdsize1=abs(data(indx(j)))  ! cdsize1=sqrt(dble(data(indx(j)))**2+aimag(data(indx(j)))**2)
+            cdsize2=abs(datap)          ! cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
             if (cdsize1.le.cdsize2) then
                exit Q4
             endif
@@ -3875,8 +3879,8 @@ endif
 !===================================================================================================================================
 ! Q9: Straight Insertion sort
 do i=2,n
-   cdsize1=sqrt(dble(data(indx(i-1)))**2+aimag(data(indx(i-1)))**2)
-   cdsize2=sqrt(dble(data(indx(i)))**2+aimag(data(indx(i)))**2)
+   cdsize1=abs(data(indx(i-1))) ! cdsize1=sqrt(dble(data(indx(i-1)))**2+aimag(data(indx(i-1)))**2)
+   cdsize1=abs(data(indx(i)))   ! cdsize2=sqrt(dble(data(indx(i)))**2+aimag(data(indx(i)))**2)
    if (cdsize1 .gt. cdsize2) then
       indexp=indx(i)
       datap=data(indexp)
@@ -3887,8 +3891,8 @@ do i=2,n
          if (p.le.0)then
             exit INNER
          endif
-         cdsize1=sqrt(dble(data(indx(p)))**2+aimag(data(indx(p)))**2)
-         cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
+         cdsize1=abs(data(indx(p)))  ! cdsize1=sqrt(dble(data(indx(p)))**2+aimag(data(indx(p)))**2)
+         cdsize2=abs(datap)          ! cdsize2=sqrt(dble(datap**2+aimag(datap)**2))
          if (cdsize1.le.cdsize2)then
             exit INNER
          endif
@@ -3899,6 +3903,330 @@ enddo
 !===================================================================================================================================
 !     All done
 end subroutine sort_quick_rx_complex_int64
+!===================================================================================================================================
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
+!===================================================================================================================================
+!>
+!!##NAME
+!!    sort_quick_compact(3f) - [M_sort:sort:quicksort] recursive quicksort of an array
+!!    (LICENSE: CC BY 3.0)
+!!
+!!##SYNOPSIS
+!!
+!!      function sort_quick_compact(data) result(sorted)
+!!
+!!        type(TYPE(KIND=**),intent(in) :: data(*)
+!!        type(TYPE(KIND=**)            :: sorted(size(data))
+!!
+!!    where TYPE may be real, doubleprecision, integer, character
+!!    or complex and of any standard kind except the character type
+!!    must be the default.
+!!
+!!##DESCRIPTION
+!!    A quicksort from high to low (descending order) using a
+!!    compact recursive algorithm.
+!!
+!!##BACKGROUND
+!!   This compact implementation of the QuickSort algorithm is derived
+!!   from an example in "Modern Fortran in Practice" by Arjen Markus
+!!
+!!   o generalized to include intrinsic types other than default REAL
+!!     John S. Urban 20210110
+!!
+!!##EXAMPLE
+!!
+!!  Sample usage:
+!!
+!!      program demo_sort_quick_compact
+!!      use M_sort, only : sort_quick_compact
+!!      implicit none
+!!      integer,parameter            :: isz=10000
+!!      real                         :: rrin(isz)
+!!      real                         :: rrout(isz)
+!!      integer                      :: i
+!!      write(*,*)'initializing array with ',isz,' random numbers'
+!!      CALL RANDOM_NUMBER(rrin)
+!!      rrin=rrin*450000.0
+!!      write(*,*)'sort real array with sort_quick_compact(3f)'
+!!      rrout=sort_quick_compact(rrin)
+!!      write(*,*)'checking '
+!!      do i=1,isz-1
+!!         if(rrout(i).lt.rrout(i+1))then
+!!            write(*,*)'Error in sorting reals', &
+!!            & i,rrout(i),rrout(i+1)
+!!         endif
+!!      enddo
+!!      write(*,*)'test of sort_quick_compact(3f) complete'
+!!      end program demo_sort_quick_compact
+!!
+!!   Results:
+!!
+!!     initializing array with        10000  random numbers
+!!     sort real array with sort_quick_compact(3f)
+!!     checking index of sort_quick_compact(3f)
+!!     test of sort_quick_compact(3f) complete
+!!
+!!##LICENSE
+!!
+!!   This work is licensed under the Creative Commons Attribution
+!!   3.0 Unported License. To view a copy of this license, visit
+!!   http://creativecommons.org/licenses/by/3.0/
+!==================================================================================================================================!
+!()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
+!==================================================================================================================================!
+!==================================================================================================================================!
+
+recursive function sort_quick_compact_integer_int8(data) result(sorted)
+
+! ident_40="@(#) M_sort sort_quick_compact_integer_int8(3f) recursive quicksort of a integer(kind=int8) array"
+!
+! Compact implementation of the QuickSort algorithm
+!
+! This is derived from an example in "Modern Fortran in Practice" by Arjen Markus
+!
+! This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+! To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+integer(kind=int8),intent(in)        :: data(:)
+integer(kind=int8)                   :: sorted(1:size(data))
+
+   if (size(data) > 1) then
+      sorted = [sort_quick_compact_integer_int8(pack(data(2:), data(2:) > data(1))), &
+                data(1), &
+                sort_quick_compact_integer_int8(pack(data(2:), data(2:) <= data(1)))]
+   else
+      sorted = data
+   endif
+!     All done
+end function sort_quick_compact_integer_int8
+recursive function sort_quick_compact_integer_int16(data) result(sorted)
+
+! ident_41="@(#) M_sort sort_quick_compact_integer_int16(3f) recursive quicksort of a integer(kind=int16) array"
+!
+! Compact implementation of the QuickSort algorithm
+!
+! This is derived from an example in "Modern Fortran in Practice" by Arjen Markus
+!
+! This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+! To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+integer(kind=int16),intent(in)        :: data(:)
+integer(kind=int16)                   :: sorted(1:size(data))
+
+   if (size(data) > 1) then
+      sorted = [sort_quick_compact_integer_int16(pack(data(2:), data(2:) > data(1))), &
+                data(1), &
+                sort_quick_compact_integer_int16(pack(data(2:), data(2:) <= data(1)))]
+   else
+      sorted = data
+   endif
+!     All done
+end function sort_quick_compact_integer_int16
+recursive function sort_quick_compact_integer_int32(data) result(sorted)
+
+! ident_42="@(#) M_sort sort_quick_compact_integer_int32(3f) recursive quicksort of a integer(kind=int32) array"
+!
+! Compact implementation of the QuickSort algorithm
+!
+! This is derived from an example in "Modern Fortran in Practice" by Arjen Markus
+!
+! This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+! To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+integer(kind=int32),intent(in)        :: data(:)
+integer(kind=int32)                   :: sorted(1:size(data))
+
+   if (size(data) > 1) then
+      sorted = [sort_quick_compact_integer_int32(pack(data(2:), data(2:) > data(1))), &
+                data(1), &
+                sort_quick_compact_integer_int32(pack(data(2:), data(2:) <= data(1)))]
+   else
+      sorted = data
+   endif
+!     All done
+end function sort_quick_compact_integer_int32
+recursive function sort_quick_compact_integer_int64(data) result(sorted)
+
+! ident_43="@(#) M_sort sort_quick_compact_integer_int64(3f) recursive quicksort of a integer(kind=int64) array"
+!
+! Compact implementation of the QuickSort algorithm
+!
+! This is derived from an example in "Modern Fortran in Practice" by Arjen Markus
+!
+! This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+! To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+integer(kind=int64),intent(in)        :: data(:)
+integer(kind=int64)                   :: sorted(1:size(data))
+
+   if (size(data) > 1) then
+      sorted = [sort_quick_compact_integer_int64(pack(data(2:), data(2:) > data(1))), &
+                data(1), &
+                sort_quick_compact_integer_int64(pack(data(2:), data(2:) <= data(1)))]
+   else
+      sorted = data
+   endif
+!     All done
+end function sort_quick_compact_integer_int64
+
+recursive function sort_quick_compact_real_real32(data) result(sorted)
+
+! ident_44="@(#) M_sort sort_quick_compact_real_real32(3f) recursive quicksort of a real(kind=real32) array"
+!
+! Compact implementation of the QuickSort algorithm
+!
+! This is derived from an example in "Modern Fortran in Practice" by Arjen Markus
+!
+! This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+! To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+real(kind=real32),intent(in)        :: data(:)
+real(kind=real32)                   :: sorted(1:size(data))
+
+   if (size(data) > 1) then
+      sorted = [sort_quick_compact_real_real32(pack(data(2:), data(2:) > data(1))), &
+                data(1), &
+                sort_quick_compact_real_real32(pack(data(2:), data(2:) <= data(1)))]
+   else
+      sorted = data
+   endif
+!     All done
+end function sort_quick_compact_real_real32
+recursive function sort_quick_compact_real_real64(data) result(sorted)
+
+! ident_45="@(#) M_sort sort_quick_compact_real_real64(3f) recursive quicksort of a real(kind=real64) array"
+!
+! Compact implementation of the QuickSort algorithm
+!
+! This is derived from an example in "Modern Fortran in Practice" by Arjen Markus
+!
+! This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+! To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+real(kind=real64),intent(in)        :: data(:)
+real(kind=real64)                   :: sorted(1:size(data))
+
+   if (size(data) > 1) then
+      sorted = [sort_quick_compact_real_real64(pack(data(2:), data(2:) > data(1))), &
+                data(1), &
+                sort_quick_compact_real_real64(pack(data(2:), data(2:) <= data(1)))]
+   else
+      sorted = data
+   endif
+!     All done
+end function sort_quick_compact_real_real64
+#ifdef HAS_REAL128
+recursive function sort_quick_compact_real_real128(data) result(sorted)
+
+! ident_46="@(#) M_sort sort_quick_compact_real_real128(3f) recursive quicksort of a real(kind=real128) array"
+!
+! Compact implementation of the QuickSort algorithm
+!
+! This is derived from an example in "Modern Fortran in Practice" by Arjen Markus
+!
+! This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+! To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+real(kind=real128),intent(in)        :: data(:)
+real(kind=real128)                   :: sorted(1:size(data))
+
+   if (size(data) > 1) then
+      sorted = [sort_quick_compact_real_real128(pack(data(2:), data(2:) > data(1))), &
+                data(1), &
+                sort_quick_compact_real_real128(pack(data(2:), data(2:) <= data(1)))]
+   else
+      sorted = data
+   endif
+!     All done
+end function sort_quick_compact_real_real128
+#endif
+
+recursive function sort_quick_compact_complex_real32(data) result(sorted)
+
+! ident_47="@(#) M_sort sort_quick_compact_complex_real32(3f) recursive quicksort of a complex(kind=real32) array"
+!
+! Compact implementation of the QuickSort algorithm
+!
+! This is derived from an example in "Modern Fortran in Practice" by Arjen Markus
+!
+! This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+! To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+complex(kind=real32),intent(in)        :: data(:)
+complex(kind=real32)                   :: sorted(1:size(data))
+
+   if (size(data) > 1) then
+      sorted = [sort_quick_compact_complex_real32(pack(data(2:), abs(data(2:)) > abs(data(1)))), &
+                data(1), &
+                sort_quick_compact_complex_real32(pack(data(2:), abs(data(2:)) <= abs(data(1))))]
+   else
+      sorted = data
+   endif
+!     All done
+end function sort_quick_compact_complex_real32
+recursive function sort_quick_compact_complex_real64(data) result(sorted)
+
+! ident_48="@(#) M_sort sort_quick_compact_complex_real64(3f) recursive quicksort of a complex(kind=real64) array"
+!
+! Compact implementation of the QuickSort algorithm
+!
+! This is derived from an example in "Modern Fortran in Practice" by Arjen Markus
+!
+! This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+! To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+complex(kind=real64),intent(in)        :: data(:)
+complex(kind=real64)                   :: sorted(1:size(data))
+
+   if (size(data) > 1) then
+      sorted = [sort_quick_compact_complex_real64(pack(data(2:), abs(data(2:)) > abs(data(1)))), &
+                data(1), &
+                sort_quick_compact_complex_real64(pack(data(2:), abs(data(2:)) <= abs(data(1))))]
+   else
+      sorted = data
+   endif
+!     All done
+end function sort_quick_compact_complex_real64
+#ifdef HAS_REAL128
+recursive function sort_quick_compact_complex_real128(data) result(sorted)
+
+! ident_49="@(#) M_sort sort_quick_compact_complex_real128(3f) recursive quicksort of a complex(kind=real128) array"
+!
+! Compact implementation of the QuickSort algorithm
+!
+! This is derived from an example in "Modern Fortran in Practice" by Arjen Markus
+!
+! This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+! To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+complex(kind=real128),intent(in)        :: data(:)
+complex(kind=real128)                   :: sorted(1:size(data))
+
+   if (size(data) > 1) then
+      sorted = [sort_quick_compact_complex_real128(pack(data(2:), abs(data(2:)) > abs(data(1)))), &
+                data(1), &
+                sort_quick_compact_complex_real128(pack(data(2:), abs(data(2:)) <= abs(data(1))))]
+   else
+      sorted = data
+   endif
+!     All done
+end function sort_quick_compact_complex_real128
+#endif
+
+recursive function sort_quick_compact_character_ascii(data) result(sorted)
+
+! ident_50="@(#) M_sort sort_quick_compact_character_ascii(3f) recursive quicksort of a character(kind=ascii) array"
+!
+! Compact implementation of the QuickSort algorithm
+!
+! This is derived from an example in "Modern Fortran in Practice" by Arjen Markus
+!
+! This work is licensed under the Creative Commons Attribution 3.0 Unported License.
+! To view a copy of this license, visit http://creativecommons.org/licenses/by/3.0/
+character(kind=ascii,len=*),intent(in)  :: data(:)
+character(kind=ascii,len=len(data))     :: sorted(1:size(data))
+
+   if (size(data) > 1) then
+      sorted = [character(len=len(data)) :: &
+                sort_quick_compact_character_ascii(pack(data(2:), data(2:) > data(1))), &
+                data(1), &
+                sort_quick_compact_character_ascii(pack(data(2:), data(2:) <= data(1)))]
+   else
+      sorted = data
+   endif
+!     All done
+end function sort_quick_compact_character_ascii
+
 !==================================================================================================================================!
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()!
 !==================================================================================================================================!
@@ -4454,63 +4782,63 @@ end subroutine unique_allocatable_strings
 !!    >1,1,1
 !===================================================================================================================================
 elemental subroutine swap_real32(x,y)
-! ident_39="@(#) M_sort swap_real32(3fp) swap two variables of TYPE(real(KIND=real32))"
+! ident_51="@(#) M_sort swap_real32(3fp) swap two variables of TYPE(real(KIND=real32))"
 type(real(kind=real32)), intent(inout) :: x,y
 type(real(kind=real32))                :: temp
    temp = x; x = y; y = temp
 end subroutine swap_real32
 !===================================================================================================================================
 elemental subroutine swap_real64(x,y)
-! ident_40="@(#) M_sort swap_real64(3fp) swap two variables of TYPE(real(KIND=real64))"
+! ident_52="@(#) M_sort swap_real64(3fp) swap two variables of TYPE(real(KIND=real64))"
 type(real(kind=real64)), intent(inout) :: x,y
 type(real(kind=real64))                :: temp
    temp = x; x = y; y = temp
 end subroutine swap_real64
 !===================================================================================================================================
 elemental subroutine swap_int8(x,y)
-! ident_41="@(#) M_sort swap_int8(3fp) swap two variables of TYPE(integer(KIND=int8))"
+! ident_53="@(#) M_sort swap_int8(3fp) swap two variables of TYPE(integer(KIND=int8))"
 type(integer(kind=int8)), intent(inout) :: x,y
 type(integer(kind=int8))                :: temp
    temp = x; x = y; y = temp
 end subroutine swap_int8
 !===================================================================================================================================
 elemental subroutine swap_int16(x,y)
-! ident_42="@(#) M_sort swap_int16(3fp) swap two variables of TYPE(integer(KIND=int16))"
+! ident_54="@(#) M_sort swap_int16(3fp) swap two variables of TYPE(integer(KIND=int16))"
 type(integer(kind=int16)), intent(inout) :: x,y
 type(integer(kind=int16))                :: temp
    temp = x; x = y; y = temp
 end subroutine swap_int16
 !===================================================================================================================================
 elemental subroutine swap_int32(x,y)
-! ident_43="@(#) M_sort swap_int32(3fp) swap two variables of TYPE(integer(KIND=int32))"
+! ident_55="@(#) M_sort swap_int32(3fp) swap two variables of TYPE(integer(KIND=int32))"
 type(integer(kind=int32)), intent(inout) :: x,y
 type(integer(kind=int32))                :: temp
    temp = x; x = y; y = temp
 end subroutine swap_int32
 !===================================================================================================================================
 elemental subroutine swap_int64(x,y)
-! ident_44="@(#) M_sort swap_int64(3fp) swap two variables of TYPE(integer(KIND=int64))"
+! ident_56="@(#) M_sort swap_int64(3fp) swap two variables of TYPE(integer(KIND=int64))"
 type(integer(kind=int64)), intent(inout) :: x,y
 type(integer(kind=int64))                :: temp
    temp = x; x = y; y = temp
 end subroutine swap_int64
 !===================================================================================================================================
 elemental subroutine swap_cs(x,y)
-! ident_45="@(#) M_sort swap_cs(3fp) swap two variables of TYPE(complex(KIND=cs))"
+! ident_57="@(#) M_sort swap_cs(3fp) swap two variables of TYPE(complex(KIND=cs))"
 type(complex(kind=cs)), intent(inout) :: x,y
 type(complex(kind=cs))                :: temp
    temp = x; x = y; y = temp
 end subroutine swap_cs
 !===================================================================================================================================
 elemental subroutine swap_cd(x,y)
-! ident_46="@(#) M_sort swap_cd(3fp) swap two variables of TYPE(complex(KIND=cd))"
+! ident_58="@(#) M_sort swap_cd(3fp) swap two variables of TYPE(complex(KIND=cd))"
 type(complex(kind=cd)), intent(inout) :: x,y
 type(complex(kind=cd))                :: temp
    temp = x; x = y; y = temp
 end subroutine swap_cd
 !===================================================================================================================================
 elemental subroutine swap_lk(x,y)
-! ident_47="@(#) M_sort swap_lk(3fp) swap two variables of TYPE(logical(KIND=lk))"
+! ident_59="@(#) M_sort swap_lk(3fp) swap two variables of TYPE(logical(KIND=lk))"
 type(logical(kind=lk)), intent(inout) :: x,y
 type(logical(kind=lk))                :: temp
    temp = x; x = y; y = temp
@@ -4525,7 +4853,7 @@ elemental subroutine swap_string(string1,string2)
 !!    Note that the len of a dummy argument can be used to calculate the automatic variable length.
 !!    Therefore, you can make sure len is at least max(len(string1),len(string2)) by adding the two lengths together:
 
-! ident_48="@(#) M_sort s_swap(3fp) swap two double variables"
+! ident_60="@(#) M_sort s_swap(3fp) swap two double variables"
 character(len=*), intent(inout)             :: string1,string2
 !character( len=len(string1) + len(string2)) :: string_temp
 character( len=max(len(string1),len(string2))) :: string_temp
@@ -4923,7 +5251,7 @@ end subroutine swap_any_array
 !===================================================================================================================================
 !>
 !!##NAME
-!!    tree_insert(3f) - [M_sort] sort a number of integers by building a
+!!    tree_insert(3f) - [M_sort:sort:treesort] sort a number of integers by building a
 !!                      tree, sorted in infix order
 !!    (LICENSE:MIT)
 !!##SYNOPSIS
@@ -4964,7 +5292,7 @@ end subroutine swap_any_array
 recursive subroutine tree_insert (t, number)
 implicit none
 
-! ident_49="@(#) M_sort tree_insert(3f) sort a number of integers by building a tree sorted in infix order"
+! ident_61="@(#) M_sort tree_insert(3f) sort a number of integers by building a tree sorted in infix order"
 
 type (tree_node), pointer :: t  ! a tree
 integer, intent (in) :: number
@@ -5024,7 +5352,7 @@ end subroutine tree_insert
 recursive subroutine tree_print(t)
 implicit none
 
-! ident_50="@(#) M_sort tree_print(3f)"
+! ident_62="@(#) M_sort tree_print(3f)"
 
 type (tree_node), pointer :: t  ! a tree
 
@@ -5114,7 +5442,7 @@ end subroutine tree_print
 function anything_to_bytes_arr(anything) result(chars)
 implicit none
 
-! ident_51="@(#) M_sort anything_to_bytes_arr(3fp) any vector of intrinsics to bytes (an array of CHARACTER(LEN=1) variables)"
+! ident_63="@(#) M_sort anything_to_bytes_arr(3fp) any vector of intrinsics to bytes (an array of CHARACTER(LEN=1) variables)"
 
 class(*),intent(in)          :: anything(:)
 character(len=1),allocatable :: chars(:)
@@ -5146,7 +5474,7 @@ end function anything_to_bytes_arr
 function  anything_to_bytes_scalar(anything) result(chars)
 implicit none
 
-! ident_52="@(#) M_sort anything_to_bytes_scalar(3fp) anything to bytes (an array of CHARACTER(LEN=1) variables)"
+! ident_64="@(#) M_sort anything_to_bytes_scalar(3fp) anything to bytes (an array of CHARACTER(LEN=1) variables)"
 
 class(*),intent(in)          :: anything
 character(len=1),allocatable :: chars(:)
@@ -5373,7 +5701,7 @@ end function sort_character
 !===================================================================================================================================
 !>
 !!##NAME
-!!    sort_heap(3f) - [M_sort] indexed sort of an array
+!!    sort_heap(3f) - [M_sort:sort:heapsort] indexed sort of an array
 !!    (LICENSE:PD)
 !!
 !!##SYNOPSIS
