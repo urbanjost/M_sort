@@ -3,6 +3,12 @@
 #else
 #define HAS_REAL128
 #endif
+
+#ifdef Linux_ifx
+#ifndef __INTEL_LLVM_COMPILER
+#define __INTEL_LLVM_COMPILER  IFX
+#endif
+#endif
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
@@ -161,13 +167,14 @@ contains
 !!##NAME
 !!    M_sort(3fm) - [M_sort::INTRO] Fortran module containing sorting
 !!                  algorithms for arrays of standard scalar types
-!!    (LICENSE:PD)
+!!                  (LICENSE:PD)
 !!
 !!##SYNOPSIS
 !!
-!!    use M_sort, only : sort_quick_rx, sort_quick_compact
-!!    use M_sort, only : sort_shell, sort_heap
-!!    use M_sort, only : unique
+!!
+!!     use M_sort, only : sort_quick_rx, sort_quick_compact
+!!     use M_sort, only : sort_shell, sort_heap
+!!     use M_sort, only : unique
 !!
 !!##DESCRIPTION
 !!    Under development. Currently only provides a few common routines,
@@ -335,7 +342,7 @@ contains
 !!
 !!                  R  for Real component,
 !!                  I  for Imaginary component,
-!!                  S  Sqrt(R**2+I**2)
+!!                  S  for the magnitude Sqrt(R**2+I**2)
 !!
 !!##EXAMPLE
 !!
@@ -364,7 +371,7 @@ contains
 !!      & 'WHITE  ','BROWN  ','GRAY   ','CYAN   ','MAGENTA',          &
 !!      & 'PURPLE ']
 !!
-!!      write(*,'(a,*(a:,","))')'BEFORE ',(trim(array(i)),i=1,size(array))
+!!      write(*,'(a,*(a:,","))')'Before ',(trim(array(i)),i=1,size(array))
 !!      call sort_shell(array,order='d')
 !!      write(*,'(a,*(a:,","))')'Z-A    ',(trim(array(i)),i=1,size(array))
 !!      do i=1,size(array)-1
@@ -377,11 +384,11 @@ contains
 !!
 !!   Expected output
 !!
-!!       BEFORE
+!!       Before
 !!       red,green,blue,yellow,orange,black,white,brown,gray,cyan,magenta,purple
 !!       A-Z
 !!       black,blue,brown,cyan,gray,green,magenta,orange,purple,red,white,yellow
-!!       BEFORE
+!!       Before
 !!       RED,GREEN,BLUE,YELLOW,ORANGE,BLACK,WHITE,BROWN,GRAY,CYAN,MAGENTA,PURPLE
 !!       Z-A
 !!       YELLOW,WHITE,RED,PURPLE,ORANGE,MAGENTA,GREEN,GRAY,CYAN,BROWN,BLUE,BLACK
@@ -5496,8 +5503,11 @@ character(len=1),allocatable :: chars(:)
 #endif
     type is (logical);              chars=transfer(anything,chars)
     class default
+#ifdef __INTEL_LLVM_COMPILER
+      stop 'crud. anything_to_bytes_arr(1) does not know about this type'
+#else
       chars=transfer(anything,chars) ! should work for everything, does not with some compilers
-      !stop 'crud. anything_to_bytes_scalar(1) does not know about this type'
+#endif
    end select
 
 end function  anything_to_bytes_scalar

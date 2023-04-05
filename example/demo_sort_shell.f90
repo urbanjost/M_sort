@@ -21,7 +21,7 @@
        & 'WHITE  ','BROWN  ','GRAY   ','CYAN   ','MAGENTA',          &
        & 'PURPLE ']
 
-       write(*,'(a,*(a:,","))')'BEFORE ',(trim(array(i)),i=1,size(array))
+       write(*,'(a,*(a:,","))')'Before ',(trim(array(i)),i=1,size(array))
        call sort_shell(array,order='d')
        write(*,'(a,*(a:,","))')'Z-A    ',(trim(array(i)),i=1,size(array))
        do i=1,size(array)-1
