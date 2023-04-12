@@ -1,6 +1,8 @@
        program demo_sort_shell
        use M_sort, only : sort_shell
+       implicit none
        character(len=:),allocatable :: array(:)
+       integer :: i
 
        array = [                                                     &
        & 'red    ','green  ','blue   ','yellow ','orange ','black  ',&
