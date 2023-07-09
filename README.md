@@ -1,5 +1,5 @@
-# M_sort.f90 and associated files
-![sort](docs/images/sort.gif)
+[![](docs/images/sort.gif)](https://urbanjost.github.io/M_sort/fpm-ford/index.html)
+# [M_sort](https://urbanjost.github.io/M_sort/man3.html)
 
 ## Name
    M_sort - Fortran modules for sorting
@@ -8,7 +8,10 @@
 The `M_sort`(3fm) module is a collection of Fortran procedures that
 do simple sorts.
 
-## Download and Build
+---
+![gmake](docs/images/gnu.gif)
+---
+## Building the Module using make(1)
 Just download the github repository, enter the src/ directory and run make(1):
 ```bash
      git clone https://github.com/urbanjost/M_sort.git
@@ -35,8 +38,10 @@ This will compile the M_sort(3f) module and optionally build all the
 example programs from the document pages in the example/ sub-directory
 and run the unit tests.
 
-## Supports fpm
-![fpm](docs/images/fpm_logo.gif)
+---
+![-](docs/images/fpm_logo.gif)
+---
+## Build and Test with FPM
 
 #### (registered at the [fpm(1) registry](https://github.com/fortran-lang/fpm-registry) )
 
