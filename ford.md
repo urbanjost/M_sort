@@ -7,7 +7,7 @@ output_dir: docs/fpm-ford
 project: M_sort
 summary: sorting procedures
 project_github: https://github.com/urbanjost/M_sort
-project_download:
+project_download: https://github.com/urbanjost/M_sort/archive/refs/heads/master.zip
 author: John S. Urban
 author_email: urbanjost@comcast.net
 github: https://github.com/urbanjost/M_sort
