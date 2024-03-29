@@ -1,3 +1,5 @@
+<!-- -*- mode: jinja2 -*- -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,81 +12,56 @@
 
     <title>swap &ndash; M_sort</title>
 
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="../css/pygments.css" rel="stylesheet">
     <link href="../css/font-awesome.min.css" rel="stylesheet">
     <link href="../css/local.css" rel="stylesheet">
       <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-         <script src="../js/jquery-2.1.3.min.js"></script>
-         <script src="../js/svg-pan-zoom.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
   </head>
 
   <body>
 
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
           <a class="navbar-brand" href="../index.html">M_sort </a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
-              <a href="#" class="dropdown-toggle"
-                 data-toggle="dropdown" role="button"
-                 aria-haspopup="true"
-                 aria-expanded="false">
-                 Contents <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu">
-                    <li><a href="../lists/files.html">Source Files</a></li>
-                  <li><a href="../lists/modules.html">Modules</a></li>
-                  <li><a href="../lists/procedures.html">Procedures</a></li>
-                  <li><a href="../lists/types.html">Derived Types</a></li>
-                  <li><a href="../lists/programs.html">Programs</a></li>
-              </ul>
-            </li>
-                <li class="visible-xs hidden-sm visible-lg">
-                  <a href="../lists/files.html">Source Files</a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+          </button>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
                 </li>
-              <li class="visible-xs hidden-sm visible-lg">
-                <a href="../lists/modules.html">Modules</a>
-              </li>
-              <li class="visible-xs hidden-sm visible-lg">
-                <a href="../lists/procedures.html">Procedures</a>
-              </li>
-              <li class="visible-xs hidden-sm visible-lg">
-                <a href="../lists/types.html">Derived Types</a>
-              </li>
-              <li class="visible-xs hidden-sm visible-lg">
-                <a href="../lists/programs.html">Programs</a>
-              </li>
-          </ul>
-            <form action="../search.html" class="navbar-form navbar-right" role="search">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/programs.html">Programs</a>
+                </li>
+            </ul>
+              <div class="d-flex align-items-end flex-grow-1">
+                <form action="../search.html" role="search" class="ms-auto">
+                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                </form>
               </div>
-              <!--
-                  <button type="submit" class="btn btn-default">Submit</button>
-                  -->
-            </form>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
 
     <div class="container">
   <div class="row">
@@ -92,33 +69,37 @@
       <small>Interface</small>
       
     </h1>
-      <div class="row" id="info-bar">
-    <div class="col-lg-12">
-      <div class="well well-sm">
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
         <ul class="list-inline" style="margin-bottom:0px;display:inline">
 
-          <li id="statements"><i class="fa fa-list-ol"></i>
-            <a data-toggle="tooltip"
-               data-placement="bottom" data-html="true"
-               title="<p> 8.3% of total for procedures.</p>Including implementation: 82 statements, 56.6% of total for procedures.">12 statements</a>
-          </li>
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip"
+                 data-bs-placement="bottom" data-html="true"
+                 title="<p> 8.3% of total for procedures.</p>Including implementation: 82 statements, 56.6% of total for procedures.">12 statements</a>
+            </li>
 
-            <li id="source-file">
+            <li class="list-inline-item" id="source-file">
               <i class="fa fa-code"></i>
               <a href="../src/M_sort.F90"> Source File</a>
             </li>
         </ul>
-        <ol class="breadcrumb in-well text-right">
-              <li><a href='../sourcefile/m_sort.f90.html'>M_sort.F90</a></li>
-              <li><a href='../module/m_sort.html'>M_sort</a></li>
-          <li class="active">swap</li>
-        </ol>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/m_sort.f90.html'>M_sort.F90</a></li>
+                <li class="breadcrumb-item"><a href='../module/m_sort.html'>M_sort</a></li>
+            <li class="breadcrumb-item active" aria-current="page">swap</li>
+          </ol>
+        </nav>
       </div>
     </div>
   </div>
   <script>
     $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-bs-toggle="tooltip"]').tooltip()
     })
   </script>
 
@@ -146,14 +127,13 @@
   
   
   
-      <div class="panel panel-primary">
-      <div class="panel-heading text-left">
-        <h3 class="panel-title">
-          <a data-toggle="collapse" href="#modprocs-0">Module Procedures</a>
-        </h3>
-      </div>
-      <div id="modprocs-0" class="panel-collapse collapse">
-        <div class="list-group">
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#modprocs-0"
+         aria-expanded="false" aria-controls="modprocs-0">
+         <h4 class="card-header bg-primary text-white">Module Procedures</h4>
+      </a>
+      <div id="modprocs-0" class="collapse">
+        <div class="list-group list-group-flush">
             <a class="list-group-item" href="../interface/swap.html#moduleprocedure-swap_int8">swap_int8</a>
             <a class="list-group-item" href="../interface/swap.html#moduleprocedure-swap_int16">swap_int16</a>
             <a class="list-group-item" href="../interface/swap.html#moduleprocedure-swap_int32">swap_int32</a>
@@ -168,6 +148,7 @@
       </div>
     </div>
 
+  
 
 
   </div>
@@ -178,76 +159,29 @@
       <h2>public interface swap</h2>
       
 
-      <section class="visible-xs visible-sm hidden-md">
-          <h3>Contents</h3>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-      <div class="panel panel-primary">
-      <div class="panel-heading text-left">
-        <h3 class="panel-title">
-          <a data-toggle="collapse" href="#modprocs-1">Module Procedures</a>
-        </h3>
-      </div>
-      <div id="modprocs-1" class="panel-collapse collapse">
-        <div class="list-group">
-            <a class="list-group-item" href="../interface/swap.html#moduleprocedure-swap_int8">swap_int8</a>
-            <a class="list-group-item" href="../interface/swap.html#moduleprocedure-swap_int16">swap_int16</a>
-            <a class="list-group-item" href="../interface/swap.html#moduleprocedure-swap_int32">swap_int32</a>
-            <a class="list-group-item" href="../interface/swap.html#moduleprocedure-swap_int64">swap_int64</a>
-            <a class="list-group-item" href="../interface/swap.html#moduleprocedure-swap_real32">swap_real32</a>
-            <a class="list-group-item" href="../interface/swap.html#moduleprocedure-swap_real64">swap_real64</a>
-            <a class="list-group-item" href="../interface/swap.html#moduleprocedure-swap_string">swap_string</a>
-            <a class="list-group-item" href="../interface/swap.html#moduleprocedure-swap_cs">swap_cs</a>
-            <a class="list-group-item" href="../interface/swap.html#moduleprocedure-swap_cd">swap_cd</a>
-            <a class="list-group-item" href="../interface/swap.html#moduleprocedure-swap_lk">swap_lk</a>
-        </div>
-      </div>
-    </div>
-
-
-
-      </section>
-      <br class="visible-xs visible-sm hidden-md">
-
 
 
         <h2>Module Procedures</h2>
-            <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-swap_int8"></span><h3>private elemental subroutine swap_int8(x, y)  
+            <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-swap_int8"></span> <h3>private elemental subroutine swap_int8(x, y)  
 </h3></div>
-    <div class="panel-body">
+    <div class="card-body">
         
 
   <h4>Arguments</h4>
       <table class="table table-striped varlist">
     <thead>
       <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-x~3"></span>
               type(integer(kind=int8)),
             </td>
 <td>intent(inout)</td>
@@ -262,7 +196,7 @@
         </tr>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-y~3"></span>
               type(integer(kind=int8)),
             </td>
 <td>intent(inout)</td>
@@ -282,26 +216,26 @@
     </div>
   </div>
 
-            <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-swap_int16"></span><h3>private elemental subroutine swap_int16(x, y)  
+            <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-swap_int16"></span> <h3>private elemental subroutine swap_int16(x, y)  
 </h3></div>
-    <div class="panel-body">
+    <div class="card-body">
         
 
   <h4>Arguments</h4>
       <table class="table table-striped varlist">
     <thead>
       <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-x~4"></span>
               type(integer(kind=int16)),
             </td>
 <td>intent(inout)</td>
@@ -316,7 +250,7 @@
         </tr>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-y~4"></span>
               type(integer(kind=int16)),
             </td>
 <td>intent(inout)</td>
@@ -336,26 +270,26 @@
     </div>
   </div>
 
-            <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-swap_int32"></span><h3>private elemental subroutine swap_int32(x, y)  
+            <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-swap_int32"></span> <h3>private elemental subroutine swap_int32(x, y)  
 </h3></div>
-    <div class="panel-body">
+    <div class="card-body">
         
 
   <h4>Arguments</h4>
       <table class="table table-striped varlist">
     <thead>
       <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-x~5"></span>
               type(integer(kind=int32)),
             </td>
 <td>intent(inout)</td>
@@ -370,7 +304,7 @@
         </tr>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-y~5"></span>
               type(integer(kind=int32)),
             </td>
 <td>intent(inout)</td>
@@ -390,26 +324,26 @@
     </div>
   </div>
 
-            <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-swap_int64"></span><h3>private elemental subroutine swap_int64(x, y)  
+            <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-swap_int64"></span> <h3>private elemental subroutine swap_int64(x, y)  
 </h3></div>
-    <div class="panel-body">
+    <div class="card-body">
         
 
   <h4>Arguments</h4>
       <table class="table table-striped varlist">
     <thead>
       <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-x~6"></span>
               type(integer(kind=int64)),
             </td>
 <td>intent(inout)</td>
@@ -424,7 +358,7 @@
         </tr>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-y~6"></span>
               type(integer(kind=int64)),
             </td>
 <td>intent(inout)</td>
@@ -444,14 +378,14 @@
     </div>
   </div>
 
-            <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-swap_real32"></span><h3>private elemental subroutine swap_real32(x, y)  
+            <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-swap_real32"></span> <h3>private elemental subroutine swap_real32(x, y)  
 </h3></div>
-    <div class="panel-body">
+    <div class="card-body">
         <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">swap</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sort</span><span class="o">]</span><span class="w"> </span><span class="n">elemental</span><span class="w"> </span><span class="n">subroutine</span><span class="w"> </span><span class="n">swaps</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="n">standard</span><span class="w"> </span><span class="n">type</span><span class="w"></span>
-<span class="w">           </span><span class="n">variables</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="ow">like</span><span class="w"> </span><span class="n">type</span><span class="w"></span>
-<span class="p">(</span><span class="nl">LICENSE</span><span class="p">:</span><span class="n">PD</span><span class="p">)</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">swap</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">[</span><span class="n">M_sort</span><span class="o">]</span><span class="w"> </span><span class="n">elemental</span><span class="w"> </span><span class="n">subroutine</span><span class="w"> </span><span class="n">swaps</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="n">standard</span><span class="w"> </span><span class="n">type</span>
+<span class="w">           </span><span class="n">variables</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="ow">like</span><span class="w"> </span><span class="n">type</span>
+<span class="p">(</span><span class="nl">LICENSE</span><span class="p">:</span><span class="n">PD</span><span class="p">)</span>
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
@@ -459,100 +393,100 @@
 </code></pre></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">Generic</span><span class="w"> </span><span class="n">subroutine</span><span class="w"> </span><span class="n">SWAP</span><span class="p">(</span><span class="n">GEN1</span><span class="p">,</span><span class="n">GEN2</span><span class="p">)</span><span class="w"> </span><span class="n">swaps</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">like</span><span class="w"> </span><span class="n">type</span><span class="w"></span>
-<span class="p">(</span><span class="n">real</span><span class="p">,</span><span class="w"> </span><span class="n">integer</span><span class="p">,</span><span class="w"> </span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="n">character</span><span class="p">,</span><span class="w"> </span><span class="n">double</span><span class="p">,</span><span class="w"> </span><span class="n">logical</span><span class="p">)</span><span class="o">.</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="n">Generic</span><span class="w"> </span><span class="n">subroutine</span><span class="w"> </span><span class="n">SWAP</span><span class="p">(</span><span class="n">GEN1</span><span class="p">,</span><span class="n">GEN2</span><span class="p">)</span><span class="w"> </span><span class="n">swaps</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">like</span><span class="w"> </span><span class="n">type</span>
+<span class="p">(</span><span class="n">real</span><span class="p">,</span><span class="w"> </span><span class="n">integer</span><span class="p">,</span><span class="w"> </span><span class="n">complex</span><span class="p">,</span><span class="w"> </span><span class="n">character</span><span class="p">,</span><span class="w"> </span><span class="n">double</span><span class="p">,</span><span class="w"> </span><span class="n">logical</span><span class="p">)</span><span class="o">.</span>
 
-<span class="n">On</span><span class="w"> </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">interchanged</span><span class="o">.</span><span class="w"> </span><span class="n">Swapping</span><span class="w"> </span><span class="k">is</span><span class="w"></span>
-<span class="n">commonly</span><span class="w"> </span><span class="n">required</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">procedures</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">sort</span><span class="w"> </span><span class="n">data</span><span class="o">.</span><span class="w"></span>
+<span class="n">On</span><span class="w"> </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Y</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">interchanged</span><span class="o">.</span><span class="w"> </span><span class="n">Swapping</span><span class="w"> </span><span class="k">is</span>
+<span class="n">commonly</span><span class="w"> </span><span class="n">required</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">procedures</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">sort</span><span class="w"> </span><span class="n">data</span><span class="o">.</span>
 
-<span class="n">SWAP</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">elemental</span><span class="p">,</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">operate</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">vectors</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">arrays</span><span class="w"> </span><span class="k">as</span><span class="w"></span>
-<span class="n">well</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">scalar</span><span class="w"> </span><span class="n">values</span><span class="o">.</span><span class="w"></span>
+<span class="n">SWAP</span><span class="p">(</span><span class="mi">3</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">elemental</span><span class="p">,</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">operate</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">vectors</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">arrays</span><span class="w"> </span><span class="k">as</span>
+<span class="n">well</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">scalar</span><span class="w"> </span><span class="n">values</span><span class="o">.</span>
 </code></pre></div>
 
 <h2 id="example">EXAMPLE</h2>
 <p>Example program:</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">program</span> <span class="nv">demo_swap</span>
-<span class="nv">use</span> <span class="nv">M_sort</span>, <span class="nv">only</span> : <span class="nv">swap</span>
-<span class="nv">integer</span>             :: <span class="nv">iarray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">)</span><span class="o">=</span>[<span class="mi">10</span>,<span class="mi">20</span>]
-<span class="nv">real</span>                :: <span class="nv">rarray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">)</span><span class="o">=</span>[<span class="mi">11</span>.<span class="mi">11</span>,<span class="mi">22</span>.<span class="mi">22</span>]
-<span class="nv">doubleprecision</span>     :: <span class="nv">darray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">)</span><span class="o">=</span>[<span class="mi">1234</span>.<span class="mi">56789</span><span class="nv">d0</span>,<span class="mi">9876</span>.<span class="mi">54321</span><span class="nv">d0</span>]
-<span class="nv">complex</span>             :: <span class="nv">carray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">)</span><span class="o">=</span>[<span class="ss">(</span><span class="mi">1234</span>,<span class="mi">56789</span><span class="ss">)</span>,<span class="ss">(</span><span class="mi">9876</span>,<span class="mi">54321</span><span class="ss">)</span>]
-<span class="nv">logical</span>             :: <span class="nv">larray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">)</span><span class="o">=</span>[.<span class="nv">true</span>.,.<span class="nv">false</span>.]
-<span class="nv">character</span><span class="ss">(</span><span class="nv">len</span><span class="o">=</span><span class="mi">16</span><span class="ss">)</span>   :: <span class="nv">string</span><span class="ss">(</span><span class="mi">2</span><span class="ss">)</span><span class="o">=</span>[<span class="s2">&quot;</span><span class="s">First string    </span><span class="s2">&quot;</span>,<span class="s2">&quot;</span><span class="s">The other string</span><span class="s2">&quot;</span>]
+<div class="codehilite"><pre><span></span><code>program demo_swap
+use M_sort, only : swap
+integer             :: iarray(2)=[10,20]
+real                :: rarray(2)=[11.11,22.22]
+doubleprecision     :: darray(2)=[1234.56789d0,9876.54321d0]
+complex             :: carray(2)=[(1234,56789),(9876,54321)]
+logical             :: larray(2)=[.true.,.false.]
+character(len=16)   :: string(2)=[&quot;First string    &quot;,&quot;The other string&quot;]
 
-<span class="nv">integer</span>             :: <span class="nv">one</span><span class="ss">(</span><span class="mi">13</span><span class="ss">)</span><span class="o">=</span><span class="mi">1</span>
-<span class="nv">integer</span>             :: <span class="nv">two</span><span class="ss">(</span><span class="mi">13</span><span class="ss">)</span><span class="o">=</span><span class="mi">2</span>
+integer             :: one(13)=1
+integer             :: two(13)=2
 
-<span class="nv">integer</span>             :: <span class="nv">one2</span><span class="ss">(</span><span class="mi">3</span>,<span class="mi">3</span><span class="ss">)</span><span class="o">=</span><span class="mi">1</span>
-<span class="nv">integer</span>             :: <span class="nv">two2</span><span class="ss">(</span><span class="mi">3</span>,<span class="mi">3</span><span class="ss">)</span><span class="o">=</span><span class="mi">2</span>
+integer             :: one2(3,3)=1
+integer             :: two2(3,3)=2
 
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">integers before swap</span><span class="s2">&quot;</span>, <span class="nv">iarray</span>
-   <span class="k">call</span> <span class="nl">swap</span> <span class="ss">(</span><span class="nv">iarray</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>, <span class="nv">iarray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">))</span>
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">integers after swap </span><span class="s2">&quot;</span>, <span class="nv">iarray</span>
+   print <span class="gs">*, &quot;integers before swap&quot;, iarray</span>
+<span class="gs">   call swap (iarray(1), iarray(2))</span>
+<span class="gs">   print *</span>, &quot;integers after swap &quot;, iarray
 
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">reals before swap</span><span class="s2">&quot;</span>, <span class="nv">rarray</span>
-   <span class="k">call</span> <span class="nl">swap</span> <span class="ss">(</span><span class="nv">rarray</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>, <span class="nv">rarray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">))</span>
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">reals after swap </span><span class="s2">&quot;</span>, <span class="nv">rarray</span>
+   print <span class="gs">*, &quot;reals before swap&quot;, rarray</span>
+<span class="gs">   call swap (rarray(1), rarray(2))</span>
+<span class="gs">   print *</span>, &quot;reals after swap &quot;, rarray
 
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">doubles before swap</span><span class="s2">&quot;</span>, <span class="nv">darray</span>
-   <span class="k">call</span> <span class="nl">swap</span> <span class="ss">(</span><span class="nv">darray</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>, <span class="nv">darray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">))</span>
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">doubles after swap </span><span class="s2">&quot;</span>, <span class="nv">darray</span>
+   print <span class="gs">*, &quot;doubles before swap&quot;, darray</span>
+<span class="gs">   call swap (darray(1), darray(2))</span>
+<span class="gs">   print *</span>, &quot;doubles after swap &quot;, darray
 
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">complexes before swap</span><span class="s2">&quot;</span>, <span class="nv">carray</span>
-   <span class="k">call</span> <span class="nl">swap</span> <span class="ss">(</span><span class="nv">carray</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>, <span class="nv">carray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">))</span>
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">complexes after swap </span><span class="s2">&quot;</span>, <span class="nv">carray</span>
+   print <span class="gs">*, &quot;complexes before swap&quot;, carray</span>
+<span class="gs">   call swap (carray(1), carray(2))</span>
+<span class="gs">   print *</span>, &quot;complexes after swap &quot;, carray
 
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">logicals before swap</span><span class="s2">&quot;</span>, <span class="nv">larray</span>
-   <span class="k">call</span> <span class="nl">swap</span> <span class="ss">(</span><span class="nv">larray</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>, <span class="nv">larray</span><span class="ss">(</span><span class="mi">2</span><span class="ss">))</span>
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">logicals after swap </span><span class="s2">&quot;</span>, <span class="nv">larray</span>
+   print <span class="gs">*, &quot;logicals before swap&quot;, larray</span>
+<span class="gs">   call swap (larray(1), larray(2))</span>
+<span class="gs">   print *</span>, &quot;logicals after swap &quot;, larray
 
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">strings before swap</span><span class="s2">&quot;</span>, <span class="nv">string</span>
-   <span class="k">call</span> <span class="nl">swap</span> <span class="ss">(</span><span class="nv">string</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>, <span class="nv">string</span><span class="ss">(</span><span class="mi">2</span><span class="ss">))</span>
-   <span class="nv">print</span> <span class="o">*</span>, <span class="s2">&quot;</span><span class="s">strings after swap </span><span class="s2">&quot;</span>, <span class="nv">string</span>
+   print <span class="gs">*, &quot;strings before swap&quot;, string</span>
+<span class="gs">   call swap (string(1), string(2))</span>
+<span class="gs">   print *</span>, &quot;strings after swap &quot;, string
 
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">swap two vectors</span><span class="s1">&#39;</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(&quot;one before: &quot;,*(i0,:&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="nv">one</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(&quot;two before: &quot;,*(i0,:&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="nv">two</span>
-   <span class="k">call</span> <span class="nl">swap</span><span class="ss">(</span><span class="nv">one</span>,<span class="nv">two</span><span class="ss">)</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(&quot;one after: &quot;,*(i0,:&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="nv">one</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(&quot;two after: &quot;,*(i0,:&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="nv">two</span>
+   write(*,*)&#39;swap two vectors&#39;
+   write(*,&#39;(&quot;one before: &quot;,*(i0,:&quot;,&quot;))&#39;) one
+   write(*,&#39;(&quot;two before: &quot;,*(i0,:&quot;,&quot;))&#39;) two
+   call swap(one,two)
+   write(*,&#39;(&quot;one after: &quot;,*(i0,:&quot;,&quot;))&#39;) one
+   write(*,&#39;(&quot;two after: &quot;,*(i0,:&quot;,&quot;))&#39;) two
 
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">given these arrays initially each time </span><span class="s1">&#39;</span>
-   <span class="nv">one2</span><span class="o">=</span><span class="mi">1</span>
-   <span class="nv">two2</span><span class="o">=</span><span class="mi">2</span>
-   <span class="k">call</span> <span class="nl">printarrays</span><span class="ss">()</span>
+   write(*,*)&#39;given these arrays initially each time &#39;
+   one2=1
+   two2=2
+   call printarrays()
 
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">swap two rows</span><span class="s1">&#39;</span>
-   <span class="nv">one2</span><span class="o">=</span><span class="mi">1</span>
-   <span class="nv">two2</span><span class="o">=</span><span class="mi">2</span>
-   <span class="k">call</span> <span class="nl">swap</span><span class="ss">(</span><span class="nv">one2</span><span class="ss">(</span><span class="mi">2</span>,:<span class="ss">)</span>,<span class="nv">two2</span><span class="ss">(</span><span class="mi">3</span>,:<span class="ss">))</span>
-   <span class="k">call</span> <span class="nl">printarrays</span><span class="ss">()</span>
+   write(*,*)&#39;swap two rows&#39;
+   one2=1
+   two2=2
+   call swap(one2(2,:),two2(3,:))
+   call printarrays()
 
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">swap two columns</span><span class="s1">&#39;</span>
-   <span class="nv">one2</span><span class="o">=</span><span class="mi">1</span>
-   <span class="nv">two2</span><span class="o">=</span><span class="mi">2</span>
-   <span class="k">call</span> <span class="nl">swap</span><span class="ss">(</span><span class="nv">one2</span><span class="ss">(</span>:,<span class="mi">2</span><span class="ss">)</span>,<span class="nv">two2</span><span class="ss">(</span>:,<span class="mi">2</span><span class="ss">))</span>
-   <span class="k">call</span> <span class="nl">printarrays</span><span class="ss">()</span>
+   write(*,*)&#39;swap two columns&#39;
+   one2=1
+   two2=2
+   call swap(one2(:,2),two2(:,2))
+   call printarrays()
 
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span><span class="s1">&#39;</span><span class="s">swap two arrays with same number of elements</span><span class="s1">&#39;</span>
-   <span class="nv">one2</span><span class="o">=</span><span class="mi">1</span>
-   <span class="nv">two2</span><span class="o">=</span><span class="mi">2</span>
-   <span class="k">call</span> <span class="nl">swap</span><span class="ss">(</span><span class="nv">one2</span>,<span class="nv">two2</span><span class="ss">)</span>
-   <span class="k">call</span> <span class="nl">printarrays</span><span class="ss">()</span>
+   write(*,*)&#39;swap two arrays with same number of elements&#39;
+   one2=1
+   two2=2
+   call swap(one2,two2)
+   call printarrays()
 
-   <span class="nv">contains</span>
-   <span class="nv">subroutine</span> <span class="nv">printarrays</span><span class="ss">()</span>
-   <span class="nv">integer</span> :: <span class="nv">i</span>
-   <span class="k">do</span> <span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">one2</span><span class="ss">(</span><span class="mi">1</span>,:<span class="ss">))</span>
-      <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(*(i0,:&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="nv">one2</span><span class="ss">(</span><span class="nv">i</span>,:<span class="ss">)</span>
-   <span class="nv">enddo</span>
-   <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="o">*</span><span class="ss">)</span>
-   <span class="k">do</span> <span class="nv">i</span><span class="o">=</span><span class="mi">1</span>,<span class="nv">size</span><span class="ss">(</span><span class="nv">two2</span><span class="ss">(</span><span class="mi">1</span>,:<span class="ss">))</span>
-      <span class="nv">write</span><span class="ss">(</span><span class="o">*</span>,<span class="s1">&#39;</span><span class="s">(*(i0,:&quot;,&quot;))</span><span class="s1">&#39;</span><span class="ss">)</span> <span class="nv">two2</span><span class="ss">(</span><span class="nv">i</span>,:<span class="ss">)</span>
-   <span class="nv">enddo</span>
-   <span class="k">end</span> <span class="nv">subroutine</span> <span class="nv">printarrays</span>
+   contains
+   subroutine printarrays()
+   integer :: i
+   do i=1,size(one2(1,:))
+      write(*,&#39;(*(i0,:&quot;,&quot;))&#39;) one2(i,:)
+   enddo
+   write(*,*)
+   do i=1,size(two2(1,:))
+      write(*,&#39;(*(i0,:&quot;,&quot;))&#39;) two2(i,:)
+   enddo
+   end subroutine printarrays
 
-<span class="k">end</span> <span class="nv">program</span> <span class="nv">demo_swap</span>
+end program demo_swap
 </code></pre></div>
 
 <p>Expected Results:</p>
@@ -611,16 +545,16 @@
       <table class="table table-striped varlist">
     <thead>
       <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-x"></span>
               type(real(kind=real32)),
             </td>
 <td>intent(inout)</td>
@@ -635,7 +569,7 @@
         </tr>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-y"></span>
               type(real(kind=real32)),
             </td>
 <td>intent(inout)</td>
@@ -655,26 +589,26 @@
     </div>
   </div>
 
-            <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-swap_real64"></span><h3>private elemental subroutine swap_real64(x, y)  
+            <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-swap_real64"></span> <h3>private elemental subroutine swap_real64(x, y)  
 </h3></div>
-    <div class="panel-body">
+    <div class="card-body">
         
 
   <h4>Arguments</h4>
       <table class="table table-striped varlist">
     <thead>
       <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-x~2"></span>
               type(real(kind=real64)),
             </td>
 <td>intent(inout)</td>
@@ -689,7 +623,7 @@
         </tr>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-y~2"></span>
               type(real(kind=real64)),
             </td>
 <td>intent(inout)</td>
@@ -709,26 +643,26 @@
     </div>
   </div>
 
-            <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-swap_string"></span><h3>private elemental subroutine swap_string(string1, string2)  
+            <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-swap_string"></span> <h3>private elemental subroutine swap_string(string1, string2)  
 </h3></div>
-    <div class="panel-body">
+    <div class="card-body">
         
 
   <h4>Arguments</h4>
       <table class="table table-striped varlist">
     <thead>
       <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-string1"></span>
               character(len=*),
             </td>
 <td>intent(inout)</td>
@@ -747,7 +681,7 @@
         </tr>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-string2"></span>
               character(len=*),
             </td>
 <td>intent(inout)</td>
@@ -771,26 +705,26 @@
     </div>
   </div>
 
-            <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-swap_cs"></span><h3>private elemental subroutine swap_cs(x, y)  
+            <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-swap_cs"></span> <h3>private elemental subroutine swap_cs(x, y)  
 </h3></div>
-    <div class="panel-body">
+    <div class="card-body">
         
 
   <h4>Arguments</h4>
       <table class="table table-striped varlist">
     <thead>
       <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-x~7"></span>
               type(complex(kind=cs)),
             </td>
 <td>intent(inout)</td>
@@ -805,7 +739,7 @@
         </tr>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-y~7"></span>
               type(complex(kind=cs)),
             </td>
 <td>intent(inout)</td>
@@ -825,26 +759,26 @@
     </div>
   </div>
 
-            <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-swap_cd"></span><h3>private elemental subroutine swap_cd(x, y)  
+            <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-swap_cd"></span> <h3>private elemental subroutine swap_cd(x, y)  
 </h3></div>
-    <div class="panel-body">
+    <div class="card-body">
         
 
   <h4>Arguments</h4>
       <table class="table table-striped varlist">
     <thead>
       <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-x~8"></span>
               type(complex(kind=cd)),
             </td>
 <td>intent(inout)</td>
@@ -859,7 +793,7 @@
         </tr>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-y~8"></span>
               type(complex(kind=cd)),
             </td>
 <td>intent(inout)</td>
@@ -879,26 +813,26 @@
     </div>
   </div>
 
-            <div class="panel panel-default">
-    <div class="panel-heading codesum"><span class="anchor" id="proc-swap_lk"></span><h3>private elemental subroutine swap_lk(x, y)  
+            <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-swap_lk"></span> <h3>private elemental subroutine swap_lk(x, y)  
 </h3></div>
-    <div class="panel-body">
+    <div class="card-body">
         
 
   <h4>Arguments</h4>
       <table class="table table-striped varlist">
     <thead>
       <tr>
-        <th>Type</th>
-<th>Intent</th><th>Optional</th>        <th>Attributes</th>
-        <th></th>
-        <th>Name</th>
-        <th></th>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
     </thead>
     <tbody>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-x~9"></span>
               type(logical(kind=lk)),
             </td>
 <td>intent(inout)</td>
@@ -913,7 +847,7 @@
         </tr>
         <tr>
             <td>
-              <span class="anchor" ></span>
+              <span class="anchor" id="variable-y~9"></span>
               type(logical(kind=lk)),
             </td>
 <td>intent(inout)</td>
@@ -939,32 +873,27 @@
     </div> <!-- /container -->
     <footer>
       <div class="container">
-        <div class="row">
-          <div class="col-xs-6 col-md-6"><p>M_sort was developed by John S. Urban<br>&copy; 2023 
+        <div class="row justify-content-between">
+          <div class="col"><p>M_sort was developed by John S. Urban<br>&copy; 2024 
 </p>
           </div>
-          <div class="col-xs-6 col-md-6">
-            <p class="text-right">
+          <div class="col">
+            <p class="text-end">
               Documentation generated by
               <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
- on 2023-07-09 06:13              </p>
+ on 2024-03-29 03:42              </p>
           </div>
         </div>
         <br>
       </div> <!-- /container -->
     </footer>
 
-    <!-- Bootstrap core JavaScript
-         ================================================== -->
-         <!-- Placed at the end of the document so the pages load faster -->
-    <!--
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        -->
-        <script src="../js/bootstrap.min.js"></script>
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="../js/ie10-viewport-bug-workaround.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
 
-        <!-- MathJax JavaScript
+    <!-- MathJax JavaScript
              ================================================== -->
              <!-- Placed at the end of the document so the pages load faster -->
         <script type="text/x-mathjax-config">
