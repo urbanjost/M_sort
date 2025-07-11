@@ -1,14 +1,30 @@
-#ifdef __NVCOMPILER
-#undef HAS_REAL128
-#else
-#define HAS_REAL128
-#endif
+!-----------------------------------------------------------------------------------------------------------------------------------
+#define  __INTEL_COMP        1
+#define  __GFORTRAN_COMP     2
+#define  __NVIDIA_COMP       3
+#define  __NAG_COMP          4
+#define  __LLVM_FLANG_COMP   5
+#define  __UNKNOWN_COMP   9999
 
-#ifdef Linux_ifx
-#ifndef __INTEL_LLVM_COMPILER
-#define __INTEL_LLVM_COMPILER  IFX
+#define FLOAT128
+
+#ifdef __INTEL_COMPILER
+#   define __COMPILER__ __INTEL_COMP
+#elif __GFORTRAN__ == 1
+#   define __COMPILER__ __GFORTRAN_COMP
+#elif __flang__
+#   undef FLOAT128
+#   warning  NOTE: REAL128 not supported
+#   define __COMPILER__ __LLVM_FLANG_COMP
+#elif __NVCOMPILER
+#   undef FLOAT128
+#   warning  NOTE: REAL128 not supported
+#   define __COMPILER__ __NVIDIA_COMP
+#else
+#   define __COMPILER__ __UNKNOWN_COMP
+#   warning  NOTE: UNKNOWN COMPILER
 #endif
-#endif
+!-----------------------------------------------------------------------------------------------------------------------------------
 !===================================================================================================================================
 !()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()=
 !===================================================================================================================================
@@ -5474,8 +5490,8 @@ character(len=1),allocatable :: chars(:)
 #endif
     type is (logical);              chars=transfer(anything,chars)
     class default
-      chars=transfer(anything,chars) ! should work for everything, does not with some compilers
-      !stop 'crud. anything_to_bytes_arr(1) does not know about this type'
+      !chars=transfer(anything,chars) ! should work for everything, does not with some compilers
+      stop 'crud. anything_to_bytes_arr(1) does not know about this type'
    end select
 
 end function anything_to_bytes_arr
@@ -5505,11 +5521,8 @@ character(len=1),allocatable :: chars(:)
 #endif
     type is (logical);              chars=transfer(anything,chars)
     class default
-#ifdef __INTEL_LLVM_COMPILER
       stop 'crud. anything_to_bytes_arr(1) does not know about this type'
-#else
-      chars=transfer(anything,chars) ! should work for everything, does not with some compilers
-#endif
+      !chars=transfer(anything,chars) ! should work for everything, does not with some compilers
    end select
 
 end function  anything_to_bytes_scalar
