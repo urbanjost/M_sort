@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="sorting procedures">
+    <meta name="author" content="John S. Urban" >
+    <link rel="icon" href="./favicon.png">
+
+    <title> M_sort </title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <link href="./css/fontawesome.min.css" rel="stylesheet">
+    <link href="./css/brands.min.css" rel="stylesheet">
+    <link href="./css/regular.min.css" rel="stylesheet">
+    <link href="./css/solid.min.css" rel="stylesheet">
+    <link href="./css/v4-font-face.min.css" rel="stylesheet">
+    <link href="./css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async
+            integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw=" crossorigin="anonymous"></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="./css/local.css" rel="stylesheet">
+    <link href="./css/pygments.css" rel="stylesheet">
+    <script src="./js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="./index.html">M_sort </a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+          </button>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="./lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./lists/types.html">Derived Types</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./lists/programs.html">Programs</a>
+                </li>
+            </ul>
+              <div class="d-flex align-items-end flex-grow-1">
+                <form action="./search.html" role="search" class="ms-auto">
+                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                </form>
+              </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <!-- Main component for a primary marketing message or call to action -->
+    <div class="p-5 mb-4 bg-light border rounded-3" id="jumbotron">
+      <p>sorting procedures</p>
+        <p> Find us on&hellip;</p>
+      <p>
+        <a class="btn btn-lg btn-primary" href="https://github.com/urbanjost/M_sort" role="button">GitHub</a>
+        
+        
+        
+        
+        <a class="btn btn-lg btn-danger" style="float:right" href="https://github.com/urbanjost/M_sort/archive/refs/heads/master.zip" role="button">Download the Source</a>
+      </p>
+    </div>
+
+      <div class="row" id='text'>
+        <div class=col-md-8>
+          <h1>M_sort</h1>
+          <p><a href="https://urbanjost.github.io/M_sort/fpm-ford/index.html"><img alt="" src="docs/images/sort.gif"></a></p>
+<h1 id="m_sort"><a href="https://urbanjost.github.io/M_sort/man3.html">M_sort</a></h1>
+<h2 id="name">Name</h2>
+<p>M_sort - Fortran modules for sorting</p>
+<h2 id="description">Description</h2>
+<p>The <code>M_sort</code>(3fm) module is a collection of Fortran procedures that
+do simple sorts.</p>
+<hr>
+<h2 id="_1"><img alt="gmake" src="docs/images/gnu.gif"></h2>
+<h2 id="building-the-module-using-make1">Building the Module using make(1)</h2>
+<p>Just download the github repository, enter the src/ directory and run make(1):</p>
+<div class="codehilite"><pre><span></span><code>     git clone https://github.com/urbanjost/M_sort.git
+     <span class="nb">cd</span> M_sort/src
+     <span class="c1"># change Makefile if not using one of the listed compilers</span>
+
+     <span class="c1"># for gfortran</span>
+     make clean
+     make gfortran
+
+     <span class="c1"># for ifort</span>
+     make clean
+     make ifort
+
+     <span class="c1"># for nvfortran</span>
+     make clean
+     make nvfortran
+
+     <span class="c1"># optionally</span>
+     make run  <span class="c1"># run all the demo programs from the man-pages</span>
+     make <span class="nb">help</span> <span class="c1"># see other developer options</span>
+</code></pre></div>
+
+<p>This will compile the M_sort(3f) module and optionally build all the
+example programs from the document pages in the example/ sub-directory
+and run the unit tests.</p>
+<hr>
+<h2 id="_2"><img alt="-" src="docs/images/fpm_logo.gif"></h2>
+<h2 id="build-and-test-with-fpm">Build and Test with FPM</h2>
+<h4 id="registered-at-the-fpm1-registry">(registered at the <a href="https://github.com/fortran-lang/fpm-registry">fpm(1) registry</a> )</h4>
+<p>Alternatively, download the github repository and build it with
+fpm ( as described at <a href="https://github.com/fortran-lang/fpm">Fortran Package Manager</a> )</p>
+<div class="codehilite"><pre><span></span><code>     git clone https://github.com/urbanjost/M_sort.git
+     <span class="nb">cd</span> M_sort
+     fpm <span class="nb">test</span>  <span class="c1"># run unit tests</span>
+</code></pre></div>
+
+<p>or just list it as a dependency in your fpm.toml project file.</p>
+<div class="codehilite"><pre><span></span><code><span class="w">     </span><span class="k">[dependencies]</span><span class="w"></span>
+<span class="w">     </span><span class="n">M_sort</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;https://github.com/urbanjost/M_sort.git&quot;</span><span class="w"> </span><span class="p">,</span><span class="n">tag</span><span class="o">=</span><span class="s">&quot;v1.0.1&quot;</span><span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<hr>
+<h2 id="_3"><img alt="-" src="docs/images/cmake.png"></h2>
+<h2 id="build-and-test-with-cmake">Build and Test with CMake</h2>
+<div class="codehilite"><pre><span></span><code>      git clone https://github.com/urbanjost/M_sort.git
+      <span class="nb">cd</span> M_sort
+
+      <span class="c1"># Create a Build Directory:</span>
+      mkdir -p build
+
+      <span class="nb">cd</span> build
+      cmake -S ../src -B .
+
+      <span class="c1"># Configure the Build, specifying your preferred compiler (ifort, flang, etc.):</span>
+      cmake . -DCMAKE_Fortran_COMPILER<span class="o">=</span>gfortran
+
+      <span class="c1"># Build the Project:</span>
+      cmake --build .
+</code></pre></div>
+
+<h3 id="optional-cmake-section">Optional CMake section:</h3>
+<div class="codehilite"><pre><span></span><code>      <span class="c1"># Verify build</span>
+      <span class="c1"># On Linux this would create, for example:</span>
+      ls build/lib/libM_sort.a   <span class="c1"># the static library</span>
+      ls build/include/*.mod     <span class="c1"># module files</span>
+      ls build/test/*            <span class="c1"># test executables</span>
+      ls build/example/*         <span class="c1"># example executables</span>
+
+      <span class="c1">#Optionally Run Tests and Examples:</span>
+      <span class="k">for</span> name <span class="k">in</span> ./test/* ./example/*
+      <span class="k">do</span>
+         <span class="nv">$name</span>
+      <span class="k">done</span>
+
+      <span class="c1">#Install (Optional):</span>
+      <span class="c1"># This installs the library and module files to the system</span>
+      <span class="c1"># (e.g., /usr/local/lib/ and /usr/local/include/).</span>
+      cmake --install .
+
+      <span class="c1"># if you have insufficient permissions sudo(1) may be required</span>
+      <span class="c1"># to perform the install</span>
+      <span class="c1">#sudo cmake --install .</span>
+
+      <span class="c1"># Verify installation</span>
+      ls /usr/local/lib/libM_sort.a
+      ls /usr/local/include/*.mod
+
+      <span class="c1"># Cleaning Up: To clean artifacts, remove the build/ directory:</span>
+      rm -rf build
+</code></pre></div>
+
+<h2 id="demo-programs">Demo Programs</h2>
+<p><img alt="demos" src="docs/images/demo.gif"></p>
+<p>There are demo programs extracted from the man pages in the <a href="example/">example/</a> directory</p>
+<h2 id="documentation">Documentation</h2>
+<p><img alt="docs" src="docs/images/docs.gif"></p>
+<h3 id="user">User</h3>
+<ul>
+<li>
+<p>A single page that uses javascript to combine all the HTML descriptions
+   of the man-pages is at
+   <a href="https://urbanjost.github.io/M_sort/BOOK_M_sort.html">BOOK_M_sort</a>.</p>
+</li>
+<li>
+<p>An <a href="https://urbanjost.github.io/M_sort/man3.html">index</a> to HTML versions
+   of the man-pages</p>
+</li>
+</ul>
+<p>in addition in the docs/ directory there is</p>
+<ul>
+<li>
+<p><img alt="man-pages" src="docs/images/manpages.gif"></p>
+<ul>
+<li><a href="https://urbanjost.github.io/M_sort/manpages.zip">manpages.zip</a></li>
+<li><a href="https://urbanjost.github.io/M_sort/manpages.tgz">manpages.tgz</a></li>
+</ul>
+</li>
+<li>
+<p><a href="docs/CHANGELOG.md">CHANGELOG</a> provides a history of significant changes</p>
+</li>
+</ul>
+<h3 id="developer">Developer</h3>
+<ul>
+<li><a href="https://urbanjost.github.io/M_sort/fpm-ford/index.html">ford(1) output</a>.</li>
+</ul>
+<!--
+   - [doxygen(1) output](https://urbanjost.github.io/M_sort/doxygen_out/html/index.html).
+-->
+<ul>
+<li><a href="docs/STATUS.md">github action status</a></li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="https://github.com/fortran-lang/fpm">Fortran Package Manager</a></li>
+<li><a href="http://fortranwiki.org">Fortran Wiki</a></li>
+<li><a href="https://fortran-lang.discourse.group">Fortran Discourse</a></li>
+<li><a href="https://groups.google.com/forum/#!forum/comp.lang.fortran">Google Fortran newsgroup</a></li>
+</ul>
+<hr>
+        </div>
+          <div class="col-md-4">
+            <div class="card card-body bg-light">
+              <h2 class="card-title">Developer Info</h2>
+              <h4 class="card-text">John S. Urban</h4>
+              <p class="card-text"></p>
+                <div class="text-center"><div class="btn-group" role="group">
+                    
+                    <a class="btn btn-lg btn-primary" href="https://github.com/urbanjost/M_sort"><i class="fa fa-github fa-lg"></i></a>
+                    
+                    
+                    
+                    
+                    
+                    
+                </div></div>
+            </div>
+          </div>
+      </div>
+        <div class="row">
+          <hr>
+          <div class="col-xs-6 col-sm-3">
+            <div>
+              <h3>Source Files</h3>
+              <ul><li><a href='sourcefile/demo_sort_heap.f90.html'>demo_sort_heap.f90</a></li><li><a href='sourcefile/demo_sort_quick_compact.f90.html'>demo_sort_quick_compact.f90</a></li><li><a href='sourcefile/demo_sort_quick_rx.f90.html'>demo_sort_quick_rx.f90</a></li><li><a href='sourcefile/demo_sort_shell.f90.html'>demo_sort_shell.f90</a></li><li><a href='sourcefile/demo_swap.f90.html'>demo_swap.f90</a></li><li><a href='sourcefile/demo_swap_any.f90.html'>demo_swap_any.f90</a></li><li><a href='sourcefile/demo_unique.f90.html'>demo_unique.f90</a></li><li><a href='sourcefile/fid.f90.html'>fid.f90</a></li><li><a href='sourcefile/m_sort.f90.html'>M_sort.F90</a></li><li><a href='sourcefile/qsort.f90.html'>qsort.f90</a></li></ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="./lists/files.html"><em>All source files&hellip;</em></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div>
+              <h3>Modules</h3>
+              <ul><li><a href='module/m_sort.html'>M_sort</a></li><li><a href='module/m_testsuite_m_sort.html'>M_testsuite_M_sort</a></li></ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="./lists/modules.html"><em>All modules&hellip;</em></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div>
+              <h3>Procedures</h3>
+              <ul><li><a href='proc/printarrays.html'>printarrays</a></li><li><a href='proc/printarrays~2.html'>printarrays</a></li><li><a href='proc/random_string~2.html'>random_string</a></li><li><a href='proc/setup.html'>setup</a></li><li><a href='interface/sort_heap.html'>sort_heap</a></li><li><a href='interface/sort_indexed.html'>sort_indexed</a></li><li><a href='interface/sort_quick_compact.html'>sort_quick_compact</a></li><li><a href='interface/sort_quick_rx.html'>sort_quick_rx</a></li><li><a href='interface/sort_shell.html'>sort_shell</a></li><li><a href='interface/swap.html'>swap</a></li></ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="./lists/procedures.html"><em>All procedures&hellip;</em></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3">
+            <div>
+              <h3>Derived Types</h3>
+              <ul><li><a href='type/tree_node.html'>tree_node</a></li></ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="./lists/types.html"><em>All derived types&hellip;</em></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              M_sort
+ was developed by John S. Urban<br>              &copy; 2025 
+</p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+ on 2025-07-11 14:00 +0000             </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+  </body>
+</html>
