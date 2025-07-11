@@ -58,6 +58,57 @@ or just list it as a dependency in your fpm.toml project file.
      [dependencies]
      M_sort        = { git = "https://github.com/urbanjost/M_sort.git" ,tag="v1.0.1"}
 ```
+---
+![-](docs/images/cmake.png)
+---
+## Build and Test with CMake
+```bash
+      git clone https://github.com/urbanjost/M_sort.git
+      cd M_sort
+
+      # Create a Build Directory:
+      mkdir -p build
+
+      cd build
+      cmake -S ../src -B .
+
+      # Configure the Build, specifying your preferred compiler (ifort, flang, etc.):
+      cmake . -DCMAKE_Fortran_COMPILER=gfortran
+
+      # Build the Project:
+      cmake --build .
+```
+### Optional CMake section:
+```bash
+      # Verify build
+      # On Linux this would create, for example:
+      ls build/lib/libM_sort.a   # the static library
+      ls build/include/*.mod     # module files
+      ls build/test/*            # test executables
+      ls build/example/*         # example executables
+
+      #Optionally Run Tests and Examples:
+      for name in ./test/* ./example/*
+      do
+         $name
+      done
+
+      #Install (Optional):
+      # This installs the library and module files to the system
+      # (e.g., /usr/local/lib/ and /usr/local/include/).
+      cmake --install .
+
+      # if you have insufficient permissions sudo(1) may be required
+      # to perform the install
+      #sudo cmake --install .
+
+      # Verify installation
+      ls /usr/local/lib/libM_sort.a
+      ls /usr/local/include/*.mod
+
+      # Cleaning Up: To clean artifacts, remove the build/ directory:
+      rm -rf build
+```
 ## Demo Programs
 ![demos](docs/images/demo.gif)
 
